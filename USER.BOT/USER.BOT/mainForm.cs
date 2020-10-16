@@ -71,5 +71,13 @@ namespace USER.BOT
             frm.user_id = user_id;
             frm.Show();
         }
+
+        private void buttonFindComments_Click(object sender, EventArgs e)
+        {
+            AnswerForm form = new AnswerForm();
+            form.access_token = access_token;
+            form.user_id = user_id;
+            form.ShowDialog();
+        }
     }
 }

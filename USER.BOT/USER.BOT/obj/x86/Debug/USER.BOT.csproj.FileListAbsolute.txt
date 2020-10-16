@@ -14,3 +14,16 @@ C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe
 C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\bin\Debug\USER.BOT.pdb
 C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\bin\Debug\Newtonsoft.Json.dll
 C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.FormMostPopularPost.resources
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.pdb
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csprojAssemblyReference.cache
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.AnswerForm.resources
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.FormMostPopularPost.resources
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.cache
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.CoreCompileInputs.cache
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.CopyComplete
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.exe
+C:\Users\User\Downloads\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.pdb

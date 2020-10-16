@@ -131,6 +131,7 @@
             this.buttonFindComments.TabIndex = 17;
             this.buttonFindComments.Text = "Поиск неотвеченных комментариев";
             this.buttonFindComments.UseVisualStyleBackColor = true;
+            this.buttonFindComments.Click += new System.EventHandler(this.buttonFindComments_Click);
             // 
             // buttonGDZ
             // 
