@@ -71,5 +71,14 @@ namespace USER.BOT
             frm.user_id = user_id;
             frm.Show();
         }
+
+        private void buttonGDZ_Click(object sender, EventArgs e)
+        {
+            formgdz frmgdz = new formgdz();
+            frmgdz.access_token = this.access_token;
+            frmgdz.user_id = user_id;
+            frmgdz.Show();
+
+        }
     }
 }
