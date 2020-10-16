@@ -14,8 +14,9 @@ namespace USER.BOT
 {
     public partial class mainForm : Form
     {
-        string access_token;
-        string user_id;
+        string AccessToken;
+        string UserID;
+
         public mainForm()
         {
             InitializeComponent();
@@ -37,10 +38,10 @@ namespace USER.BOT
             if (webBrowser1.Url.ToString().Contains("access_token"))
             {
                 string[] param = webBrowser1.Url.ToString().Split(new[] { "#", "&" }, StringSplitOptions.RemoveEmptyEntries);
-                access_token = param[1];
+                AccessToken = param[1];
 
                 string Request = "https://api.vk.com/method/account.getProfileInfo?" +
-                access_token + "&v=5.124";
+                AccessToken + "&v=5.124";
 
                 WebClient cl = new WebClient();
                
@@ -49,17 +50,17 @@ namespace USER.BOT
                 GetProfileInfo gpi = JsonConvert.DeserializeObject<GetProfileInfo>(Answer);
                 labelFamily.Text = gpi.response.last_name;
                 labelName.Text = gpi.response.first_name;
-                user_id = gpi.response.id.ToString();
+                UserID = gpi.response.id.ToString();
 
                 Request = "https://api.vk.com/method/users.get?fields=photo_100&" +
-                access_token + "&v=5.124";
+                AccessToken + "&v=5.124";
 
 
                 Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
 
                 UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
                 pictureBoxAvatar.ImageLocation = ug.response[0].photo_100;
-                user_id = ug.response[0].id.ToString();
+                UserID = ug.response[0].id.ToString();
                 webBrowser1.Hide();
             }
         }
@@ -67,9 +68,17 @@ namespace USER.BOT
         private void buttonGetPopularPost_Click(object sender, EventArgs e)
         {
             FormMostPopularPost frm = new FormMostPopularPost();
-            frm.access_token = this.access_token;
-            frm.user_id = user_id;
+            frm.access_token = this.AccessToken;
+            frm.user_id = UserID;
             frm.Show();
+        }
+
+        private void ButtonLiking_Click(object sender, EventArgs e)
+        {
+            LikerForm form = new LikerForm();
+            form.access_token = AccessToken;
+            form.users_id = UserID;
+            form.ShowDialog();
         }
     }
 }

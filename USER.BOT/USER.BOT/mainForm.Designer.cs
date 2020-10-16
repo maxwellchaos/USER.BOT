@@ -87,6 +87,7 @@
             this.buttonLiking.TabIndex = 9;
             this.buttonLiking.Text = "Массовый лайкинг";
             this.buttonLiking.UseVisualStyleBackColor = true;
+            this.buttonLiking.Click += new System.EventHandler(this.ButtonLiking_Click);
             // 
             // pictureBoxAvatar
             // 
