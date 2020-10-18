@@ -27,3 +27,17 @@ D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.CoreCompileInpu
 D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.CopyComplete
 D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.exe
 D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.pdb
+D:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe.config
+I:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe.config
+I:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe
+I:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.pdb
+I:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\Newtonsoft.Json.dll
+I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csprojAssemblyReference.cache
+I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.FormMostPopularPost.resources
+I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Form_Happy_day.resources
+I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
+I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
+I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.cache
+I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.CopyComplete
+I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.exe
+I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.pdb

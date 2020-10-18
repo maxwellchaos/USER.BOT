@@ -71,5 +71,22 @@ namespace USER.BOT
             frm.user_id = user_id;
             frm.Show();
         }
+
+        private void ButtonSelebrate_Click(object sender, EventArgs e)
+        {
+            DateTime date1 = DateTime.Now;
+            string datenow = date1.Day.ToString() + "." + date1.Month;
+            if (Properties.Settings.Default.WhatDay != datenow)
+            {
+                Form_Happy_day form = new Form_Happy_day();
+                form.access_token = access_token;
+                form.user_id = user_id;
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Вы сегодня уже поздравляли с праздником. Попробуйте завтра.", "Предупреждение!!!", MessageBoxButtons.OK);
+            }
+}
     }
 }
