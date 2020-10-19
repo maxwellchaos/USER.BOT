@@ -29,7 +29,7 @@ namespace USER.BOT
 
             webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304"+
                 "&display=page&redirect_uri=https://oauth.vk.com/blank.html&"+
-                "scope=friends+groups+wall&"+
+                "scope=friends+groups+wall+photo&"+
                 "response_type=token&v=5.124&state=123456");
         }
 
