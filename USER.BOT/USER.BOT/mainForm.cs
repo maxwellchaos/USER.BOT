@@ -54,7 +54,6 @@ namespace USER.BOT
                 Request = "https://api.vk.com/method/users.get?fields=photo_100&" +
                 access_token + "&v=5.124";
 
-
                 Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
 
                 UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
