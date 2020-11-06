@@ -181,6 +181,7 @@ namespace USER.BOT
     public class CommentsGet
     {
         public Response response { get; set; }
+
         public class Thread
         {
             public int count { get; set; }
