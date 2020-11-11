@@ -19,10 +19,10 @@ namespace USER.BOT
         public string access_token;
         public string users_id;
         string UserId;
+        public string captcha_get;
 
         int bugs = 0;
         int likes = 0;
-        int PostCount = 100;
 
         public LikerForm()
         {
@@ -53,7 +53,10 @@ namespace USER.BOT
 
             Offset += wg.response.items.Count;
 
-            while (Offset < wg.response.count)
+            int postCount = 0;
+            progressBar1.Minimum = 0;
+
+            while (Offset <= wg.response.count)
             {
                 //Повторный запрос на получение информации о стене 
                 Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
@@ -65,9 +68,9 @@ namespace USER.BOT
 
 
                 //Прогресс на прогрессбар
-                int postCount = 0;
-                progressBar1.Minimum = postCount;
-                progressBar1.Maximum = wg.response.items.Count;
+
+
+                progressBar1.Maximum = wg.response.count;
 
                 //Массовый лайкинг
                 foreach (Wallget.Item item in wg.response.items)
@@ -95,10 +98,8 @@ namespace USER.BOT
                     }
 
                     label2.Text = bugs.ToString() + "/" + likes.ToString() + "/" + wg.response.count.ToString();
+
                 }
-
-
-
             }
         }
     }
