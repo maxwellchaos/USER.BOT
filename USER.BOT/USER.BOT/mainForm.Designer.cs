@@ -39,7 +39,9 @@
             this.buttonMassComment = new System.Windows.Forms.Button();
             this.buttonFindComments = new System.Windows.Forms.Button();
             this.buttonGDZ = new System.Windows.Forms.Button();
+            this.pictureBoxWait = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWait)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -141,11 +143,21 @@
             this.buttonGDZ.Text = "ГДЗ бот";
             this.buttonGDZ.UseVisualStyleBackColor = true;
             // 
+            // pictureBoxWait
+            // 
+            this.pictureBoxWait.Image = global::USER.BOT.Properties.Resources.image_861701171351153465139;
+            this.pictureBoxWait.Location = new System.Drawing.Point(66, -118);
+            this.pictureBoxWait.Name = "pictureBoxWait";
+            this.pictureBoxWait.Size = new System.Drawing.Size(769, 533);
+            this.pictureBoxWait.TabIndex = 19;
+            this.pictureBoxWait.TabStop = false;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 380);
+            this.Controls.Add(this.pictureBoxWait);
             this.Controls.Add(this.buttonGDZ);
             this.Controls.Add(this.buttonFindComments);
             this.Controls.Add(this.buttonMassComment);
@@ -161,6 +173,7 @@
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWait)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,6 +192,7 @@
         private System.Windows.Forms.Button buttonMassComment;
         private System.Windows.Forms.Button buttonFindComments;
         private System.Windows.Forms.Button buttonGDZ;
+        private System.Windows.Forms.PictureBox pictureBoxWait;
     }
 }
 

@@ -25,6 +25,7 @@ namespace USER.BOT
         {
             webBrowser1.BringToFront();
             webBrowser1.Dock = DockStyle.Fill;
+            pictureBoxWait.BringToFront();
 
             webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304"+
                 "&display=page&redirect_uri=https://oauth.vk.com/blank.html&"+
@@ -62,6 +63,7 @@ namespace USER.BOT
                 user_id = ug.response[0].id.ToString();
                 webBrowser1.Hide();
             }
+            pictureBoxWait.Hide();
         }
 
         private void buttonGetPopularPost_Click(object sender, EventArgs e)
