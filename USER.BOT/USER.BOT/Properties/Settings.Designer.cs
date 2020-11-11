@@ -46,5 +46,53 @@ namespace USER.BOT.Properties {
                 this["WhatDay"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string birthday {
+            get {
+                return ((string)(this["birthday"]));
+            }
+            set {
+                this["birthday"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string march8 {
+            get {
+                return ((string)(this["march8"]));
+            }
+            set {
+                this["march8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string february23 {
+            get {
+                return ((string)(this["february23"]));
+            }
+            set {
+                this["february23"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string newyear {
+            get {
+                return ((string)(this["newyear"]));
+            }
+            set {
+                this["newyear"] = value;
+            }
+        }
     }
 }
