@@ -54,31 +54,53 @@ namespace USER.BOT
 
         private void buttonInput_Click(object sender, EventArgs e)
         {
-            WallGet.Item itemWG = new WallGet.Item();
-            itemWG.id = Convert.ToInt16(textBoxOutput.Text);
-            Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id="+ itemWG.id +"&" +
-                access_token + "&v=5.124";
-            cl = new WebClient();
-            Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-            CommentsGet csg = JsonConvert.DeserializeObject<CommentsGet>(Answer);
-
-            foreach (CommentsGet.Item itemCG in csg.response.items)
+            if (textBoxOutput.Text != "")
             {
-                string id = itemCG.id.ToString();
-                Request = "https://api.vk.com/method/wall.getComment?owner_id=327011638&post_id=" + id + "&" +
+                WallGet.Item itemWG = new WallGet.Item();
+                itemWG.id = Convert.ToInt16(textBoxOutput.Text);
+                Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&" +
                     access_token + "&v=5.124";
                 cl = new WebClient();
                 Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                CommentGet cg = JsonConvert.DeserializeObject<CommentGet>(Answer);
-                
+                CommentsGet csg = JsonConvert.DeserializeObject<CommentsGet>(Answer);
+                listView2.Items.Clear();
+
+                foreach (CommentsGet.Item itemCG in csg.response.items)
+                {
+                    string id = itemCG.id.ToString();
+                    Request = "https://api.vk.com/method/wall.getComment?owner_id=327011638&comment_id=" + id + "&" +
+                        access_token + "&v=5.124";
+                    cl = new WebClient();
+                    Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                    CommentGet cg = JsonConvert.DeserializeObject<CommentGet>(Answer);
+
+                    if (itemCG.from_id != 327011638)
+                    {
+                        string[] LVitem2 = new string[3];
+                        LVitem2[0] = itemCG.id.ToString();
+                        LVitem2[1] = itemCG.from_id.ToString();
+                        LVitem2[2] = itemCG.text;
+
+                        ListViewItem lvi2 = new ListViewItem(LVitem2);
+                        listView2.Items.Add(lvi2);
+                    }
+                }
             }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(listView1.SelectedItems.Count>0)
+            if(listView1.SelectedItems.Count > 0)
             { 
-                textBoxOutput.Text = listView1.SelectedItems[0].Text;
+                textBoxOutput.Text = listView1.SelectedItems[0].Text;//"Выбрана запись с ID: " + 
+            }
+        }
+
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView2.SelectedItems.Count > 0)
+            {
+                textBoxOutput.Text = listView2.SelectedItems[0].Text;//"Выбран комментарий с ID: " + 
             }
         }
     }
