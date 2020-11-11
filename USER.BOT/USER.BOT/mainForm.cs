@@ -26,9 +26,9 @@ namespace USER.BOT
             webBrowser1.BringToFront();
             webBrowser1.Dock = DockStyle.Fill;
 
-            webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304"+
-                "&display=page&redirect_uri=https://oauth.vk.com/blank.html&"+
-                "scope=friends+groups+wall&"+
+            webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304" +
+                "&display=page&redirect_uri=https://oauth.vk.com/blank.html&" +
+                "scope=friends+groups+wall&" +
                 "response_type=token&v=5.124&state=123456");
         }
 
@@ -43,7 +43,7 @@ namespace USER.BOT
                 access_token + "&v=5.124";
 
                 WebClient cl = new WebClient();
-               
+
                 string Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
 
                 GetProfileInfo gpi = JsonConvert.DeserializeObject<GetProfileInfo>(Answer);
@@ -70,6 +70,23 @@ namespace USER.BOT
             frm.access_token = this.access_token;
             frm.user_id = user_id;
             frm.Show();
+        }
+
+        private void ButtonSelebrate_Click(object sender, EventArgs e)
+        {
+            DateTime date1 = DateTime.Now;
+            string datenow = date1.Day.ToString() + "." + date1.Month;
+            if (Properties.Settings.Default.WhatDay != datenow)
+            {
+                Form_Happy_day form = new Form_Happy_day();
+                form.access_token = access_token;
+                form.user_id = user_id;
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Вы сегодня уже поздравляли с праздником. Попробуйте завтра.", "Предупреждение!!!", MessageBoxButtons.OK);
+            }
         }
     }
 }
