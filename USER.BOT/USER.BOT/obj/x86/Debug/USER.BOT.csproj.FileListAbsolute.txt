@@ -38,3 +38,14 @@ G:\Программирование\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debu
 G:\Программирование\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
 G:\Программирование\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
 G:\Программирование\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.Cache
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.exe
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.pdb
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.pdb
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\Newtonsoft.Json.dll
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csprojResolveAssemblyReference.cache
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.AnswerForm.resources
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.FormMostPopularPost.resources
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
+G:\Программирование\USER.BOT-main\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.Cache

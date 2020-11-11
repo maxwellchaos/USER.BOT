@@ -70,7 +70,7 @@ namespace USER.BOT
                 cl = new WebClient();
                 Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
                 CommentGet cg = JsonConvert.DeserializeObject<CommentGet>(Answer);
-                ////////////////////////////
+                
             }
         }
 
