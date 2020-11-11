@@ -26,9 +26,9 @@ namespace USER.BOT
             webBrowser1.BringToFront();
             webBrowser1.Dock = DockStyle.Fill;
 
-            webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304"+
-                "&display=page&redirect_uri=https://oauth.vk.com/blank.html&"+
-                "scope=friends+groups+wall&"+
+            webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304" +
+                "&display=page&redirect_uri=https://oauth.vk.com/blank.html&" +
+                "scope=friends+groups+wall&" +
                 "response_type=token&v=5.124&state=123456");
         }
 
@@ -43,7 +43,7 @@ namespace USER.BOT
                 access_token + "&v=5.124";
 
                 WebClient cl = new WebClient();
-               
+
                 string Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
 
                 GetProfileInfo gpi = JsonConvert.DeserializeObject<GetProfileInfo>(Answer);
@@ -87,6 +87,6 @@ namespace USER.BOT
             {
                 MessageBox.Show("Вы сегодня уже поздравляли с праздником. Попробуйте завтра.", "Предупреждение!!!", MessageBoxButtons.OK);
             }
-}
+        }
     }
 }
