@@ -68,9 +68,8 @@ namespace USER.BOT
 
 
                 //Прогресс на прогрессбар
-
-
                 progressBar1.Maximum = wg.response.count;
+
 
                 //Массовый лайкинг
                 foreach (Wallget.Item item in wg.response.items)
@@ -102,5 +101,12 @@ namespace USER.BOT
                 }
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //string Answer = { "error":{ "error_code":14,"error_msg":"Captcha needed","request_params":[{ "key":"type","value":"post"},{ "key":"item_id","value":"185"},{ "key":"owner_id","value":"422303825"},{ "key":"v","value":"5.124"},{ "key":"method","value":"likes.add"},{ "key":"oauth","value":"1"}],"captcha_sid":"337894471349","captcha_img":"https:\/\/api.vk.com\/captcha.php?sid=337894471349&s=1"}
+            //string[] taram = Answer.Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
     }
 }
