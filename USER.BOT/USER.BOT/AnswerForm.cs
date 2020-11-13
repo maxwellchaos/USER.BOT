@@ -76,13 +76,28 @@ namespace USER.BOT
 
                     if (itemCG.from_id != 327011638)
                     {
-                        string[] LVitem2 = new string[3];
-                        LVitem2[0] = itemCG.id.ToString();
-                        LVitem2[1] = itemCG.from_id.ToString();
-                        LVitem2[2] = itemCG.text;
 
-                        ListViewItem lvi2 = new ListViewItem(LVitem2);
-                        listView2.Items.Add(lvi2);
+                        Request = "https://api.vk.com/method/friends.get?fields=first_name" + "&" +
+                        access_token + "&v=5.124";
+                        cl = new WebClient();
+                        Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                        FriendsGet fg = JsonConvert.DeserializeObject<FriendsGet>(Answer);
+
+                        foreach (FriendsGet.Item itemFG in fg.response.items)
+                        {
+                            if (itemFG.id == itemCG.from_id)
+                            {
+                                string[] LVitem2 = new string[5];
+                                LVitem2[0] = itemCG.parents_stack.ToString();
+                                LVitem2[1] = itemCG.from_id.ToString();
+                                LVitem2[2] = itemFG.first_name;
+                                LVitem2[3] = itemFG.last_name;
+                                LVitem2[4] = itemCG.text;
+
+                                ListViewItem lvi2 = new ListViewItem(LVitem2);
+                                listView2.Items.Add(lvi2);
+                            }
+                        }
                     }
                 }
             }

@@ -42,6 +42,8 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,7 +125,9 @@
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader4,
             this.columnHeader5,
-            this.columnHeader6});
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8});
             this.listView2.HideSelection = false;
             this.listView2.LargeImageList = this.imageList1;
             this.listView2.Location = new System.Drawing.Point(12, 215);
@@ -137,18 +141,28 @@
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "ID";
-            this.columnHeader4.Width = 61;
+            this.columnHeader4.Text = "Ветка";
+            this.columnHeader4.Width = 42;
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "FromID";
-            this.columnHeader5.Width = 72;
+            this.columnHeader5.Text = "ID";
+            this.columnHeader5.Width = 37;
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "Text";
-            this.columnHeader6.Width = 327;
+            this.columnHeader6.Text = "FirstName";
+            this.columnHeader6.Width = 85;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "LastName";
+            this.columnHeader7.Width = 94;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Text";
+            this.columnHeader8.Width = 223;
             // 
             // AnswerForm
             // 
@@ -185,5 +199,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
     }
 }

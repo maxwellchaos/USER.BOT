@@ -214,9 +214,7 @@ namespace USER.BOT
         }
     }
 
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
-    
-
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class CommentGet
     {
         public Response response { get; set; }
