@@ -18,6 +18,8 @@ namespace USER.BOT
         public string user_id;
         bool setting;
         bool d;
+        int co;
+        int co1;
         public Form_Happy_day()
         {
             InitializeComponent();
@@ -49,7 +51,7 @@ namespace USER.BOT
                     WebClient cl = new WebClient();
                     string AnswerFriends = Encoding.UTF8.GetString(cl.DownloadData(FriendsId));
                     FriendsGet1 rtf = JsonConvert.DeserializeObject<FriendsGet1>(AnswerFriends);
-                    //label1.Text = AnswerFriends;
+                    co = rtf.response.count;
                     foreach (FriendsGet1.Item item in rtf.response.items)
                     {
                         string[] LvItem = new string[5];
@@ -58,6 +60,7 @@ namespace USER.BOT
                         LvItem[2] = item.sex.ToString();
                         LvItem[3] = item.bdate;
                         LvItem[4] = item.can_post.ToString();
+                        co1++;
                         ListViewItem lvi = new ListViewItem(LvItem);
                         listView1.Items.Add(lvi);
 
@@ -66,6 +69,7 @@ namespace USER.BOT
                         string datenow = date1.Day.ToString() + "." + date1.Month;
                         Properties.Settings.Default.WhatDay = datenow;
                         Properties.Settings.Default.Save();
+                        listView1.Items[listView1.Items.Count - 1].EnsureVisible();
                         if (item.bdate != null)
                         {
                             string[] date = item.bdate.Split(new[] { ".20", ".19" }, StringSplitOptions.RemoveEmptyEntries);
@@ -139,7 +143,7 @@ namespace USER.BOT
                             textBox1.Text = textBox1.Text + item.first_name + " " + item.last_name + ", ";
                         }
                         Application.DoEvents();
-                        Thread.Sleep(0);
+                        Thread.Sleep(500);
                     }
                 }
                 else
@@ -151,7 +155,7 @@ namespace USER.BOT
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            if (setting == true)  
+            if (setting == true)
             {
                 if (textBox3.Text != "" && textBox2.Text != "" && textBox4.Text != "")
                 {
@@ -159,7 +163,8 @@ namespace USER.BOT
                     WebClient cl = new WebClient();
                     string AnswerFriends = Encoding.UTF8.GetString(cl.DownloadData(FriendsId));
                     FriendsGet1 rtf = JsonConvert.DeserializeObject<FriendsGet1>(AnswerFriends);
-                    //label1.Text = AnswerFriends;
+                    co = rtf.response.count;
+                    label1.Text = AnswerFriends;
                     foreach (FriendsGet1.Item item in rtf.response.items)
                     {
                         string[] LvItem = new string[5];
@@ -168,6 +173,7 @@ namespace USER.BOT
                         LvItem[2] = item.sex.ToString();
                         LvItem[3] = item.bdate;
                         LvItem[4] = item.can_post.ToString();
+                        co1++;
                         ListViewItem lvi = new ListViewItem(LvItem);
                         listView1.Items.Add(lvi);
 
@@ -175,6 +181,7 @@ namespace USER.BOT
                         string datenow = date1.Day.ToString() + "." + date1.Month;
                         Properties.Settings.Default.WhatDay = datenow;
                         Properties.Settings.Default.Save();
+                        listView1.Items[listView1.Items.Count - 1].EnsureVisible();
                         if (item.bdate != null)
                         {
                             string[] date = item.bdate.Split(new[] { ".20", ".19" }, StringSplitOptions.RemoveEmptyEntries);
@@ -231,7 +238,7 @@ namespace USER.BOT
                             string AnswerFriends1 = Encoding.UTF8.GetString(cl.DownloadData(Request1));
                             textBox1.Text = textBox1.Text + item.first_name + " " + item.last_name + ", ";
                         }
-                        if(datenow1 == "1.01" && item.can_post == 1)
+                        if (datenow1 == "1.01" && item.can_post == 1)
                         {
                             string Request = "https://api.vk.com/method/wall.post?message=" + textBox8.Text + "&owner_id=" + item.id + "&" + "attachments=" + textBox9.Text + "&" + access_token + "&v=5.124";
                             string AnswerFriends1 = Encoding.UTF8.GetString(cl.DownloadData(Request));
@@ -261,39 +268,65 @@ namespace USER.BOT
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            string FriendsId = "https://api.vk.com/method/friends.get?fields=can_post,bdate,sex&" + access_token + "&v=5.124";
-            WebClient cl = new WebClient();
-            string AnswerFriends = Encoding.UTF8.GetString(cl.DownloadData(FriendsId));
-            FriendsGet1 rtf = JsonConvert.DeserializeObject<FriendsGet1>(AnswerFriends);
-            foreach (FriendsGet1.Item item in rtf.response.items)
+            if (MessageBox.Show("Всё что ты написал, отправится ВСЕМ твоим друзьям!!! Ты точно этого хочешь?", "Предупреждение!!!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                string[] LvItem = new string[5];
-                LvItem[0] = item.first_name + " " + item.last_name;
-                LvItem[1] = item.id.ToString();
-                LvItem[2] = item.sex.ToString();
-                LvItem[3] = item.bdate;
-                LvItem[4] = item.can_post.ToString();
-                ListViewItem lvi = new ListViewItem(LvItem);
-                listView1.Items.Add(lvi);
-
-                string Request = "https://api.vk.com/method/wall.post?message=" + textBox1 + "&owner_id=" + item.id + "&" + access_token + "&v=5.124";
-                string AnswerFriends1 = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                Application.DoEvents();
-                Thread.Sleep(500);
-                if (item.can_post == 0)
+                string FriendsId = "https://api.vk.com/method/friends.get?fields=can_post,bdate,sex&" + access_token + "&v=5.124";
+                WebClient cl = new WebClient();
+                string AnswerFriends = Encoding.UTF8.GetString(cl.DownloadData(FriendsId));
+                FriendsGet1 rtf = JsonConvert.DeserializeObject<FriendsGet1>(AnswerFriends);
+                co = rtf.response.count;
+                foreach (FriendsGet1.Item item in rtf.response.items)
                 {
-                    string Request1 = "https://api.vk.com/method/wall.get?owner_id=" + item.id + "&" + access_token + "&v=5.124";
-                    string AnswerFriends2 = Encoding.UTF8.GetString(cl.DownloadData(Request1));
-                    GetProfileInfo rt = JsonConvert.DeserializeObject<GetProfileInfo>(AnswerFriends2);
-                    string[] id = AnswerFriends2.Split(new[] { ":", "," }, StringSplitOptions.RemoveEmptyEntries);
-                    string Request2 = "https://api.vk.com/method/wall.createComment?post_id=" + id[5] + "&message="+textBox1.Text+"," + item.first_name + "&owner_id=" + item.id + "&" + access_token + "&v=5.124";
-                    string AnswerFriends3 = Encoding.UTF8.GetString(cl.DownloadData(Request2));
+                    string[] LvItem = new string[5];
+                    LvItem[0] = item.first_name + " " + item.last_name;
+                    LvItem[1] = item.id.ToString();
+                    LvItem[2] = item.sex.ToString();
+                    LvItem[3] = item.bdate;
+                    LvItem[4] = item.can_post.ToString();
+                    co1++;
+                    ListViewItem lvi = new ListViewItem(LvItem);
+                    listView1.Items.Add(lvi);
+
+                    string Request = "https://api.vk.com/method/wall.post?message=" + textBox1 + "&owner_id=" + item.id + "&" + access_token + "&v=5.124";
+                    string AnswerFriends1 = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                    listView1.Items[listView1.Items.Count - 1].EnsureVisible();
+                    Application.DoEvents();
+                    Thread.Sleep(500);
+                    if (item.can_post == 0)
+                    {
+                        string Request1 = "https://api.vk.com/method/wall.get?owner_id=" + item.id + "&" + access_token + "&v=5.124";
+                        string AnswerFriends2 = Encoding.UTF8.GetString(cl.DownloadData(Request1));
+                        GetProfileInfo rt = JsonConvert.DeserializeObject<GetProfileInfo>(AnswerFriends2);
+                        string[] id = AnswerFriends2.Split(new[] { ":", "," }, StringSplitOptions.RemoveEmptyEntries);
+                        string Request2 = "https://api.vk.com/method/wall.createComment?post_id=" + id[5] + "&message=" + textBox1.Text + "," + item.first_name + "&owner_id=" + item.id + "&" + access_token + "&v=5.124";
+                        string AnswerFriends3 = Encoding.UTF8.GetString(cl.DownloadData(Request2));
+                    }
                 }
             }
+
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
+
+            if (co1 >= 1)
+            {
+                progressBar1.Visible = true;
+                label12.Visible = true;
+            }
+            else
+            {
+                progressBar1.Visible = false;
+                label12.Visible = false;
+            }
+            int b = co1 * 500 / 1000;
+            int a = co * 500 /1000;
+            int ab = a - b;
+            int ab1 = ab / 60;
+            label12.Text = "Проверяю наличия праздника. Осталось " + ab1.ToString() + " мин " + ab.ToString()+ " сек";
+            progressBar1.Maximum = co;
+            progressBar1.Value = co1;
+
             Properties.Settings.Default.birthday = textBox3.Text;
             Properties.Settings.Default.march8 = textBox2.Text;
             Properties.Settings.Default.february23 = textBox4.Text;
@@ -378,7 +411,7 @@ namespace USER.BOT
                 button2.BackColor = Color.Red;
                 button4.BackColor = Color.Purple;
                 listView1.BackColor = Color.Cyan;
-                label8.Text = "  Нажав зелёную кнопку, бот проверит есть ли сегодня \r\nу твоих друзей день рождение,\r\nесли есть, бот на стене твоего друга или подруге\r\nоставит пост(от твоего имени), сообщение которого можно изменить нажав на фиолетовую кнопку,\r\nтак же вы сможете добавить фото, если вы укажите ссылку фото(из вк).\r\nЕщё бот отправляет поздравления девочкам на 8 марта или мальчиков на 23 февраля.\r\n" +
+                label8.Text = "  Нажав зелёную кнопку(если кнопки нет, зайди в настройки и выбери'по кнопке'), бот проверит есть ли сегодня \r\nу твоих друзей день рождение,\r\nесли есть, бот на стене твоего друга или подруге\r\nоставит пост(от твоего имени), сообщение которого можно изменить нажав на фиолетовую кнопку,\r\nтак же вы сможете добавить фото, если вы укажите ссылку фото(из вк).\r\nЕщё бот отправляет поздравления девочкам на 8 марта или мальчиков на 23 февраля.\r\n" +
                     "  Нажав на красную кнопку, вы отправляет пост всем вашим друзьям с сообщение,\r\n которое вы написали под кнопкой.\r\n" +
                     "  Нажав на фиолетовую кнопку, вы увидите и сможите изменить настройки.\r\n" +
                     "  Голубым цветом показанна таблица. В это таблице появится список ваших друзей,\r\n если вы нажмёте на красную или зелёную кнопку.\r\nЕщё в этой таблице вы сможите увидеть id,\r\nпол(1-женский;2-мужской), дату рождения друзей.\r\nТак же вы сможите увидеть можно ли вам оставлять пост на странице друга,\r\nесли нет вы всё равно позравите друга или подругу в коментариях под пследним постом.\r\n" +
@@ -395,5 +428,6 @@ namespace USER.BOT
                 d = true;
             }
         }
+
     }
 }
