@@ -67,37 +67,41 @@ namespace USER.BOT
 
                 foreach (CommentsGet.Item itemCG in csg.response.items)
                 {
+                    string[] LVitem2 = new string[6];
+
+                    LVitem2[0] = csg.response.current_level_count.ToString();
+                    LVitem2[1] = itemCG.id.ToString();
+                    //LVitem2[3] = itemFG.first_name;
+                    //LVitem2[4] = itemFG.last_name;
+                    LVitem2[5] = itemCG.text;
+
+                    ListViewItem lvi2 = new ListViewItem(LVitem2);
+                    listView2.Items.Add(lvi2);
+
                     string id = itemCG.id.ToString();
-                    Request = "https://api.vk.com/method/wall.getComment?owner_id=327011638&comment_id=" + id + "&" +
+                    Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&comment_id=" + id + "&" +
                         access_token + "&v=5.124";
                     cl = new WebClient();
                     Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                    CommentGet cg = JsonConvert.DeserializeObject<CommentGet>(Answer);
+                    CommentsGet2 csg2 = JsonConvert.DeserializeObject<CommentsGet2>(Answer);
 
-                    if (itemCG.from_id != 327011638)
+                    foreach (CommentsGet2.Item itemCsG2 in csg2.response.items)
                     {
+                        LVitem2[0] = csg2.response.current_level_count.ToString();
+                        LVitem2[1] = itemCsG2.id.ToString();
+                        LVitem2[2] = id.ToString();
+                        //LVitem2[3] = itemFG.first_name;
+                        //LVitem2[4] = itemFG.last_name;
+                        LVitem2[5] = itemCsG2.text;
 
-                        Request = "https://api.vk.com/method/friends.get?fields=first_name" + "&" +
-                        access_token + "&v=5.124";
-                        cl = new WebClient();
-                        Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                        FriendsGet fg = JsonConvert.DeserializeObject<FriendsGet>(Answer);
+                        lvi2 = new ListViewItem(LVitem2);
+                        listView2.Items.Add(lvi2);
 
-                        foreach (FriendsGet.Item itemFG in fg.response.items)
-                        {
-                            if (itemFG.id == itemCG.from_id)
-                            {
-                                string[] LVitem2 = new string[5];
-                                LVitem2[0] = itemCG.parents_stack.ToString();
-                                LVitem2[1] = itemCG.from_id.ToString();
-                                LVitem2[2] = itemFG.first_name;
-                                LVitem2[3] = itemFG.last_name;
-                                LVitem2[4] = itemCG.text;
-
-                                ListViewItem lvi2 = new ListViewItem(LVitem2);
-                                listView2.Items.Add(lvi2);
-                            }
-                        }
+                        //Request = "https://api.vk.com/method/wall.getComment?owner_id=327011638&comment_id=" + id + "&" +
+                        //    access_token + "&v=5.124";
+                        //cl = new WebClient();
+                        //Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                        //CommentGet cg = JsonConvert.DeserializeObject<CommentGet>(Answer);
                     }
                 }
             }
@@ -115,7 +119,7 @@ namespace USER.BOT
         {
             if (listView2.SelectedItems.Count > 0)
             {
-                textBoxOutput.Text = listView2.SelectedItems[0].Text;//"Выбран комментарий с ID: " + 
+                textBoxOutput.Text = listView2.SelectedItems[0].SubItems[1].Text;//"Выбран комментарий с ID: " + 
             }
         }
     }

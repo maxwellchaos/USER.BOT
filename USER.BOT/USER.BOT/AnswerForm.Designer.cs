@@ -44,6 +44,7 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,7 +115,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(581, 304);
+            this.pictureBox1.Location = new System.Drawing.Point(713, 303);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(51, 50);
             this.pictureBox1.TabIndex = 5;
@@ -127,12 +128,13 @@
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7,
-            this.columnHeader8});
+            this.columnHeader8,
+            this.columnHeader9});
             this.listView2.HideSelection = false;
             this.listView2.LargeImageList = this.imageList1;
             this.listView2.Location = new System.Drawing.Point(12, 215);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(485, 197);
+            this.listView2.Size = new System.Drawing.Size(589, 197);
             this.listView2.SmallImageList = this.imageList1;
             this.listView2.TabIndex = 6;
             this.listView2.UseCompatibleStateImageBehavior = false;
@@ -151,18 +153,23 @@
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "FirstName";
+            this.columnHeader6.Text = "parentID";
             this.columnHeader6.Width = 85;
             // 
             // columnHeader7
             // 
-            this.columnHeader7.Text = "LastName";
+            this.columnHeader7.Text = "FirstName";
             this.columnHeader7.Width = 94;
             // 
             // columnHeader8
             // 
-            this.columnHeader8.Text = "Text";
-            this.columnHeader8.Width = 223;
+            this.columnHeader8.Text = "LastName";
+            this.columnHeader8.Width = 125;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Text";
+            this.columnHeader9.Width = 201;
             // 
             // AnswerForm
             // 
@@ -201,5 +208,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
     }
 }
