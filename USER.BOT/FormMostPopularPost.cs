@@ -49,10 +49,20 @@ namespace USER.BOT
 
                 var a = new WallGetArguments
                 {
-                    Domain = domain,
                     Count = int.Parse(rangeTextbox.Text)
                 };
 
+                a.Domain = domain;
+
+                if (IsUrl(domain))
+                {
+                    if (domain.StartsWith("vk.com/"))
+                    {
+                        a.Domain = domain.Remove(0, 7);
+                    }
+                    else
+                        a.Domain = domain.Remove(0, 7).Split('/')[1];
+                }
 
                 int amount = 0;
                 WallPost loaded = null;
@@ -66,6 +76,11 @@ namespace USER.BOT
                 statusLabel.Text = "Все!";
                 Process.Start($"https://vk.com/public{loaded.OwnerId.ToString().Remove(0, 1)}?w=wall{loaded.OwnerId}_{loaded.Id}");
             }));
+        }
+
+        private bool IsUrl(string url)
+        {
+            return Uri.IsWellFormedUriString(url, UriKind.Absolute);
         }
     }
 
