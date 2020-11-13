@@ -59,7 +59,6 @@
             this.buttonSelebrate.TabIndex = 12;
             this.buttonSelebrate.Text = "Поздравление с праздником";
             this.buttonSelebrate.UseVisualStyleBackColor = true;
-            this.buttonSelebrate.Click += new System.EventHandler(this.ButtonSelebrate_Click);
             // 
             // buttonGetPopularPost
             // 
