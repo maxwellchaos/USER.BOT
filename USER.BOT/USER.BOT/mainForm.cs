@@ -52,11 +52,10 @@ namespace USER.BOT
                 user_id = gpi.response.id.ToString();
 
                 Request = "https://api.vk.com/method/users.get?fields=photo_100&" +
-                access_token + "&v=5.124";
-
+                    access_token + "&v=5.124";
                 Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-
                 UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
+
                 pictureBoxAvatar.ImageLocation = ug.response[0].photo_100;
                 user_id = ug.response[0].id.ToString();
                 webBrowser1.Hide();

@@ -69,10 +69,16 @@ namespace USER.BOT
                 {
                     string[] LVitem2 = new string[6];
 
+                    Request = "https://api.vk.com/method/users.get?user_ids=" + itemCG.from_id + "&" +
+                            access_token + "&v=5.124";
+                    cl = new WebClient();
+                    Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                    UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
+
                     LVitem2[0] = csg.response.current_level_count.ToString();
                     LVitem2[1] = itemCG.id.ToString();
-                    //LVitem2[3] = itemFG.first_name;
-                    //LVitem2[4] = itemFG.last_name;
+                    //LVitem2[3] = responseUg.first_name;
+                    //LVitem2[4] = responseUg.last_name;
                     LVitem2[5] = itemCG.text;
 
                     ListViewItem lvi2 = new ListViewItem(LVitem2);
@@ -87,11 +93,17 @@ namespace USER.BOT
 
                     foreach (CommentsGet2.Item itemCsG2 in csg2.response.items)
                     {
+                        Request = "https://api.vk.com/method/users.get?user_ids=" + itemCsG2.from_id + "&" +
+                            access_token + "&v=5.124";
+                        cl = new WebClient();
+                        Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                        ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
+                        
                         LVitem2[0] = csg2.response.current_level_count.ToString();
                         LVitem2[1] = itemCsG2.id.ToString();
                         LVitem2[2] = id.ToString();
-                        //LVitem2[3] = itemFG.first_name;
-                        //LVitem2[4] = itemFG.last_name;
+                        //LVitem2[3] = responseUg.first_name;
+                        //LVitem2[4] = responseUg.last_name;
                         LVitem2[5] = itemCsG2.text;
 
                         lvi2 = new ListViewItem(LVitem2);
