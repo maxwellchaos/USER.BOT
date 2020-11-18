@@ -8,6 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Net;
+using Microsoft.Win32;
+using System.Reflection;
+
 
 
 namespace USER.BOT
@@ -16,6 +19,7 @@ namespace USER.BOT
     {
         string access_token;
         string user_id;
+        Form_Happy_day form;
         public mainForm()
         {
             InitializeComponent();
@@ -23,6 +27,7 @@ namespace USER.BOT
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             webBrowser1.BringToFront();
             webBrowser1.Dock = DockStyle.Fill;
 
@@ -61,6 +66,15 @@ namespace USER.BOT
                 pictureBoxAvatar.ImageLocation = ug.response[0].photo_100;
                 user_id = ug.response[0].id.ToString();
                 webBrowser1.Hide();
+
+                if (Properties.Settings.Default.PSetting == true)
+                {
+                        form = new Form_Happy_day();
+                        form.access_token = access_token;
+                        form.user_id = user_id;
+                        form.Show();
+                        form.Visible = false;
+                }
             }
         }
 
@@ -74,19 +88,11 @@ namespace USER.BOT
 
         private void ButtonSelebrate_Click(object sender, EventArgs e)
         {
-            DateTime date1 = DateTime.Now;
-            string datenow = date1.Day.ToString() + "." + date1.Month;
-            if (Properties.Settings.Default.WhatDay != datenow)
-            {
-                Form_Happy_day form = new Form_Happy_day();
+                form = new Form_Happy_day();
                 form.access_token = access_token;
                 form.user_id = user_id;
-                form.Show();
-            }
-            else
-            {
-                MessageBox.Show("Вы сегодня уже поздравляли с праздником. Попробуйте завтра.", "Предупреждение!!!", MessageBoxButtons.OK);
-            }
+                form.Visible = true;
         }
+
     }
 }

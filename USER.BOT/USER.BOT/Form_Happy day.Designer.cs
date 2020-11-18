@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Happy_day));
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -66,6 +67,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label12 = new System.Windows.Forms.Label();
+            this.USER_BOT = new System.Windows.Forms.NotifyIcon(this.components);
+            this.label13 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,7 +141,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(327, 179);
             this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "Сегодня был(и) поздравлен(ы): ";
+            this.textBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // radioButton1
             // 
@@ -168,6 +171,7 @@
             // timer_happy
             // 
             this.timer_happy.Enabled = true;
+            this.timer_happy.Interval = 2000;
             this.timer_happy.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // label1
@@ -183,7 +187,7 @@
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(5, 154);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(304, 88);
@@ -213,7 +217,7 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(328, 23);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(304, 88);
@@ -223,7 +227,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(5, 13);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(114, 38);
             this.button3.TabIndex = 15;
@@ -244,7 +248,7 @@
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(328, 170);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(304, 88);
@@ -274,7 +278,7 @@
             this.panel1.Controls.Add(this.radioButton2);
             this.panel1.Controls.Add(this.radioButton1);
             this.panel1.Location = new System.Drawing.Point(9, 326);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(952, 310);
             this.panel1.TabIndex = 18;
@@ -293,7 +297,7 @@
             // textBox9
             // 
             this.textBox9.Location = new System.Drawing.Point(647, 127);
-            this.textBox9.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(2);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(303, 20);
             this.textBox9.TabIndex = 26;
@@ -301,7 +305,7 @@
             // textBox8
             // 
             this.textBox8.Location = new System.Drawing.Point(647, 23);
-            this.textBox8.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(2);
             this.textBox8.Multiline = true;
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(303, 88);
@@ -367,8 +371,8 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(877, 10);
-            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button4.Location = new System.Drawing.Point(877, 57);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(104, 37);
             this.button4.TabIndex = 19;
@@ -380,8 +384,8 @@
             // 
             this.button5.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(877, 58);
-            this.button5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button5.Location = new System.Drawing.Point(877, 98);
+            this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(104, 37);
             this.button5.TabIndex = 20;
@@ -403,7 +407,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(876, 97);
+            this.label11.Location = new System.Drawing.Point(879, 142);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(102, 73);
@@ -413,28 +417,44 @@
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(540, 73);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(152, 22);
             this.progressBar1.TabIndex = 23;
-            this.progressBar1.Visible = false;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(538, 41);
+            this.label12.Location = new System.Drawing.Point(535, 45);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 13);
+            this.label12.Size = new System.Drawing.Size(0, 13);
             this.label12.TabIndex = 24;
-            this.label12.Text = "label12";
-            this.label12.Visible = false;
+            // 
+            // USER_BOT
+            // 
+            this.USER_BOT.Icon = ((System.Drawing.Icon)(resources.GetObject("USER_BOT.Icon")));
+            this.USER_BOT.Text = "USER BOT";
+            this.USER_BOT.Visible = true;
+            this.USER_BOT.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.USER_BOT_MouseDoubleClick);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label13.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label13.Location = new System.Drawing.Point(686, 45);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(0, 13);
+            this.label13.TabIndex = 25;
             // 
             // Form_Happy_day
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(963, 665);
+            this.ClientSize = new System.Drawing.Size(996, 665);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label11);
@@ -446,9 +466,12 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listView1);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Happy_day";
             this.Text = "Form_Happy_day";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_Happy_day_FormClosed);
             this.Load += new System.EventHandler(this.Form_Happy_day_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -496,5 +519,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NotifyIcon USER_BOT;
+        private System.Windows.Forms.Label label13;
     }
 }
