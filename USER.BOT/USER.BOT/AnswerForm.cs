@@ -20,6 +20,10 @@ namespace USER.BOT
         public WebClient cl;
         public string Answer;
         public WallGet wg;
+        public string postID;
+        public string commentID;
+        public int target;
+
         public AnswerForm()
         {
             InitializeComponent();
@@ -54,76 +58,87 @@ namespace USER.BOT
 
         private void buttonInput_Click(object sender, EventArgs e)
         {
-            if (textBoxOutput.Text != "")
+            if (target == 0)
             {
-                WallGet.Item itemWG = new WallGet.Item();
-                itemWG.id = Convert.ToInt16(textBoxOutput.Text);
-                Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&" +
-                    access_token + "&v=5.124";
-                cl = new WebClient();
-                Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                CommentsGet csg = JsonConvert.DeserializeObject<CommentsGet>(Answer);
-                listView2.Items.Clear();
-
-                foreach (CommentsGet.Item itemCG in csg.response.items)
+                if (textBoxOutput.Text != "")
                 {
-                    string[] LVitem2 = new string[6];
-
-                    Request = "https://api.vk.com/method/users.get?user_ids=" + itemCG.from_id + "&" +
-                            access_token + "&v=5.124";
-                    cl = new WebClient();
-                    Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                    UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
-
-                    LVitem2[0] = csg.response.current_level_count.ToString();
-                    LVitem2[1] = itemCG.id.ToString();
-                    //LVitem2[3] = responseUg.first_name;
-                    //LVitem2[4] = responseUg.last_name;
-                    LVitem2[5] = itemCG.text;
-
-                    ListViewItem lvi2 = new ListViewItem(LVitem2);
-                    listView2.Items.Add(lvi2);
-
-                    string id = itemCG.id.ToString();
-                    Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&comment_id=" + id + "&" +
+                    WallGet.Item itemWG = new WallGet.Item();
+                    itemWG.id = Convert.ToInt16(postID);
+                    Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&" +
                         access_token + "&v=5.124";
                     cl = new WebClient();
                     Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                    CommentsGet2 csg2 = JsonConvert.DeserializeObject<CommentsGet2>(Answer);
+                    CommentsGet csg = JsonConvert.DeserializeObject<CommentsGet>(Answer);
+                    listView2.Items.Clear();
 
-                    foreach (CommentsGet2.Item itemCsG2 in csg2.response.items)
+                    foreach (CommentsGet.Item itemCG in csg.response.items)
                     {
-                        Request = "https://api.vk.com/method/users.get?user_ids=" + itemCsG2.from_id + "&" +
-                            access_token + "&v=5.124";
+                        string[] LVitem2 = new string[5];
+
+                        Request = "https://api.vk.com/method/users.get?user_ids=" + itemCG.from_id + "&" +
+                                access_token + "&v=5.124";
                         cl = new WebClient();
                         Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                        ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
-                        
-                        LVitem2[0] = csg2.response.current_level_count.ToString();
-                        LVitem2[1] = itemCsG2.id.ToString();
-                        LVitem2[2] = id.ToString();
-                        //LVitem2[3] = responseUg.first_name;
-                        //LVitem2[4] = responseUg.last_name;
-                        LVitem2[5] = itemCsG2.text;
+                        UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
 
-                        lvi2 = new ListViewItem(LVitem2);
+                        LVitem2[0] = itemCG.id.ToString();
+                        LVitem2[2] = ug.response[0].first_name;
+                        LVitem2[3] = ug.response[0].last_name;
+                        LVitem2[4] = itemCG.text;
+
+                        ListViewItem lvi2 = new ListViewItem(LVitem2);
                         listView2.Items.Add(lvi2);
 
-                        //Request = "https://api.vk.com/method/wall.getComment?owner_id=327011638&comment_id=" + id + "&" +
-                        //    access_token + "&v=5.124";
-                        //cl = new WebClient();
-                        //Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                        //CommentGet cg = JsonConvert.DeserializeObject<CommentGet>(Answer);
+                        string id = itemCG.id.ToString();
+                        Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&comment_id=" + 
+                            id + "&" + access_token + "&v=5.124";
+                        cl = new WebClient();
+                        Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                        CommentsGet2 csg2 = JsonConvert.DeserializeObject<CommentsGet2>(Answer);
+
+                        Thread.Sleep(500);
+
+                        foreach (CommentsGet2.Item itemCsG2 in csg2.response.items)
+                        {
+                            Request = "https://api.vk.com/method/users.get?user_ids=" + itemCsG2.from_id + "&" +
+                                access_token + "&v=5.124";
+                            cl = new WebClient();
+                            Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                            ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
+
+                            LVitem2[0] = itemCsG2.id.ToString();
+                            LVitem2[1] = id.ToString();
+                            LVitem2[2] = ug.response[0].first_name;
+                            LVitem2[3] = ug.response[0].last_name;
+                            LVitem2[4] = itemCsG2.text;
+
+                            lvi2 = new ListViewItem(LVitem2);
+                            listView2.Items.Add(lvi2);
+
+                            Thread.Sleep(500);
+                        }
                     }
                 }
+                textBoxOutput.Text = "Выберите комментарий, ответ на который хотите отправить";
+            }
+            else
+            {
+                string message = textBoxInput.Text;
+                Request = "https://api.vk.com/method/wall.createComment?owner_id=327011638&post_id=" + postID + "&message=" +
+                    textBoxInput.Text + "&reply_to_comment=" + commentID + "&" + access_token + "&v=5.124";
+                cl = new WebClient();
+                Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
             }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(listView1.SelectedItems.Count > 0)
+            if (listView1.SelectedItems.Count > 0)
             { 
-                textBoxOutput.Text = listView1.SelectedItems[0].Text;//"Выбрана запись с ID: " + 
+                textBoxOutput.Text = "Выбрана запись с ID: " + listView1.SelectedItems[0].Text + "\r\n" +
+                    "Нажмите кнопку для поиска комментариев";
+                postID = listView1.SelectedItems[0].Text;
+                target = 0;
             }
         }
 
@@ -131,7 +146,10 @@ namespace USER.BOT
         {
             if (listView2.SelectedItems.Count > 0)
             {
-                textBoxOutput.Text = listView2.SelectedItems[0].SubItems[1].Text;//"Выбран комментарий с ID: " + 
+                textBoxOutput.Text = "Выбран комментарий с ID: " + listView2.SelectedItems[0].Text + "\r\n" + 
+                    "Введите текст ответа и нажмите кнопку для отправки";
+                commentID = listView2.SelectedItems[0].Text;
+                target = 1;
             }
         }
     }

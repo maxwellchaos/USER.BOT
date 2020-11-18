@@ -240,48 +240,4 @@ namespace USER.BOT
             public bool groups_can_post { get; set; }
         }
     }
-
-
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-    public class CommentGet
-    {
-        public Response response { get; set; }
-
-        public class Likes
-        {
-            public int count { get; set; }
-            public int user_likes { get; set; }
-            public int can_like { get; set; }
-            public bool can_publish { get; set; }
-        }
-
-        public class Thread
-        {
-            public int count { get; set; }
-            public bool can_post { get; set; }
-            public bool show_reply_button { get; set; }
-            public bool groups_can_post { get; set; }
-        }
-
-        public class Item
-        {
-            public int id { get; set; }
-            public int from_id { get; set; }
-            public int post_id { get; set; }
-            public int owner_id { get; set; }
-            public List<int> parents_stack { get; set; }
-            public int date { get; set; }
-            public string text { get; set; }
-            public Likes likes { get; set; }
-            public Thread thread { get; set; }
-        }
-
-        public class Response
-        {
-            public List<Item> items { get; set; }
-            public bool can_post { get; set; }
-            public bool show_reply_button { get; set; }
-            public bool groups_can_post { get; set; }
-        }
-    }
 }

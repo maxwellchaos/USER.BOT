@@ -32,28 +32,23 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.textBoxInput = new System.Windows.Forms.TextBox();
             this.buttonInput = new System.Windows.Forms.Button();
             this.textBoxOutput = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.listView2 = new System.Windows.Forms.ListView();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader2});
             this.listView1.HideSelection = false;
             this.listView1.LargeImageList = this.imageList1;
             this.listView1.Location = new System.Drawing.Point(12, 12);
@@ -74,11 +69,6 @@
             // 
             this.columnHeader2.Text = "Text";
             this.columnHeader2.Width = 436;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "";
-            this.columnHeader3.Width = 13;
             // 
             // imageList1
             // 
@@ -112,19 +102,12 @@
             this.textBoxOutput.ReadOnly = true;
             this.textBoxOutput.Size = new System.Drawing.Size(284, 56);
             this.textBoxOutput.TabIndex = 4;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(713, 303);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(51, 50);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.textBoxOutput.Text = "Выберите запись, комментарии к которой хотите увидеть, и нажмите на кнопку для вы" +
+    "вода";
             // 
             // listView2
             // 
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7,
@@ -141,11 +124,6 @@
             this.listView2.View = System.Windows.Forms.View.Details;
             this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
             // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Ветка";
-            this.columnHeader4.Width = 42;
-            // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "ID";
@@ -154,7 +132,7 @@
             // columnHeader6
             // 
             this.columnHeader6.Text = "parentID";
-            this.columnHeader6.Width = 85;
+            this.columnHeader6.Width = 54;
             // 
             // columnHeader7
             // 
@@ -169,7 +147,7 @@
             // columnHeader9
             // 
             this.columnHeader9.Text = "Text";
-            this.columnHeader9.Width = 201;
+            this.columnHeader9.Width = 233;
             // 
             // AnswerForm
             // 
@@ -177,7 +155,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.listView2);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.buttonInput);
             this.Controls.Add(this.textBoxInput);
@@ -185,7 +162,6 @@
             this.Name = "AnswerForm";
             this.Text = "AnswerForm";
             this.Load += new System.EventHandler(this.AnswerForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,11 +175,8 @@
         private System.Windows.Forms.TextBox textBoxOutput;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListView listView2;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
