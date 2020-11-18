@@ -117,10 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label3.Text" xml:space="preserve">
-    <value>К сожалению, если на странице много постов, то это процесс займет несколько минут, ну или больше)
-Программа завершит процесс автоматически, поэтому вы можете спокойно заниматься своими делами.
-P.S. Но на на всякий случай иногда проверяйте бота, потому что вк может потребовать ввести капчу.
-</value>
-  </data>
 </root>

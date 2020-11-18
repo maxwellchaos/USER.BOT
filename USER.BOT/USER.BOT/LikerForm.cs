@@ -21,10 +21,18 @@ namespace USER.BOT
         string UserId;
         public string captcha_get;
 
+        Wallget.Item SavedItem;
+        idGet SavedIg;
+        CaptchaGet SavedCg;
+
+
         bool ButtonIsPressed = true;
 
         int bugs = 0;
         int likes = 0;
+        int RandomNuber;
+
+        int CountPost = 0;
 
         public LikerForm()
         {
@@ -33,6 +41,8 @@ namespace USER.BOT
 
         private void Button1_Click(object sender, EventArgs e)
         {
+
+
             if (textBox1.Text == "")
             {
 
@@ -43,6 +53,9 @@ namespace USER.BOT
             }
             else
             {
+                //Создание рандома *1
+                Random Rnd = new Random();
+
                 //Выделение id
                 string[] param = textBox1.Text.Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
                 UserId = param[param.Length - 1];
@@ -69,8 +82,30 @@ namespace USER.BOT
                 int postCount = 0;
                 progressBar1.Minimum = 0;
 
+                if (textBox3.Text == "all")
+                {
+                    CountPost = wg.response.count;
+                }
+                else
+                {
+                    CountPost = Convert.ToInt32(textBox3.Text);
+                }
+
+                if (CountPost > wg.response.count)
+                {
+                    CountPost = wg.response.count;
+                    textBox3.Text = "Ваше число больше колличества постов на стене";
+                }
+
+
+
                 while (Offset <= wg.response.count)
                 {
+                    CountPost -= 1;
+
+                    //*1
+                    RandomNuber = Rnd.Next(100, 200);
+
                     //Повторный запрос на получение информации о стене 
                     Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
                     client = new WebClient();
@@ -93,7 +128,7 @@ namespace USER.BOT
                         for (int i = 0; i < 10; i++)
                         {
                             Application.DoEvents();
-                            Thread.Sleep(100);
+                            Thread.Sleep(RandomNuber);
                         }
 
                         string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" + item.id + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
@@ -112,9 +147,9 @@ namespace USER.BOT
                                 CaptchaGet cg = JsonConvert.DeserializeObject<CaptchaGet>(Answer4);
                                 webBrowser1.Navigate(cg.error.captcha_img);
 
-                                string Request5 = "https://api.vk.com/method/likes.add?type=post&item_id=" + item.id + "&captcha_sid" + cg.error.captcha_sid + "&captcha_key" + textBox2.Text + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
-                                WebClient client5 = new WebClient();
-                                string Answer5 = Encoding.UTF8.GetString(client5.DownloadData(Request5));
+                                SavedIg = ig;
+                                SavedItem = item;
+                                SavedCg = cg;
 
                                 while (ButtonIsPressed == false)
                                 {
@@ -141,9 +176,23 @@ namespace USER.BOT
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {            
+        {
             ButtonIsPressed = true;
+
+            //Отправка капчи
+            string Request5 = "https://api.vk.com/method/likes.add?type=post&item_id=" + SavedItem.id + "&captcha_sid=" + SavedCg.error.captcha_sid + "&captcha_key=" + textBox2.Text + "&owner_id=" + SavedIg.response.object_id + "&" + access_token + "&v=5.124";
+            WebClient client5 = new WebClient();
+            string Answer5 = Encoding.UTF8.GetString(client5.DownloadData(Request5));
+
+            textBox2.Text = "";
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button2_Click(sender, e);
+            }
         }
     }
-
 }
