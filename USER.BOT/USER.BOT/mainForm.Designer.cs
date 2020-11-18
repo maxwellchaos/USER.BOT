@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.buttonSelebrate = new System.Windows.Forms.Button();
             this.buttonGetPopularPost = new System.Windows.Forms.Button();
@@ -158,6 +159,7 @@
             this.Controls.Add(this.buttonGetPopularPost);
             this.Controls.Add(this.buttonTextBot);
             this.Controls.Add(this.buttonLiking);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.Form1_Load);
