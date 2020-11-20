@@ -94,5 +94,17 @@ namespace USER.BOT.Properties {
                 this["newyear"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Pstart {
+            get {
+                return ((bool)(this["Pstart"]));
+            }
+            set {
+                this["Pstart"] = value;
+            }
+        }
     }
 }

@@ -8,6 +8,20 @@ namespace USER.BOT
 
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
 
+    public class BanFriends
+    {
+        public List<ResponseBanFriends> response { get; set; }
+        public class ResponseBanFriends
+        {
+            public string first_name { get; set; }
+            public int id { get; set; }
+            public string last_name { get; set; }
+            public bool can_access_closed { get; set; }
+            public bool is_closed { get; set; }
+            public string deactivated { get; set; }
+        }
+
+    }
     public class FriendsGet
     {
         public Response response { get; set; }

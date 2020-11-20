@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.buttonSelebrate = new System.Windows.Forms.Button();
             this.buttonGetPopularPost = new System.Windows.Forms.Button();
@@ -39,6 +41,13 @@
             this.buttonMassComment = new System.Windows.Forms.Button();
             this.buttonFindComments = new System.Windows.Forms.Button();
             this.buttonGDZ = new System.Windows.Forms.Button();
+            this.Ban_friends = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,11 +151,71 @@
             this.buttonGDZ.Text = "ГДЗ бот";
             this.buttonGDZ.UseVisualStyleBackColor = true;
             // 
+            // Ban_friends
+            // 
+            this.Ban_friends.Location = new System.Drawing.Point(655, 182);
+            this.Ban_friends.Name = "Ban_friends";
+            this.Ban_friends.Size = new System.Drawing.Size(256, 22);
+            this.Ban_friends.TabIndex = 19;
+            this.Ban_friends.Text = "бан удалённых друзей";
+            this.Ban_friends.UseVisualStyleBackColor = true;
+            this.Ban_friends.Click += new System.EventHandler(this.Ban_friends_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(0, 371);
+            this.listView1.Margin = new System.Windows.Forms.Padding(2);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(10, 10);
+            this.listView1.TabIndex = 20;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.Visible = false;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 159;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Width = 124;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(655, 211);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 13);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "Подожди...";
+            this.label1.Visible = false;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(658, 249);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(123, 23);
+            this.progressBar1.TabIndex = 22;
+            this.progressBar1.Visible = false;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 380);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.Ban_friends);
             this.Controls.Add(this.buttonGDZ);
             this.Controls.Add(this.buttonFindComments);
             this.Controls.Add(this.buttonMassComment);
@@ -158,6 +227,7 @@
             this.Controls.Add(this.buttonGetPopularPost);
             this.Controls.Add(this.buttonTextBot);
             this.Controls.Add(this.buttonLiking);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -180,6 +250,13 @@
         private System.Windows.Forms.Button buttonMassComment;
         private System.Windows.Forms.Button buttonFindComments;
         private System.Windows.Forms.Button buttonGDZ;
+        private System.Windows.Forms.Button Ban_friends;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
