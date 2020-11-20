@@ -23,6 +23,7 @@ namespace USER.BOT
         public string postID;
         public string commentID;
         public int target;
+        public int postCount;
 
         public AnswerForm()
         {
@@ -37,18 +38,19 @@ namespace USER.BOT
             Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
             wg = JsonConvert.DeserializeObject<WallGet>(Answer);
            
-            foreach (WallGet.Item item in wg.response.items)
+            foreach (WallGet.Item itemWG in wg.response.items)
             {
                 Application.DoEvents();
                 Thread.Sleep(300);
 
-                if (item.comments.count > 0)
+                if (itemWG.comments.count > 0)
                 {
                     //item.attachments[0].photo.
                     
-                    string[] LVitem = new string[2];
-                    LVitem[0] = item.id.ToString();
-                    LVitem[1] = item.text;
+                    string[] LVitem = new string[3];
+                    LVitem[0] = itemWG.id.ToString();
+                    LVitem[1] = itemWG.comments.count.ToString();
+                    LVitem[2] = itemWG.text;
 
                     ListViewItem lvi = new ListViewItem(LVitem);
                     listView1.Items.Add(lvi);
@@ -81,6 +83,8 @@ namespace USER.BOT
                         Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
                         UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
 
+                        Application.DoEvents();
+
                         LVitem2[0] = itemCG.id.ToString();
                         LVitem2[2] = ug.response[0].first_name;
                         LVitem2[3] = ug.response[0].last_name;
@@ -98,6 +102,8 @@ namespace USER.BOT
 
                         Thread.Sleep(500);
 
+                        progressBar1.Value--;
+
                         foreach (CommentsGet2.Item itemCsG2 in csg2.response.items)
                         {
                             Request = "https://api.vk.com/method/users.get?user_ids=" + itemCsG2.from_id + "&" +
@@ -105,6 +111,8 @@ namespace USER.BOT
                             cl = new WebClient();
                             Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
                             ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
+
+                            Application.DoEvents();
 
                             LVitem2[0] = itemCsG2.id.ToString();
                             LVitem2[1] = id.ToString();
@@ -116,10 +124,13 @@ namespace USER.BOT
                             listView2.Items.Add(lvi2);
 
                             Thread.Sleep(500);
+
+                            progressBar1.Value--;
                         }
                     }
                 }
-                textBoxOutput.Text = "Выберите комментарий, ответ на который хотите отправить";
+                textBoxOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "/r/n" +
+                    "Для этого нажмите на ID соответствующего комментария";
             }
             else
             {
@@ -138,6 +149,8 @@ namespace USER.BOT
                 textBoxOutput.Text = "Выбрана запись с ID: " + listView1.SelectedItems[0].Text + "\r\n" +
                     "Нажмите кнопку для поиска комментариев";
                 postID = listView1.SelectedItems[0].Text;
+                progressBar1.Maximum = Convert.ToInt32(listView1.SelectedItems[0].SubItems[1].Text);
+                progressBar1.Value = progressBar1.Maximum;
                 target = 0;
             }
         }
