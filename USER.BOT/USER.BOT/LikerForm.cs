@@ -15,7 +15,6 @@ namespace USER.BOT
 {
     public partial class LikerForm : Form
     {
-
         public string access_token;
         public string users_id;
         string UserId;
@@ -25,6 +24,7 @@ namespace USER.BOT
         idGet SavedIg;
         CaptchaGet SavedCg;
 
+        
 
         bool ButtonIsPressed = true;
 
@@ -33,15 +33,17 @@ namespace USER.BOT
         int RandomNuber;
 
         int CountPost = 0;
+        int cPost;
 
         public LikerForm()
         {
             InitializeComponent();
         }
 
+
         private void Button1_Click(object sender, EventArgs e)
         {
-
+            label3.Location = new Point(1000, 1000);
 
             if (textBox1.Text == "")
             {
@@ -82,29 +84,27 @@ namespace USER.BOT
                 int postCount = 0;
                 progressBar1.Minimum = 0;
 
-                if (textBox3.Text == "all")
+                if (comboBox1.Text == "Все")
                 {
                     CountPost = wg.response.count;
                 }
                 else
                 {
-                    CountPost = Convert.ToInt32(textBox3.Text);
+                    CountPost = Convert.ToInt32(comboBox1.Text);
                 }
 
                 if (CountPost > wg.response.count)
                 {
                     CountPost = wg.response.count;
-                    textBox3.Text = "Ваше число больше колличества постов на стене";
+                    comboBox1.Text = wg.response.count.ToString();
                 }
 
-
+                cPost = CountPost;
 
                 while (Offset <= wg.response.count)
                 {
-                    CountPost -= 1;
-
                     //*1
-                    RandomNuber = Rnd.Next(100, 200);
+                    RandomNuber = Rnd.Next(100, 300);
 
                     //Повторный запрос на получение информации о стене 
                     Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
@@ -115,15 +115,16 @@ namespace USER.BOT
                     Offset += wg.response.items.Count;
 
                     //*
-                    progressBar1.Maximum = wg.response.count;
+                    progressBar1.Maximum = cPost;
 
                     //Массовый лайкинг
                     foreach (Wallget.Item item in wg.response.items)
                     {
-                        //*
-                        postCount = postCount + 1;
-                        progressBar1.Value = postCount;
 
+                        if (CountPost <= 0)
+                        {
+                            break;
+                        }
                         //Cooldown
                         for (int i = 0; i < 10; i++)
                         {
@@ -167,11 +168,16 @@ namespace USER.BOT
                             likes++;
                         }
 
-                        label2.Text = bugs.ToString() + "/" + likes.ToString() + "/" + wg.response.count.ToString();
+                        label2.Text = bugs.ToString() + "/" + likes.ToString() + "/" + cPost;
+
+                        //*
+                        postCount = postCount + 1;
+                        progressBar1.Value = postCount;
+                        CountPost -= 1;
+
 
                     }
                 }
-
             }
         }
 
@@ -193,6 +199,16 @@ namespace USER.BOT
             {
                 button2_Click(sender, e);
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            label3.Location = new Point(235, 23);
+        }
+
+        private void LikerForm_Load(object sender, EventArgs e)
+        {
+       
         }
     }
 }
