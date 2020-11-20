@@ -472,7 +472,14 @@ namespace USER.BOT
                     }
                 }
             }
-
+            if (label12.Text == "Проверяю наличия праздника. Осталось примерно 0 мин или 0 сек")
+            {
+                label12.Visible = false;
+            }
+            else
+            {
+                label12.Visible = true;
+            }
             if (Properties.Settings.Default.Pstart == false)
             {
                 button1.Text = "Видемо сегодня ты уже поздравил своих друзей :)";
