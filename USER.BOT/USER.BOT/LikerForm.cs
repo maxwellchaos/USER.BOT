@@ -22,9 +22,7 @@ namespace USER.BOT
 
         Wallget.Item SavedItem;
         idGet SavedIg;
-        CaptchaGet SavedCg;
-
-        
+        CaptchaGet SavedCg;       
 
         bool ButtonIsPressed = true;
 
@@ -39,7 +37,6 @@ namespace USER.BOT
         {
             InitializeComponent();
         }
-
 
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -174,8 +171,6 @@ namespace USER.BOT
                         postCount = postCount + 1;
                         progressBar1.Value = postCount;
                         CountPost -= 1;
-
-
                     }
                 }
             }
@@ -203,12 +198,10 @@ namespace USER.BOT
 
         private void button3_Click(object sender, EventArgs e)
         {
-            label3.Location = new Point(235, 23);
+            label3.Location = new Point(312, 47);
         }
 
-        private void LikerForm_Load(object sender, EventArgs e)
-        {
-       
-        }
+     
+   
     }
 }
