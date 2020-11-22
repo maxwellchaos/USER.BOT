@@ -16,7 +16,6 @@ namespace USER.BOT
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new mainForm());
-
         }
     }
 }

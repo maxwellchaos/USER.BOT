@@ -56,12 +56,6 @@
     <Compile Include="FormMostPopularPost.Designer.cs">
       <DependentUpon>FormMostPopularPost.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Happy day.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Happy day.Designer.cs">
-      <DependentUpon>Form_Happy day.cs</DependentUpon>
-    </Compile>
     <Compile Include="mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,9 +67,6 @@
     <Compile Include="response.cs" />
     <EmbeddedResource Include="FormMostPopularPost.resx">
       <DependentUpon>FormMostPopularPost.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Happy day.resx">
-      <DependentUpon>Form_Happy day.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
@@ -89,7 +80,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
