@@ -16,7 +16,7 @@ namespace USER.BOT
         public string access_token;
         public string user_id;
         string GroupAccess_token = "access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3";
-
+        int i = -1;
         public formgdz()
         {
             InitializeComponent();
@@ -31,28 +31,17 @@ namespace USER.BOT
 
 
         }
-
-
-
-
         //private void Form1_Load(object sender, EventArgs e)
         //{
         //    webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7617031&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends+groups&response_type=token&v=5.124&state=123456");
 
         //}
-
-
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void formgdz_Load(object sender, EventArgs e)
         {
-
-
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -84,17 +73,25 @@ namespace USER.BOT
 
                     }
             }
-
-            string massegeid = mg.response.items[0].last_message.id.ToString();
-            massegeid = massegeid + "," + "-1";
-            reqeuest2 = "https://api.vk.com/method/messages.getById?message_ids=" + massegeid.ToString() + "&group_id=199265164&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
-
+            string messegeid = mg.response.items[0].last_message.id.ToString();
+            for (int i = 0; i < 5; i = i + 1)
+            {   
+                messegeid = messegeid + "," + (mg.response.items[0].last_message.id-1-i).ToString();
+            }
+            reqeuest2 = "https://api.vk.com/method/messages.getById?message_ids=" + messegeid.ToString()  + "&group_id=199265164&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
             answer2 = Encoding.UTF8.GetString(cl.DownloadData(reqeuest2));
             messagesgetById mgbi = JsonConvert.DeserializeObject<messagesgetById>(answer2);
-           
-           
-
-
+            for(int i = 5; i >= 0;i = i -1)
+            {
+                if(mgbi.response.items[i].from_id.ToString() == "380583406")
+                {
+                    label3.Text = (mgbi.response.items[i].text);
+                }
+                else
+                {
+                label4.Text = (mgbi.response.items[i].text);
+                }
+            }
             //messagesgetConversations mgc = JsonConvert.DeserializeObject<messagesgetConversations>(answer2);
             //labelgrope.Text = mgc.response.items[0].last_message.text;
             reqeuest2 = "https://api.vk.com/method/messages.getConversations?filter=unanswered&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
