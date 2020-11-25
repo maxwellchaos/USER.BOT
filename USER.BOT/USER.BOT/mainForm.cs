@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,12 +18,14 @@ namespace USER.BOT
 {
     public partial class mainForm : Form
     {
+
         string access_token;
         string user_id;
         string BanName;
         int co;
         int co1;
         Form_Happy_day form;
+
         public mainForm()
         {
             InitializeComponent();
@@ -35,9 +37,10 @@ namespace USER.BOT
             webBrowser1.BringToFront();
             webBrowser1.Dock = DockStyle.Fill;
 
-            webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304" +
-                "&display=page&redirect_uri=https://oauth.vk.com/blank.html&" +
-                "scope=friends+groups+wall&" +
+
+            webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304"+
+                "&display=page&redirect_uri=https://oauth.vk.com/blank.html&"+
+                "scope=friends+groups+wall+photo&"+
                 "response_type=token&v=5.124&state=123456");
         }
 
@@ -46,10 +49,10 @@ namespace USER.BOT
             if (webBrowser1.Url.ToString().Contains("access_token"))
             {
                 string[] param = webBrowser1.Url.ToString().Split(new[] { "#", "&" }, StringSplitOptions.RemoveEmptyEntries);
-                access_token = param[1];
+                AccessToken = param[1];
 
                 string Request = "https://api.vk.com/method/account.getProfileInfo?" +
-                access_token + "&v=5.124";
+                AccessToken + "&v=5.124";
 
                 WebClient cl = new WebClient();
 
@@ -58,17 +61,17 @@ namespace USER.BOT
                 GetProfileInfo gpi = JsonConvert.DeserializeObject<GetProfileInfo>(Answer);
                 labelFamily.Text = gpi.response.last_name;
                 labelName.Text = gpi.response.first_name;
-                user_id = gpi.response.id.ToString();
+                UserID = gpi.response.id.ToString();
 
                 Request = "https://api.vk.com/method/users.get?fields=photo_100&" +
-                access_token + "&v=5.124";
+                AccessToken + "&v=5.124";
 
 
                 Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
 
                 UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
                 pictureBoxAvatar.ImageLocation = ug.response[0].photo_100;
-                user_id = ug.response[0].id.ToString();
+                UserID = ug.response[0].id.ToString();
                 webBrowser1.Hide();
 
                 if (Properties.Settings.Default.PSetting == true)
@@ -85,8 +88,8 @@ namespace USER.BOT
         private void buttonGetPopularPost_Click(object sender, EventArgs e)
         {
             FormMostPopularPost frm = new FormMostPopularPost();
-            frm.access_token = this.access_token;
-            frm.user_id = user_id;
+            frm.access_token = this.AccessToken;
+            frm.user_id = UserID;
             frm.Show();
         }
 
@@ -163,6 +166,13 @@ namespace USER.BOT
             int ab = a - b;
             int ab1 = ab / 60;
             label1.Text = "Проверяю наличия удалённых друзей. Осталось примерно \r\n" + ab1.ToString() + " мин или " + ab.ToString() + " сек";
+
+        private void ButtonLiking_Click(object sender, EventArgs e)
+        {
+            LikerForm form = new LikerForm();
+            form.access_token = access_token;
+            form.users_id = users_id;
+            form.ShowDialog();
         }
     }
 }
