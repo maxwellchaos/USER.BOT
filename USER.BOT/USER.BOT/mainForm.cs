@@ -36,6 +36,7 @@ namespace USER.BOT
 
             webBrowser1.BringToFront();
             webBrowser1.Dock = DockStyle.Fill;
+            pictureBoxWait.BringToFront();
 
 
             webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304"+
@@ -83,6 +84,7 @@ namespace USER.BOT
                     form.Visible = false;
                 }
             }
+            pictureBoxWait.Hide();
         }
 
         private void buttonGetPopularPost_Click(object sender, EventArgs e)
