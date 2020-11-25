@@ -40,9 +40,8 @@ namespace USER.BOT
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            label3.Location = new Point(1000, 1000);
 
-            if (textBox1.Text == "")
+            if (textBox1.Text == " ")
             {
 
             }
@@ -101,7 +100,7 @@ namespace USER.BOT
                 while (Offset <= wg.response.count)
                 {
                     //*1
-                    RandomNuber = Rnd.Next(100, 300);
+                    RandomNuber = Rnd.Next(200, 400);
 
                     //Повторный запрос на получение информации о стене 
                     Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
@@ -157,7 +156,7 @@ namespace USER.BOT
                             }
                             else
                             {
-                                bugs = bugs + 1;
+                                bugs++;
                             }
                         }
                         else
@@ -180,12 +179,24 @@ namespace USER.BOT
         {
             ButtonIsPressed = true;
 
-            //Отправка капчи
-            string Request5 = "https://api.vk.com/method/likes.add?type=post&item_id=" + SavedItem.id + "&captcha_sid=" + SavedCg.error.captcha_sid + "&captcha_key=" + textBox2.Text + "&owner_id=" + SavedIg.response.object_id + "&" + access_token + "&v=5.124";
-            WebClient client5 = new WebClient();
-            string Answer5 = Encoding.UTF8.GetString(client5.DownloadData(Request5));
+            if (textBox2.Text == " ")
+            {
 
-            textBox2.Text = "";
+            }
+            if(textBox2.Text == "Введите капчу если потребуется")
+            {
+
+            }
+            else
+            {
+                //Отправка капчи
+                string Request5 = "https://api.vk.com/method/likes.add?type=post&item_id=" + SavedItem.id + "&captcha_sid=" + SavedCg.error.captcha_sid + "&captcha_key=" + textBox2.Text + "&owner_id=" + SavedIg.response.object_id + "&" + access_token + "&v=5.124";
+                WebClient client5 = new WebClient();
+                string Answer5 = Encoding.UTF8.GetString(client5.DownloadData(Request5));
+                textBox2.Text = "";
+            }
+
+            
         }
 
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
@@ -198,10 +209,7 @@ namespace USER.BOT
 
         private void button3_Click(object sender, EventArgs e)
         {
-            label3.Location = new Point(312, 47);
-        }
-
-     
-   
+            panel3.Visible = !panel3.Visible;
+        }   
     }
 }
