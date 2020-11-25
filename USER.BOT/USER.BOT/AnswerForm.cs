@@ -24,6 +24,7 @@ namespace USER.BOT
         public string commentID;
         public int target;
         public int postCount;
+        public int progress;
 
         public AnswerForm()
         {
@@ -62,6 +63,8 @@ namespace USER.BOT
         {
             if (target == 0)
             {
+                progressBar1.Maximum = progress;
+                progressBar1.Value = progressBar1.Maximum;
                 if (textBoxOutput.Text != "")
                 {
                     WallGet.Item itemWG = new WallGet.Item();
@@ -129,7 +132,7 @@ namespace USER.BOT
                         }
                     }
                 }
-                textBoxOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "/r/n" +
+                textBoxOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "\r\n" +
                     "Для этого нажмите на ID соответствующего комментария";
             }
             else
@@ -149,8 +152,9 @@ namespace USER.BOT
                 textBoxOutput.Text = "Выбрана запись с ID: " + listView1.SelectedItems[0].Text + "\r\n" +
                     "Нажмите кнопку для поиска комментариев";
                 postID = listView1.SelectedItems[0].Text;
-                progressBar1.Maximum = Convert.ToInt32(listView1.SelectedItems[0].SubItems[1].Text);
-                progressBar1.Value = progressBar1.Maximum;
+
+                progress = Convert.ToInt32(listView1.SelectedItems[0].SubItems[1].Text);
+                
                 target = 0;
             }
         }
