@@ -32,6 +32,7 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.textBoxInput = new System.Windows.Forms.TextBox();
             this.buttonInput = new System.Windows.Forms.Button();
@@ -43,7 +44,8 @@
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // listView1
@@ -56,7 +58,7 @@
             this.listView1.LargeImageList = this.imageList1;
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(485, 197);
+            this.listView1.Size = new System.Drawing.Size(620, 150);
             this.listView1.SmallImageList = this.imageList1;
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -73,6 +75,11 @@
             this.columnHeader2.Text = "Comments";
             this.columnHeader2.Width = 62;
             // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Text";
+            this.columnHeader3.Width = 380;
+            // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth16Bit;
@@ -81,17 +88,17 @@
             // 
             // textBoxInput
             // 
-            this.textBoxInput.Location = new System.Drawing.Point(504, 74);
+            this.textBoxInput.Location = new System.Drawing.Point(381, 343);
             this.textBoxInput.Multiline = true;
             this.textBoxInput.Name = "textBoxInput";
-            this.textBoxInput.Size = new System.Drawing.Size(284, 25);
+            this.textBoxInput.Size = new System.Drawing.Size(407, 27);
             this.textBoxInput.TabIndex = 2;
             // 
             // buttonInput
             // 
-            this.buttonInput.Location = new System.Drawing.Point(713, 105);
+            this.buttonInput.Location = new System.Drawing.Point(381, 376);
             this.buttonInput.Name = "buttonInput";
-            this.buttonInput.Size = new System.Drawing.Size(75, 23);
+            this.buttonInput.Size = new System.Drawing.Size(117, 23);
             this.buttonInput.TabIndex = 3;
             this.buttonInput.Text = "Ввод";
             this.buttonInput.UseVisualStyleBackColor = true;
@@ -99,14 +106,14 @@
             // 
             // textBoxOutput
             // 
-            this.textBoxOutput.Location = new System.Drawing.Point(504, 12);
+            this.textBoxOutput.Location = new System.Drawing.Point(12, 343);
             this.textBoxOutput.Multiline = true;
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.ReadOnly = true;
-            this.textBoxOutput.Size = new System.Drawing.Size(284, 56);
+            this.textBoxOutput.Size = new System.Drawing.Size(363, 56);
             this.textBoxOutput.TabIndex = 4;
-            this.textBoxOutput.Text = "Выберите запись, комментарии к которой хотите увидеть, нажав на соответствующее I" +
-    "D, и нажмите на кнопку для вывода";
+            this.textBoxOutput.Text = "Нажмите на кнопку для вывода всех записей";
+            this.textBoxOutput.Enter += new System.EventHandler(this.textBoxOutput_Enter);
             // 
             // listView2
             // 
@@ -118,9 +125,9 @@
             this.columnHeader9});
             this.listView2.HideSelection = false;
             this.listView2.LargeImageList = this.imageList1;
-            this.listView2.Location = new System.Drawing.Point(12, 215);
+            this.listView2.Location = new System.Drawing.Point(12, 168);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(776, 197);
+            this.listView2.Size = new System.Drawing.Size(776, 169);
             this.listView2.SmallImageList = this.imageList1;
             this.listView2.TabIndex = 6;
             this.listView2.UseCompatibleStateImageBehavior = false;
@@ -154,31 +161,36 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(504, 186);
+            this.progressBar1.Location = new System.Drawing.Point(504, 376);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(284, 23);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 7;
             // 
-            // columnHeader3
+            // pictureBox1
             // 
-            this.columnHeader3.Text = "Text";
-            this.columnHeader3.Width = 380;
+            this.pictureBox1.Location = new System.Drawing.Point(638, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
             // 
             // AnswerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 419);
+            this.ClientSize = new System.Drawing.Size(800, 413);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.buttonInput);
             this.Controls.Add(this.textBoxInput);
-            this.Controls.Add(this.listView1);
             this.Name = "AnswerForm";
             this.Text = "AnswerForm";
             this.Load += new System.EventHandler(this.AnswerForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,5 +213,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

@@ -22,9 +22,10 @@ namespace USER.BOT
         public WallGet wg;
         public string postID;
         public string commentID;
-        public int target;
+        public int target = 0;
         public int postCount;
         public int progress;
+        public int stage;
 
         public AnswerForm()
         {
@@ -33,115 +34,156 @@ namespace USER.BOT
 
         private void AnswerForm_Load(object sender, EventArgs e)
         {
-            Request = "https://api.vk.com/method/wall.get?" +
-                access_token + "&v=5.124";
-            cl = new WebClient();
-            Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-            wg = JsonConvert.DeserializeObject<WallGet>(Answer);
-           
-            foreach (WallGet.Item itemWG in wg.response.items)
-            {
-                Application.DoEvents();
-                Thread.Sleep(300);
-
-                if (itemWG.comments.count > 0)
-                {
-                    //item.attachments[0].photo.
-                    
-                    string[] LVitem = new string[3];
-                    LVitem[0] = itemWG.id.ToString();
-                    LVitem[1] = itemWG.comments.count.ToString();
-                    LVitem[2] = itemWG.text;
-
-                    ListViewItem lvi = new ListViewItem(LVitem);
-                    listView1.Items.Add(lvi);
-                }
-            }
+            
         }
 
         private void buttonInput_Click(object sender, EventArgs e)
         {
-            if (target == 0)
+            if (stage == 2)
             {
-                progressBar1.Maximum = progress;
-                progressBar1.Value = progressBar1.Maximum;
-                if (textBoxOutput.Text != "")
+                if (target == 1)
                 {
-                    WallGet.Item itemWG = new WallGet.Item();
-                    itemWG.id = Convert.ToInt16(postID);
-                    Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&" +
-                        access_token + "&v=5.124";
-                    cl = new WebClient();
-                    Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                    CommentsGet csg = JsonConvert.DeserializeObject<CommentsGet>(Answer);
-                    listView2.Items.Clear();
+                    progressBar1.Maximum = progress;
+                    progressBar1.Value = progressBar1.Maximum;
 
-                    foreach (CommentsGet.Item itemCG in csg.response.items)
+                    if (textBoxOutput.Text != "")
                     {
-                        string[] LVitem2 = new string[5];
-
-                        Request = "https://api.vk.com/method/users.get?user_ids=" + itemCG.from_id + "&" +
-                                access_token + "&v=5.124";
+                        WallGet.Item itemWG = new WallGet.Item();
+                        itemWG.id = Convert.ToInt16(postID);
+                        Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&" +
+                            access_token + "&v=5.124";
                         cl = new WebClient();
                         Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                        UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
+                        CommentsGet csg = JsonConvert.DeserializeObject<CommentsGet>(Answer);
+                        listView2.Items.Clear();
 
-                        Application.DoEvents();
+                        textBoxOutput.Text = "Пожалуйста подождите...";
+                        buttonInput.Enabled = false;
+                        this.Select();
 
-                        LVitem2[0] = itemCG.id.ToString();
-                        LVitem2[2] = ug.response[0].first_name;
-                        LVitem2[3] = ug.response[0].last_name;
-                        LVitem2[4] = itemCG.text;
-
-                        ListViewItem lvi2 = new ListViewItem(LVitem2);
-                        listView2.Items.Add(lvi2);
-
-                        string id = itemCG.id.ToString();
-                        Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&comment_id=" + 
-                            id + "&" + access_token + "&v=5.124";
-                        cl = new WebClient();
-                        Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                        CommentsGet2 csg2 = JsonConvert.DeserializeObject<CommentsGet2>(Answer);
-
-                        Thread.Sleep(500);
-
-                        progressBar1.Value--;
-
-                        foreach (CommentsGet2.Item itemCsG2 in csg2.response.items)
+                        foreach (CommentsGet.Item itemCG in csg.response.items)
                         {
-                            Request = "https://api.vk.com/method/users.get?user_ids=" + itemCsG2.from_id + "&" +
-                                access_token + "&v=5.124";
+                            string[] LVitem2 = new string[5];
+
+                            Request = "https://api.vk.com/method/users.get?user_ids=" + itemCG.from_id + "&" +
+                                    access_token + "&v=5.124";
                             cl = new WebClient();
                             Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                            ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
+                            UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
 
                             Application.DoEvents();
 
-                            LVitem2[0] = itemCsG2.id.ToString();
-                            LVitem2[1] = id.ToString();
+                            LVitem2[0] = itemCG.id.ToString();
                             LVitem2[2] = ug.response[0].first_name;
                             LVitem2[3] = ug.response[0].last_name;
-                            LVitem2[4] = itemCsG2.text;
+                            LVitem2[4] = itemCG.text;
 
-                            lvi2 = new ListViewItem(LVitem2);
+                            ListViewItem lvi2 = new ListViewItem(LVitem2);
                             listView2.Items.Add(lvi2);
+
+                            string id = itemCG.id.ToString();
+                            Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&comment_id=" +
+                                id + "&" + access_token + "&v=5.124";
+                            cl = new WebClient();
+                            Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                            CommentsGet2 csg2 = JsonConvert.DeserializeObject<CommentsGet2>(Answer);
 
                             Thread.Sleep(500);
 
                             progressBar1.Value--;
+
+                            foreach (CommentsGet2.Item itemCsG2 in csg2.response.items)
+                            {
+                                Request = "https://api.vk.com/method/users.get?user_ids=" + itemCsG2.from_id + "&" +
+                                    access_token + "&v=5.124";
+                                cl = new WebClient();
+                                Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                                ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
+
+                                Application.DoEvents();
+
+                                LVitem2[0] = itemCsG2.id.ToString();
+                                LVitem2[1] = id.ToString();
+                                LVitem2[2] = ug.response[0].first_name;
+                                LVitem2[3] = ug.response[0].last_name;
+                                LVitem2[4] = itemCsG2.text;
+
+                                lvi2 = new ListViewItem(LVitem2);
+                                listView2.Items.Add(lvi2);
+
+                                Thread.Sleep(500);
+
+                                progressBar1.Value--;
+                            }
                         }
                     }
+                    textBoxOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "\r\n" +
+                        "Для этого нажмите на ID соответствующего комментария" + "\r\n" + "Либо выберите другую запись";
+                    buttonInput.Enabled = true;
                 }
-                textBoxOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "\r\n" +
-                    "Для этого нажмите на ID соответствующего комментария";
+                else
+                {
+                    if (textBoxInput.Text != "")
+                    {
+                        Request = "https://api.vk.com/method/wall.createComment?owner_id=327011638&post_id=" + postID + "&message=" +
+                            textBoxInput.Text + "&reply_to_comment=" + commentID + "&" + access_token + "&v=5.124";
+                        cl = new WebClient();
+                        Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                        textBoxOutput.Text = "Сообщение отправлено";
+                    }
+                    else
+                    {
+                        textBoxOutput.Text = "Введите сообщение";
+                    }
+                }
             }
-            else
+            if (stage == 0)
             {
-                string message = textBoxInput.Text;
-                Request = "https://api.vk.com/method/wall.createComment?owner_id=327011638&post_id=" + postID + "&message=" +
-                    textBoxInput.Text + "&reply_to_comment=" + commentID + "&" + access_token + "&v=5.124";
+                stage = 1;
+                Request = "https://api.vk.com/method/wall.get?" +
+                access_token + "&v=5.124";
                 cl = new WebClient();
                 Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                wg = JsonConvert.DeserializeObject<WallGet>(Answer);
+
+                textBoxOutput.Text = "Пожалуйста подождите...";
+                buttonInput.Enabled = false;
+
+                foreach (WallGet.Item itemWG in wg.response.items)
+                {
+                    if (itemWG.comments.count > 0)
+                    {
+                        progress++;
+                    }
+                }
+                progressBar1.Maximum = progress;
+                progressBar1.Value = progressBar1.Maximum;
+
+                foreach (WallGet.Item itemWG in wg.response.items)
+                {
+                    Application.DoEvents();
+                    Thread.Sleep(500);
+
+                    if (itemWG.comments.count > 0)
+                    {
+                        string[] LVitem = new string[4];
+                        LVitem[0] = itemWG.id.ToString();
+                        LVitem[1] = itemWG.comments.count.ToString();
+                        LVitem[2] = itemWG.text;
+                        if (itemWG.attachments[0].photo.sizes[0].url != "")
+                        {
+                            LVitem[3] = itemWG.attachments[0].photo.sizes[0].url;
+                        }
+
+                        ListViewItem lvi = new ListViewItem(LVitem);
+                        listView1.Items.Add(lvi);
+                        progressBar1.Value--;
+                    }
+                }
+                textBoxOutput.Text = "Выберите запись, комментарии к которой хотите увидеть, " +
+                    "нажав на соответствующее ID, и нажмите на кнопку для вывода";
+                stage = 2;
+                buttonInput.Enabled = true;
             }
         }
 
@@ -155,7 +197,12 @@ namespace USER.BOT
 
                 progress = Convert.ToInt32(listView1.SelectedItems[0].SubItems[1].Text);
                 
-                target = 0;
+                target = 1;
+
+                if (listView1.SelectedItems[0].SubItems[3].Text != "")
+                {
+                    pictureBox1.ImageLocation = listView1.SelectedItems[0].SubItems[3].Text;
+                }
             }
         }
 
@@ -166,8 +213,13 @@ namespace USER.BOT
                 textBoxOutput.Text = "Выбран комментарий с ID: " + listView2.SelectedItems[0].Text + "\r\n" + 
                     "Введите текст ответа и нажмите кнопку для отправки";
                 commentID = listView2.SelectedItems[0].Text;
-                target = 1;
+                target = 2;
             }
+        }
+
+        private void textBoxOutput_Enter(object sender, EventArgs e)
+        {
+            this.Select();
         }
     }
 }

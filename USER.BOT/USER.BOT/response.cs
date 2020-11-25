@@ -128,7 +128,7 @@ namespace USER.BOT
         {
             public int album_id { get; set; }
             public int date { get; set; }
-            public int id { get; set; }//тут
+            public int id { get; set; }
             public int owner_id { get; set; }
             public bool has_tags { get; set; }
             public string access_key { get; set; }
