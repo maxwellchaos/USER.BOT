@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="LikerForm.Designer.cs">
       <DependentUpon>LikerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
