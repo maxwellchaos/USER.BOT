@@ -46,7 +46,7 @@ namespace USER.BOT
                     progressBar1.Maximum = progress;
                     progressBar1.Value = progressBar1.Maximum;
 
-                    if (textBoxOutput.Text != "")
+                    if (labelOutput.Text != "")
                     {
                         WallGet.Item itemWG = new WallGet.Item();
                         itemWG.id = Convert.ToInt16(postID);
@@ -57,7 +57,7 @@ namespace USER.BOT
                         CommentsGet csg = JsonConvert.DeserializeObject<CommentsGet>(Answer);
                         listView2.Items.Clear();
 
-                        textBoxOutput.Text = "Пожалуйста подождите...";
+                        labelOutput.Text = "Пожалуйста подождите...";
                         buttonInput.Enabled = false;
                         this.Select();
 
@@ -117,7 +117,7 @@ namespace USER.BOT
                             }
                         }
                     }
-                    textBoxOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "\r\n" +
+                    labelOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "\r\n" +
                         "Для этого нажмите на ID соответствующего комментария" + "\r\n" + "Либо выберите другую запись";
                     buttonInput.Enabled = true;
                 }
@@ -129,11 +129,11 @@ namespace USER.BOT
                             textBoxInput.Text + "&reply_to_comment=" + commentID + "&" + access_token + "&v=5.124";
                         cl = new WebClient();
                         Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
-                        textBoxOutput.Text = "Сообщение отправлено";
+                        labelOutput.Text = "Сообщение отправлено";
                     }
                     else
                     {
-                        textBoxOutput.Text = "Введите сообщение";
+                        labelOutput.Text = "Введите сообщение";
                     }
                 }
             }
@@ -146,8 +146,9 @@ namespace USER.BOT
                 Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
                 wg = JsonConvert.DeserializeObject<WallGet>(Answer);
 
-                textBoxOutput.Text = "Пожалуйста подождите...";
+                labelOutput.Text = "Пожалуйста подождите...";
                 buttonInput.Enabled = false;
+                this.Select();
 
                 foreach (WallGet.Item itemWG in wg.response.items)
                 {
@@ -180,8 +181,8 @@ namespace USER.BOT
                         progressBar1.Value--;
                     }
                 }
-                textBoxOutput.Text = "Выберите запись, комментарии к которой хотите увидеть, " +
-                    "нажав на соответствующее ID, и нажмите на кнопку для вывода";
+                labelOutput.Text = "Выберите запись, комментарии к которой хотите увидеть, " + "\r\n" +
+                    "нажав на соответствующее ID, и нажмите на кнопку" + "\r\n" + "для вывода";
                 stage = 2;
                 buttonInput.Enabled = true;
             }
@@ -190,8 +191,8 @@ namespace USER.BOT
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
-            { 
-                textBoxOutput.Text = "Выбрана запись с ID: " + listView1.SelectedItems[0].Text + "\r\n" +
+            {
+                labelOutput.Text = "Выбрана запись с ID: " + listView1.SelectedItems[0].Text + "\r\n" +
                     "Нажмите кнопку для поиска комментариев";
                 postID = listView1.SelectedItems[0].Text;
 
@@ -210,16 +211,11 @@ namespace USER.BOT
         {
             if (listView2.SelectedItems.Count > 0)
             {
-                textBoxOutput.Text = "Выбран комментарий с ID: " + listView2.SelectedItems[0].Text + "\r\n" + 
+                labelOutput.Text = "Выбран комментарий с ID: " + listView2.SelectedItems[0].Text + "\r\n" + 
                     "Введите текст ответа и нажмите кнопку для отправки";
                 commentID = listView2.SelectedItems[0].Text;
                 target = 2;
             }
-        }
-
-        private void textBoxOutput_Enter(object sender, EventArgs e)
-        {
-            this.Select();
         }
     }
 }

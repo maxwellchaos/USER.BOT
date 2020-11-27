@@ -36,7 +36,6 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.textBoxInput = new System.Windows.Forms.TextBox();
             this.buttonInput = new System.Windows.Forms.Button();
-            this.textBoxOutput = new System.Windows.Forms.TextBox();
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -45,6 +44,7 @@
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelOutput = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -103,17 +103,6 @@
             this.buttonInput.Text = "Ввод";
             this.buttonInput.UseVisualStyleBackColor = true;
             this.buttonInput.Click += new System.EventHandler(this.buttonInput_Click);
-            // 
-            // textBoxOutput
-            // 
-            this.textBoxOutput.Location = new System.Drawing.Point(12, 343);
-            this.textBoxOutput.Multiline = true;
-            this.textBoxOutput.Name = "textBoxOutput";
-            this.textBoxOutput.ReadOnly = true;
-            this.textBoxOutput.Size = new System.Drawing.Size(363, 56);
-            this.textBoxOutput.TabIndex = 4;
-            this.textBoxOutput.Text = "Нажмите на кнопку для вывода всех записей";
-            this.textBoxOutput.Enter += new System.EventHandler(this.textBoxOutput_Enter);
             // 
             // listView2
             // 
@@ -175,16 +164,25 @@
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
+            // labelOutput
+            // 
+            this.labelOutput.AutoSize = true;
+            this.labelOutput.Location = new System.Drawing.Point(12, 346);
+            this.labelOutput.Name = "labelOutput";
+            this.labelOutput.Size = new System.Drawing.Size(240, 13);
+            this.labelOutput.TabIndex = 9;
+            this.labelOutput.Text = "Нажмите на кнопку для вывода всех записей";
+            // 
             // AnswerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 413);
+            this.Controls.Add(this.labelOutput);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.listView2);
-            this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.buttonInput);
             this.Controls.Add(this.textBoxInput);
             this.Name = "AnswerForm";
@@ -201,7 +199,6 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.TextBox textBoxInput;
         private System.Windows.Forms.Button buttonInput;
-        private System.Windows.Forms.TextBox textBoxOutput;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ImageList imageList1;
@@ -214,5 +211,6 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label labelOutput;
     }
 }
