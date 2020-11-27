@@ -22,7 +22,7 @@ namespace USER.BOT
 
         Wallget.Item SavedItem;
         idGet SavedIg;
-        CaptchaGet SavedCg;       
+        CaptchaGet SavedCg;
 
         bool ButtonIsPressed = true;
 
@@ -40,12 +40,13 @@ namespace USER.BOT
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            //textBox3.Lines[];
 
-            if (textBox1.Text == " ")
+            if (textBox3.Text == " ")
             {
 
             }
-            if (textBox1.Text == "Вставьте ссылку или id")
+            if (textBox3.Text == "Вставьте ссылку или id")
             {
 
             }
@@ -55,121 +56,123 @@ namespace USER.BOT
                 Random Rnd = new Random();
 
                 //Выделение id
-                string[] param = textBox1.Text.Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
-                UserId = param[param.Length - 1];
-                textBox1.Text = UserId;
-
-                //Запрос на получение id
-                string Request2 = "https://api.vk.com/method/utils.resolveScreenName?screen_name=" + UserId + "&" + access_token + "&v=5.124";
-                WebClient client2 = new WebClient();
-                string Answer2 = Encoding.UTF8.GetString(client2.DownloadData(Request2));
-
-                idGet ig = JsonConvert.DeserializeObject<idGet>(Answer2);
-
-                //Запрос на получение информации о стене
-                string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
-                WebClient client = new WebClient();
-                string Answer = Encoding.UTF8.GetString(client.DownloadData(Request));
-
-                Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
-                int Offset = 0;
-
-                Offset += wg.response.items.Count;
-
-                //Прогресс на прогрессбар*
-                int postCount = 0;
-                progressBar1.Minimum = 0;
-
-                if (comboBox1.Text == "Все")
+                for (int i = 0; i < textBox3.Lines.Length; i++)
                 {
-                    CountPost = wg.response.count;
-                }
-                else
-                {
-                    CountPost = Convert.ToInt32(comboBox1.Text);
-                }
+                    string[] param = textBox3.Text.Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
+                    UserId = param[param.Length - 1];
+                    textBox3.Lines[i] = UserId;
 
-                if (CountPost > wg.response.count)
-                {
-                    CountPost = wg.response.count;
-                    comboBox1.Text = wg.response.count.ToString();
-                }
+                    //Запрос на получение id
+                    string Request2 = "https://api.vk.com/method/utils.resolveScreenName?screen_name=" + UserId + "&" + access_token + "&v=5.124";
+                    WebClient client2 = new WebClient();
+                    string Answer2 = Encoding.UTF8.GetString(client2.DownloadData(Request2));
 
-                cPost = CountPost;
+                    idGet ig = JsonConvert.DeserializeObject<idGet>(Answer2);
 
-                while (Offset <= wg.response.count)
-                {
-                    //*1
-                    RandomNuber = Rnd.Next(200, 400);
+                    //Запрос на получение информации о стене
+                    string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
+                    WebClient client = new WebClient();
+                    string Answer = Encoding.UTF8.GetString(client.DownloadData(Request));
 
-                    //Повторный запрос на получение информации о стене 
-                    Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
-                    client = new WebClient();
-                    Answer = Encoding.UTF8.GetString(client.DownloadData(Request));
+                    Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
+                    int Offset = 0;
 
-                    wg = JsonConvert.DeserializeObject<Wallget>(Answer);
                     Offset += wg.response.items.Count;
 
-                    //*
-                    progressBar1.Maximum = cPost;
+                    //Прогресс на прогрессбар*
+                    int postCount = 0;
+                    progressBar1.Minimum = 0;
 
-                    //Массовый лайкинг
-                    foreach (Wallget.Item item in wg.response.items)
+                    if (comboBox1.Text == "Все")
                     {
+                        CountPost = wg.response.count;
+                    }
+                    else
+                    {
+                        CountPost = Convert.ToInt32(comboBox1.Text);
+                    }
 
-                        if (CountPost <= 0)
-                        {
-                            break;
-                        }
-                        //Cooldown
-                        for (int i = 0; i < 10; i++)
-                        {
-                            Application.DoEvents();
-                            Thread.Sleep(RandomNuber);
-                        }
+                    if (CountPost > wg.response.count)
+                    {
+                        CountPost = wg.response.count;
+                        comboBox1.Text = wg.response.count.ToString();
+                    }
 
-                        string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" + item.id + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
-                        WebClient client1 = new WebClient();
-                        string Answer1 = Encoding.UTF8.GetString(client1.DownloadData(Request1));
+                    cPost = CountPost;
 
-                        //Получение и отправка капчи
-                        if (Answer1.Contains("rror"))
-                        {
+                    while (Offset <= wg.response.count)
+                    {
+                        //*1
+                        RandomNuber = Rnd.Next(200, 400);
 
-                            if (Answer1.Contains("aptcha"))
+                        //Повторный запрос на получение информации о стене 
+                        Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
+                        client = new WebClient();
+                        Answer = Encoding.UTF8.GetString(client.DownloadData(Request));
+
+                        wg = JsonConvert.DeserializeObject<Wallget>(Answer);
+                        Offset += wg.response.items.Count;
+
+                        //*
+                        progressBar1.Maximum = cPost;
+
+                        //Массовый лайкинг
+                        foreach (Wallget.Item item in wg.response.items)
+                        { 
+                            if (CountPost <= 0)
                             {
-                                ButtonIsPressed = false;
+                                break;
+                            }
+                            //Cooldown
+                            for (int a = 0; a < 10; a++)
+                            {
+                                Application.DoEvents();
+                                Thread.Sleep(RandomNuber);
+                            }
 
-                                string Answer4 = "{ \"error\":{ \"error_code\":14,\"error_msg\":\"Captcha needed\",\"request_params\":[{ \"key\":\"type\",\"value\":\"post\"},{ \"key\":\"item_id\",\"value\":\"185\"},{ \"key\":\"owner_id\",\"value\":\"422303825\"},{ \"key\":\"v\",\"value\":\"5.124\"},{ \"key\":\"method\",\"value\":\"likes.add\"},{ \"key\":\"oauth\",\"value\":\"1\"}],\"captcha_sid\":\"337894471349\",\"captcha_img\":\"https://api.vk.com/captcha.php?sid=337894471349&s=1\"}}";
-                                CaptchaGet cg = JsonConvert.DeserializeObject<CaptchaGet>(Answer4);
-                                webBrowser1.Navigate(cg.error.captcha_img);
+                            string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" + item.id + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
+                            WebClient client1 = new WebClient();
+                            string Answer1 = Encoding.UTF8.GetString(client1.DownloadData(Request1));
 
-                                SavedIg = ig;
-                                SavedItem = item;
-                                SavedCg = cg;
+                            //Получение и отправка капчи
+                            if (Answer1.Contains("rror"))
+                            {
 
-                                while (ButtonIsPressed == false)
+                                if (Answer1.Contains("aptcha"))
                                 {
-                                    Application.DoEvents();
-                                    Thread.Sleep(10);
+                                    ButtonIsPressed = false;
+
+                                    string Answer4 = "{ \"error\":{ \"error_code\":14,\"error_msg\":\"Captcha needed\",\"request_params\":[{ \"key\":\"type\",\"value\":\"post\"},{ \"key\":\"item_id\",\"value\":\"185\"},{ \"key\":\"owner_id\",\"value\":\"422303825\"},{ \"key\":\"v\",\"value\":\"5.124\"},{ \"key\":\"method\",\"value\":\"likes.add\"},{ \"key\":\"oauth\",\"value\":\"1\"}],\"captcha_sid\":\"337894471349\",\"captcha_img\":\"https://api.vk.com/captcha.php?sid=337894471349&s=1\"}}";
+                                    CaptchaGet cg = JsonConvert.DeserializeObject<CaptchaGet>(Answer4);
+                                    webBrowser1.Navigate(cg.error.captcha_img);
+
+                                    SavedIg = ig;
+                                    SavedItem = item;
+                                    SavedCg = cg;
+
+                                    while (ButtonIsPressed == false)
+                                    {
+                                        Application.DoEvents();
+                                        Thread.Sleep(10);
+                                    }
+                                }
+                                else
+                                {
+                                    bugs++;
                                 }
                             }
                             else
                             {
-                                bugs++;
+                                likes++;
                             }
-                        }
-                        else
-                        {
-                            likes++;
-                        }
 
-                        label2.Text = bugs.ToString() + "/" + likes.ToString() + "/" + cPost;
+                            label2.Text = bugs.ToString() + "/" + likes.ToString();
 
-                        //*
-                        postCount = postCount + 1;
-                        progressBar1.Value = postCount;
-                        CountPost -= 1;
+                            //*
+                            postCount = postCount + 1;
+                            progressBar1.Value = postCount;
+                            CountPost -= 1;
+                        }
                     }
                 }
             }
@@ -210,6 +213,11 @@ namespace USER.BOT
         private void button3_Click(object sender, EventArgs e)
         {
             panel3.Visible = !panel3.Visible;
-        }   
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

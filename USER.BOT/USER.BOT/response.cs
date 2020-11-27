@@ -132,7 +132,7 @@ namespace USER.BOT
             public int count { get; set; }
             public List<Item> items { get; set; }
         }
-
+    }
     public class BanFriends
     {
         public List<ResponseBanFriends> response { get; set; }
@@ -245,5 +245,6 @@ namespace USER.BOT
             public List<Item> items { get; set; }
         }
     }
+
 
 }
