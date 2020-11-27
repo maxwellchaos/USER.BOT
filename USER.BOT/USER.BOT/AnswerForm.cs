@@ -59,7 +59,6 @@ namespace USER.BOT
 
                         labelOutput.Text = "Пожалуйста подождите...";
                         buttonInput.Enabled = false;
-                        this.Select();
 
                         foreach (CommentsGet.Item itemCG in csg.response.items)
                         {
@@ -130,6 +129,7 @@ namespace USER.BOT
                         cl = new WebClient();
                         Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
                         labelOutput.Text = "Сообщение отправлено";
+                        textBoxInput.Text = "";
                     }
                     else
                     {
@@ -148,7 +148,6 @@ namespace USER.BOT
 
                 labelOutput.Text = "Пожалуйста подождите...";
                 buttonInput.Enabled = false;
-                this.Select();
 
                 foreach (WallGet.Item itemWG in wg.response.items)
                 {
@@ -185,6 +184,7 @@ namespace USER.BOT
                     "нажав на соответствующее ID, и нажмите на кнопку" + "\r\n" + "для вывода";
                 stage = 2;
                 buttonInput.Enabled = true;
+                buttonInput.Text = "Вывод";
             }
         }
 
@@ -193,7 +193,7 @@ namespace USER.BOT
             if (listView1.SelectedItems.Count > 0)
             {
                 labelOutput.Text = "Выбрана запись с ID: " + listView1.SelectedItems[0].Text + "\r\n" +
-                    "Нажмите кнопку для поиска комментариев";
+                    "Нажмите кнопку для вывода комментариев";
                 postID = listView1.SelectedItems[0].Text;
 
                 progress = Convert.ToInt32(listView1.SelectedItems[0].SubItems[1].Text);
@@ -204,6 +204,9 @@ namespace USER.BOT
                 {
                     pictureBox1.ImageLocation = listView1.SelectedItems[0].SubItems[3].Text;
                 }
+
+                buttonInput.Text = "Вывод";
+                textBoxInput.Enabled = false;
             }
         }
 
@@ -215,7 +218,23 @@ namespace USER.BOT
                     "Введите текст ответа и нажмите кнопку для отправки";
                 commentID = listView2.SelectedItems[0].Text;
                 target = 2;
+
+                textBoxInput.Enabled = true;
             }
+        }
+
+        private void textBoxInput_TextChanged(object sender, EventArgs e)
+        {
+            buttonInput.Text = "Отправить";
+        }
+
+        private void listView1_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+        {
+            //listView1.Columns[e.ColumnIndex].Width = 100;
+        }
+
+        private void listView1_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
+        {
         }
     }
 }
