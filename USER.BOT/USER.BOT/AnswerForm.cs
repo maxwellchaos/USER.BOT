@@ -81,7 +81,7 @@ namespace USER.BOT
                             listView2.Items.Add(lvi2);
 
                             string id = itemCG.id.ToString();
-                            Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&comment_id=" +
+                            Request = "https://api.vk.com/method/wall.getComments?owner_id=" + user_id + "&post_id=" + itemWG.id + "&comment_id=" +
                                 id + "&" + access_token + "&v=5.124";
                             cl = new WebClient();
                             Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
@@ -137,6 +137,7 @@ namespace USER.BOT
                     }
                 }
             }
+
             if (stage == 0)
             {
                 stage = 1;
@@ -170,7 +171,7 @@ namespace USER.BOT
                         LVitem[0] = itemWG.id.ToString();
                         LVitem[1] = itemWG.comments.count.ToString();
                         LVitem[2] = itemWG.text;
-                        if (itemWG.attachments[0].photo.sizes[0].url != "")
+                        if (itemWG.attachments != null)
                         {
                             LVitem[3] = itemWG.attachments[0].photo.sizes[0].url;
                         }
@@ -203,6 +204,10 @@ namespace USER.BOT
                 if (listView1.SelectedItems[0].SubItems[3].Text != "")
                 {
                     pictureBox1.ImageLocation = listView1.SelectedItems[0].SubItems[3].Text;
+                }
+                else
+                {
+                    pictureBox1.Image = null;
                 }
 
                 buttonInput.Text = "Вывод";
