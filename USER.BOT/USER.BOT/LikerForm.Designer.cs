@@ -41,9 +41,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -52,7 +52,6 @@
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.Color.Blue;
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressBar1.Location = new System.Drawing.Point(0, 422);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(820, 28);
@@ -96,7 +95,7 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(579, 196);
+            this.label3.Size = new System.Drawing.Size(579, 224);
             this.label3.TabIndex = 10;
             this.label3.Text = resources.GetString("label3.Text");
             // 
@@ -116,10 +115,12 @@
             this.textBox2.Size = new System.Drawing.Size(217, 20);
             this.textBox2.TabIndex = 13;
             this.textBox2.Text = "Введите капчу если потребуется";
+            this.textBox2.Click += new System.EventHandler(this.textBox2_Click);
             this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
             // 
             // button2
             // 
+            this.button2.Enabled = false;
             this.button2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.Location = new System.Drawing.Point(3, 388);
             this.button2.Name = "button2";
@@ -132,6 +133,8 @@
             // comboBox1
             // 
             this.comboBox1.AllowDrop = true;
+            this.comboBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.comboBox1.DisplayMember = " ";
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
@@ -182,8 +185,21 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(228, 422);
+            this.panel1.Size = new System.Drawing.Size(228, 450);
             this.panel1.TabIndex = 20;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox3.Location = new System.Drawing.Point(3, 42);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox3.Size = new System.Drawing.Size(217, 87);
+            this.textBox3.TabIndex = 23;
+            this.textBox3.Text = "Введите ссылку или id\r\nВы можете ввести несколько cсылок или id, но каждая ссылка" +
+    " или id должны быть с новой строчки";
+            this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
             // 
             // panel2
             // 
@@ -203,18 +219,6 @@
             this.panel3.TabIndex = 22;
             this.panel3.Visible = false;
             // 
-            // textBox3
-            // 
-            this.textBox3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox3.Location = new System.Drawing.Point(3, 42);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(217, 87);
-            this.textBox3.TabIndex = 23;
-            this.textBox3.Text = "Введите ссылку или id\r\nВы можете ввести несколько cсылок или id, но каждая ссылка" +
-    " или id должны быть с новой строчки\r\n ";
-            // 
             // LikerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -223,10 +227,10 @@
             this.ClientSize = new System.Drawing.Size(820, 450);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.panel1);
             this.Name = "LikerForm";
             this.Text = "LikerForm";
             this.panel1.ResumeLayout(false);
