@@ -173,7 +173,13 @@ namespace USER.BOT
                         LVitem[2] = itemWG.text;
                         if (itemWG.attachments != null)
                         {
-                            LVitem[3] = itemWG.attachments[0].photo.sizes[0].url;
+                            foreach (WallGet.Attachment attachmentsWG in itemWG.attachments)
+                            {
+                                if (attachmentsWG.type == "photo")
+                                {
+                                    LVitem[3] = itemWG.attachments[0].photo.sizes[0].url;
+                                }
+                            }
                         }
 
                         ListViewItem lvi = new ListViewItem(LVitem);
