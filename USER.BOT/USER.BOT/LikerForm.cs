@@ -25,12 +25,14 @@ namespace USER.BOT
         CaptchaGet SavedCg;
 
         bool ButtonIsPressed = true;
+        bool buttonIsPressedClean = true;
 
         int bugs = 0;
         int likes = 0;
         int RandomNuber;
         int CountPost = 0;
         int cPost;
+        int AllPostCount = 0;
 
         public LikerForm()
         {
@@ -39,18 +41,32 @@ namespace USER.BOT
             comboBox1.SelectedIndex = 0;
         }
 
+        public string GetAnswer(string Request, string AccesToken)
+        {
+            string ReqForAns = Request + access_token + "&v=5.124";
+            WebClient client = new WebClient();
+            string Answer = Encoding.UTF8.GetString(client.DownloadData(ReqForAns));
+            return Answer;
+        }
+
         private void Button1_Click(object sender, EventArgs e)
-        { 
+        {
+            buttonIsPressedClean = true;
+            
             likes = 0;
+
+            AllPostCount = textBox3.Lines.Length * Convert.ToInt32(comboBox1.Text);
+
+            progressBar1.Maximum = AllPostCount;
+
+            label2.Text = "0/0/0";
 
             //Создание рандома *1
             Random Rnd = new Random();
 
             //Выделение id
             for (int i = 0; i < textBox3.Lines.Length; i++)
-            {                
-                progressBar1.Maximum = 0;
-
+            { 
                 if (textBox3.Text.Contains("/"))
                 {
                     string[] param = textBox3.Lines[i].Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
@@ -58,9 +74,8 @@ namespace USER.BOT
                     textBox3.Lines[i] = UserId;
 
                     //Запрос на получение id
-                    string Request2 = "https://api.vk.com/method/utils.resolveScreenName?screen_name=" + UserId + "&" + access_token + "&v=5.124";
-                    WebClient client2 = new WebClient();
-                    string Answer2 = Encoding.UTF8.GetString(client2.DownloadData(Request2));
+                    string Request2 = "https://api.vk.com/method/utils.resolveScreenName?screen_name=" + UserId + "&";
+                    string Answer2 = GetAnswer(Request2, access_token);
 
                     if (Answer2 == "{\"response\":[]}")
                     {
@@ -71,9 +86,8 @@ namespace USER.BOT
                         idGet ig = JsonConvert.DeserializeObject<idGet>(Answer2);
 
                         //Запрос на получение информации о стене
-                        string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
-                        WebClient client = new WebClient();
-                        string Answer = Encoding.UTF8.GetString(client.DownloadData(Request));
+                        string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&";
+                        string Answer = GetAnswer(Request, access_token);
 
                         Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
                         int Offset = 0;
@@ -107,9 +121,8 @@ namespace USER.BOT
                             RandomNuber = Rnd.Next(200, 400);
 
                             //Повторный запрос на получение информации о стене 
-                            Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
-                            client = new WebClient();
-                            Answer = Encoding.UTF8.GetString(client.DownloadData(Request));
+                            Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" + ig.response.object_id + "&";
+                            Answer = GetAnswer(Request, access_token);
 
                             wg = JsonConvert.DeserializeObject<Wallget>(Answer);
                             Offset += wg.response.items.Count;
@@ -131,9 +144,8 @@ namespace USER.BOT
                                     Thread.Sleep(RandomNuber);
                                 }
 
-                                string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" + item.id + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
-                                WebClient client1 = new WebClient();
-                                string Answer1 = Encoding.UTF8.GetString(client1.DownloadData(Request1));
+                                string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" + item.id + "&owner_id=" + ig.response.object_id + "&";
+                                string Answer1 = GetAnswer(Request1, access_token);
 
                                 //Получение и отправка капчи
                                 if (Answer1.Contains("rror"))
@@ -169,7 +181,7 @@ namespace USER.BOT
                                     likes++;
                                 }
 
-                                label2.Text = bugs.ToString() + "/" + likes.ToString();
+                                label2.Text = bugs.ToString() + "/" + likes.ToString() + "/" + AllPostCount.ToString();
 
                                 //*
                                 postCount = postCount + 1;
@@ -197,9 +209,8 @@ namespace USER.BOT
             else
             {
                 //Отправка капчи
-                string Request5 = "https://api.vk.com/method/likes.add?type=post&item_id=" + SavedItem.id + "&captcha_sid=" + SavedCg.error.captcha_sid + "&captcha_key=" + textBox2.Text + "&owner_id=" + SavedIg.response.object_id + "&" + access_token + "&v=5.124";
-                WebClient client5 = new WebClient();
-                string Answer5 = Encoding.UTF8.GetString(client5.DownloadData(Request5));
+                string Request5 = "https://api.vk.com/method/likes.add?type=post&item_id=" + SavedItem.id + "&captcha_sid=" + SavedCg.error.captcha_sid + "&captcha_key=" + textBox2.Text + "&owner_id=" + SavedIg.response.object_id + "&";
+                string Answer5 = GetAnswer(Request5, access_token);
                 textBox2.Text = "";
             }
         }
@@ -219,7 +230,13 @@ namespace USER.BOT
 
         private void textBox3_Click(object sender, EventArgs e)
         {
-            textBox3.Text = "";
+            while (buttonIsPressedClean == true)
+            {
+                textBox3.Text = "";
+                break;
+            }
+
+            buttonIsPressedClean = false;
         }
 
         private void textBox2_Click(object sender, EventArgs e)

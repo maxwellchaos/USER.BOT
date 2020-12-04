@@ -72,11 +72,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(225, 430);
+            this.label1.Location = new System.Drawing.Point(200, 430);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(210, 13);
+            this.label1.Size = new System.Drawing.Size(282, 13);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Количестов ошибок/постов пролайкано\r\n";
+            this.label1.Text = "Количестов ошибок/постов пролайкано/всего постов\r\n";
             // 
             // label2
             // 
@@ -84,9 +84,9 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Location = new System.Drawing.Point(519, 430);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 13);
+            this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 9;
-            this.label2.Text = "0/0";
+            this.label2.Text = "0/0/0";
             // 
             // label3
             // 
