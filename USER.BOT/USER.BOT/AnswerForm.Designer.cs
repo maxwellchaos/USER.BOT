@@ -67,8 +67,6 @@
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.listView1_ColumnWidthChanged);
-            this.listView1.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listView1_ColumnWidthChanging);
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // ID1
@@ -79,7 +77,7 @@
             // Comments
             // 
             this.Comments.Text = "Комментарии";
-            this.Comments.Width = 87;
+            this.Comments.Width = 85;
             // 
             // Text1
             // 
@@ -121,6 +119,8 @@
             this.FirstName,
             this.LastName,
             this.Text2});
+            this.listView2.FullRowSelect = true;
+            this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView2.HideSelection = false;
             this.listView2.LargeImageList = this.imageList1;
             this.listView2.Location = new System.Drawing.Point(12, 168);
