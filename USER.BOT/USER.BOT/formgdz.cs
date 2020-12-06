@@ -18,8 +18,8 @@ namespace USER.BOT
         string GroupAccess_token = "access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3";
         int i = -1;
 
-        string[] Objects = new string[21];
-        string[] clas = new string[11];
+        string[] Objects = new string[22];
+        string[] clas = new string[13];
 
 
         public formgdz()
@@ -69,9 +69,14 @@ namespace USER.BOT
             Objects[19] = "Астрономия";
             Objects[20] = "Алгебра";
             Objects[21] = "геометрия";
-            clas[0] = "ничего";
-            clas[1] = "1 класс";
-            clas[2] = "2 класс";
+           
+           clas[0] = " детский сад ";
+            clas[12] = " АД ";
+            for(int i = 1;i < 12; i=i +1)
+            {
+                clas[i] = i.ToString() + " класс ";
+            }
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -143,18 +148,13 @@ namespace USER.BOT
                 //    reqeuest2 = "https://api.vk.com/method/messages.send?attachment=doc-199265164_571585875&message=держии ответ&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
                 //    string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
                 //}
-                if (item.last_message.text == "старт")
+                if (item.last_message.text.ToLower() == "старт")
                 {
                     reqeuest2 = "https://api.vk.com/method/messages.send?message=Я знаю зачем ты пришёл, я всё устрою ты главное следуй инструкциям которые я тебе дам пример:00(предмет)_00(класс)_00(автор)_0000(упражнение)&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
                     random_id = rnd.Next();
                     string answer3 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
                 }
-                if (item.last_message.text == "Старт")
-                {
-                    reqeuest2 = "https://api.vk.com/method/messages.send?message=Я знаю зачем ты пришёл, я всё устрою ты главное следуй инструкциям которые я тебе дам пример: 00(предмет)_00(класс)_00(автор)_0000(упражнение)&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
-                    random_id = rnd.Next();
-                    string answer8 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
-                }
+                
                 //if (item.last_message.text != "1" && item.last_message.text != "2" && item.last_message.text != "старт" && item.last_message.text != "Старт")
                 //{
                 //    random_id = rnd.Next();
@@ -177,6 +177,8 @@ namespace USER.BOT
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+            string LastUserMessageText = "";
+            string LastBotMessageText = "";
             Random rnd = new Random();
             int random_id = rnd.Next();
             string reqeuest2 = "https://api.vk.com/method/messages.getConversations?access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
@@ -184,24 +186,33 @@ namespace USER.BOT
             string answer2 = Encoding.UTF8.GetString(cl.DownloadData(reqeuest2));
             messagesgetConversations mg = JsonConvert.DeserializeObject<messagesgetConversations>(answer2);
             string messegeid = mg.response.items[0].last_message.id.ToString();
-            for (int i = 0; i < 5; i = i + 1)
+            for (int i = 0; i < 50; i = i + 1)
             {
                 messegeid = messegeid + "," + (mg.response.items[0].last_message.id - 1 - i).ToString();
             }
             reqeuest2 = "https://api.vk.com/method/messages.getById?message_ids=" + messegeid.ToString() + "&group_id=199265164&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
             answer2 = Encoding.UTF8.GetString(cl.DownloadData(reqeuest2));
             messagesgetById mgbi = JsonConvert.DeserializeObject<messagesgetById>(answer2);
-            for (int i = 3; i >= 0; i = i - 1)
+             
+            for (int i = mgbi.response.items.Count-1; i >= 0; i = i - 1)
             {
+                
                 if (mgbi.response.items[i].from_id.ToString() == "380583406")
                 {
-                    label3.Text = (mgbi.response.items[i].text);
+                    LastUserMessageText = (mgbi.response.items[i].text);
                 }
                 else
                 {
-                    label4.Text = (mgbi.response.items[i].text);
+                    LastBotMessageText  = (mgbi.response.items[i].text);
                 }
+
             }
+            label3.Text  = LastUserMessageText;
+            label4.Text = LastBotMessageText;
+
+
+          //  string code = LastBotMessageText;
+
 
             reqeuest2 = "https://api.vk.com/method/messages.getConversations?filter=unanswered&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
             WebClient wc2 = new WebClient();
@@ -209,40 +220,58 @@ namespace USER.BOT
             messagesgetConversations mgc1 = JsonConvert.DeserializeObject<messagesgetConversations>(answer4);
             foreach (messagesgetConversations.Item item in mgc1.response.items)
             {
+                WebClient wc = new WebClient();
+                if (item.last_message.text.ToLower() == "старт")
+                {
+                    reqeuest2 = "https://api.vk.com/method/messages.send?message=Я знаю зачем ты пришёл, я всё устрою ты главное следуй инструкциям которые я тебе дам пример:00(предмет)_00(класс)_00(автор)_0000(упражнение)&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                    random_id = rnd.Next();
+                    string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
+                }
                 string[] separator = new string[2];
                 separator[0] = "_";
                 separator[1] = "_";
                 string[] param = item.last_message.text.Split(separator, StringSplitOptions.None);
 
 
-                WebClient wc = new WebClient();
+                
                 
                 // messagesSend ms = JsonConvert.DeserializeObject<messagesSend>(answer3);
 
-                if (label3.Text.Length == 1 || label3.Text.Length == 2)
+                if (LastUserMessageText.Length == 1 || LastUserMessageText.Length == 2)
                 {
-                    int ObjectId = int.Parse(label3.Text);
-
+                    int ObjectId = int.Parse(LastUserMessageText);
                     string temp = "вы выбрали " + Objects[ObjectId] + " код:"+ObjectId.ToString();
 
-                    if (item.last_message.text == ObjectId.ToString())
+                    if (LastBotMessageText.Contains("код"))
                     {
+
+                        int classid = int.Parse(LastUserMessageText);
+                        string temp2 = "вы выбрали " + clas[classid] + "код:" + classid.ToString();
                         random_id = rnd.Next();
-                        reqeuest2 = "https://api.vk.com/method/messages.send?message="+temp+".&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                      
+                        reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp2+"2222222222" + "&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
                         string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
-                    
+                        
+                        
+                   
                     }
-                    if(label4.Text.Contains("код"))
+                    else
                     {
                         random_id = rnd.Next();
-                        reqeuest2 = "https://api.vk.com/method/messages.send?message=выберете свой класс впишите цифру от 1 до 11 в зависимости от класса&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
-                        string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
+                        reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp + "111111111выберете свой класс от 1 до 11.&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                     string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
+
                     }
 
                 }
 
                 }
             }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
+    }
     }
     

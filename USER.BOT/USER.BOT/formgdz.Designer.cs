@@ -68,6 +68,7 @@
             this.label3.Size = new System.Drawing.Size(51, 20);
             this.label3.TabIndex = 2;
             this.label3.Text = "label3";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -81,6 +82,7 @@
             // timer2
             // 
             this.timer2.Enabled = true;
+            this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // formgdz
