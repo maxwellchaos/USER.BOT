@@ -106,5 +106,29 @@ namespace USER.BOT.Properties {
                 this["Pstart"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ChatBot {
+            get {
+                return ((bool)(this["ChatBot"]));
+            }
+            set {
+                this["ChatBot"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TokenChatBot {
+            get {
+                return ((string)(this["TokenChatBot"]));
+            }
+            set {
+                this["TokenChatBot"] = value;
+            }
+        }
     }
 }
