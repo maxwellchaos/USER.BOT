@@ -135,7 +135,7 @@
             // ID2
             // 
             this.ID2.Text = "ID";
-            this.ID2.Width = 37;
+            this.ID2.Width = 46;
             // 
             // parentID
             // 

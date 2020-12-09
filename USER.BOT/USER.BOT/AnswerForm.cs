@@ -67,6 +67,8 @@ namespace USER.BOT
 
             labelOutput.Text = "Пожалуйста подождите...";
             buttonInput.Enabled = false;
+            listView1.Enabled = false;
+            listView2.Enabled = false;
 
             foreach (WallGet.Item itemWG in wg.response.items)
             {
@@ -109,6 +111,8 @@ namespace USER.BOT
             labelOutput.Text = "Выберите запись, комментарии к которой хотите увидеть, " + "\r\n" +
                 "нажав на соответствующее ID, и нажмите на кнопку" + "\r\n" + "для вывода";
             buttonInput.Text = "Вывод";
+            listView1.Enabled = true;
+            listView2.Enabled = true;
         }
 
         private void WorkWithComments()
@@ -132,13 +136,15 @@ namespace USER.BOT
             {
                 WallGet.Item itemWG = new WallGet.Item();
                 itemWG.id = Convert.ToInt16(postID);
-                Request = "https://api.vk.com/method/wall.getComments?owner_id=327011638&post_id=" + itemWG.id + "&";
+                Request = "https://api.vk.com/method/wall.getComments?owner_id=" + user_id + "&post_id=" + itemWG.id + "&";
                 Answer = GetAnswer(Request, access_token);
                 CommentsGet csg = JsonConvert.DeserializeObject<CommentsGet>(Answer);
                 listView2.Items.Clear();
 
                 labelOutput.Text = "Пожалуйста подождите...";
                 buttonInput.Enabled = false;
+                listView1.Enabled = false;
+                listView2.Enabled = false;
 
                 foreach (CommentsGet.Item itemCG in csg.response.items)
                 {
@@ -164,7 +170,7 @@ namespace USER.BOT
                     Answer = GetAnswer(Request, access_token);
                     CommentsGet2 csg2 = JsonConvert.DeserializeObject<CommentsGet2>(Answer);
 
-                    Thread.Sleep(500);
+                    Thread.Sleep(600);
 
                     progressBar1.Value--;
 
@@ -185,7 +191,7 @@ namespace USER.BOT
                         lvi2 = new ListViewItem(LVitem2);
                         listView2.Items.Add(lvi2);
 
-                        Thread.Sleep(500);
+                        Thread.Sleep(600);
 
                         progressBar1.Value--;
                     }
@@ -194,26 +200,27 @@ namespace USER.BOT
             labelOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "\r\n" +
                 "Для этого нажмите на ID соответствующего комментария" + "\r\n" + "Либо выберите другую запись";
             buttonInput.Enabled = true;
+            listView1.Enabled  = true;
+            listView2.Enabled = true;
         }
 
         private void AnswerToComment()
         {
             if (textBoxInput.Text != "")
             {
-                Request = "https://api.vk.com/method/wall.createComment?owner_id=327011638&post_id=" + postID + "&message=" +
+                Request = "https://api.vk.com/method/wall.createComment?owner_id=" + user_id + "&post_id=" + postID + "&message=" +
                     textBoxInput.Text + "&reply_to_comment=" + commentID + "&";
                 Answer = GetAnswer(Request, access_token);
                 labelOutput.Text = "Комментарий отправлен";
                 textBoxInput.Text = "";
-                target = 0;
-                stage = 0;
                 progress = 0;
-                labelOutput.Text = "Нажмите на кнопку для вывода всех записей с вашей страницы";
-                textBoxInput.Enabled = false;
-                listView1.Items.Clear();
-                listView2.Items.Clear();
-                buttonInput.Text = "Поиск";
-                pictureBox1.Image = null;
+                foreach (ListViewItem lvi in listView1.Items)
+                {
+                    if (lvi.SubItems[0].Text == postID)
+                    {
+                        lvi.SubItems[1].Text = Convert.ToString(Convert.ToInt32(lvi.SubItems[1].Text) + 1);
+                    }
+                }
             }
             else
             {
