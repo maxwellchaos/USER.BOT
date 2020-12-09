@@ -203,12 +203,21 @@ namespace USER.BOT
                 Request = "https://api.vk.com/method/wall.createComment?owner_id=327011638&post_id=" + postID + "&message=" +
                     textBoxInput.Text + "&reply_to_comment=" + commentID + "&";
                 Answer = GetAnswer(Request, access_token);
-                labelOutput.Text = "Сообщение отправлено";
+                labelOutput.Text = "Комментарий отправлен";
                 textBoxInput.Text = "";
+                target = 0;
+                stage = 0;
+                progress = 0;
+                labelOutput.Text = "Нажмите на кнопку для вывода всех записей с вашей страницы";
+                textBoxInput.Enabled = false;
+                listView1.Items.Clear();
+                listView2.Items.Clear();
+                buttonInput.Text = "Поиск";
+                pictureBox1.Image = null;
             }
             else
             {
-                labelOutput.Text = "Введите сообщение";
+                labelOutput.Text = "Введите ответ на комментарий";
             }
         }
 
