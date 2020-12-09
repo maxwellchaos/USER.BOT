@@ -26,6 +26,7 @@ namespace USER.BOT
 
         bool ButtonIsPressed = true;
         bool buttonIsPressedClean = true;
+        bool likeTimerBool = true;
 
         int bugs = 0;
         int likes = 0;
@@ -33,6 +34,7 @@ namespace USER.BOT
         int CountPost = 0;
         int cPost;
         int AllPostCount = 0;
+        int LikeTimer = 0;
 
         public LikerForm()
         {
@@ -55,11 +57,9 @@ namespace USER.BOT
             
             likes = 0;
 
-            AllPostCount = textBox3.Lines.Length * Convert.ToInt32(comboBox1.Text);
-
             progressBar1.Maximum = AllPostCount;
 
-            label2.Text = "0/0/0";
+            label2.Text = "0/0";
 
             //Создание рандома *1
             Random Rnd = new Random();
@@ -133,6 +133,18 @@ namespace USER.BOT
                             //Массовый лайкинг
                             foreach (Wallget.Item item in wg.response.items)
                             {
+                                if (likeTimerBool == true)
+                                {
+                                    LikeTimer = CountPost * 4 * textBox3.Lines.Length;
+                                    label6.Text = LikeTimer.ToString() + " секунд";
+                                    likeTimerBool = false;
+                                }
+                                else
+                                {
+                                    label6.Text = LikeTimer.ToString() + " секунд";
+                                }
+
+
                                 if (CountPost <= 0)
                                 {
                                     break;
@@ -179,9 +191,10 @@ namespace USER.BOT
                                 else
                                 {
                                     likes++;
+                                    LikeTimer -= 4;
                                 }
 
-                                label2.Text = bugs.ToString() + "/" + likes.ToString() + "/" + AllPostCount.ToString();
+                                label2.Text = bugs.ToString() + "/" + likes.ToString();
 
                                 //*
                                 postCount = postCount + 1;
@@ -195,7 +208,11 @@ namespace USER.BOT
                 {
                     break;
                 }
-            }            
+            }
+
+            label6.Text = "Все посты пролайканы";
+            likeTimerBool = true;
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
