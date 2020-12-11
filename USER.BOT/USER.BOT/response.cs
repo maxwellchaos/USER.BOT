@@ -126,7 +126,12 @@ namespace USER.BOT
             public Views views { get; set; }
             public bool is_favorite { get; set; }
         }
-
+        public class Response
+        {
+            public int count { get; set; }
+            public List<Item> items { get; set; }
+        }
+    }
     public class MessagesGet
     {
         public List<Response> response { get; set; }
@@ -312,5 +317,4 @@ namespace USER.BOT
             public List<Item> items { get; set; }
         }
     }
-
 }
