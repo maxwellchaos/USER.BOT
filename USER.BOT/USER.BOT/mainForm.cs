@@ -117,6 +117,7 @@ namespace USER.BOT
 
         private void Ban_friends_Click(object sender, EventArgs e)
         {
+            BanName = "";
             co = 0;
             co1 = 0;
             progressBar1.Value = 0;
@@ -276,6 +277,7 @@ namespace USER.BOT
                             string SendMessages = "https://api.vk.com/method/messages.send?message=Выбери бизнес: \r\n" +
                                 "Торговая точка на рынке: цена 1 000₽; доход 5000₽ в день\r\n" +
                                 "Магазин выпечки: цена 50 000₽; доход 10000₽ в день\r\n" +
+                                "" +
                                 "Напиши купить и название бизнеса с изменением падежа" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                             string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
                         }
@@ -309,7 +311,6 @@ namespace USER.BOT
                                 }
                             }
                         }
-                        //else if ((last.last_message.text == "Купить магазин выпечки" || last.last_message.text == "купить магазин выпечки") && balance >= 1000)
                         else if (( last.last_message.text.ToLower() == "купить магазин выпечки") && balance >= 1000)
                         {
                             string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date1" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
