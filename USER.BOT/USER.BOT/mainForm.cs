@@ -117,6 +117,9 @@ namespace USER.BOT
 
         private void Ban_friends_Click(object sender, EventArgs e)
         {
+            co = 0;
+            co1 = 0;
+            progressBar1.Value = 0;
             bool check = false;
             progressBar1.Visible = true;
             label1.Visible = true;
@@ -131,7 +134,6 @@ namespace USER.BOT
                 string[] LvItem = new string[2];
                 LvItem[0] = item.last_name + item.first_name;
                 LvItem[1] = item.id.ToString();
-                co1++;
                 ListViewItem lvi = new ListViewItem(LvItem);
                 listView1.Items.Add(lvi);
                 string BanFriendsId = "https://api.vk.com/method/users.get?user_ids=" + item.id + "&fields=deactivated" + "&" + access_token + "&v=5.124";
@@ -139,12 +141,10 @@ namespace USER.BOT
                 string AnswerBanFriends = Encoding.UTF8.GetString(cl.DownloadData(BanFriendsId));
                 BanFriends rtf1 = JsonConvert.DeserializeObject<BanFriends>(AnswerBanFriends);
 
-                for (int i = 0; i < rtf.response.count; i = i + 1)
-                {
-                    Application.DoEvents();
-                    Thread.Sleep(100);
-                    co1++;
-                }
+                co1++;
+
+                Application.DoEvents();
+                Thread.Sleep(300);
                 foreach (BanFriends.ResponseBanFriends item1 in rtf1.response)
                 {
                     if (item1.deactivated == "deleted" || item1.deactivated == "banned")
@@ -155,14 +155,14 @@ namespace USER.BOT
                         BanName = BanName + item1.last_name + " " + item1.first_name + "; ";
                     }
                 }
-                if (BanName != null && check == false)
+                if (BanName != null && check == false && co1 == co)
                 {
                     MessageBox.Show("Эти друзья удаленны из списка друзей: " + BanName, "Внимание!", MessageBoxButtons.OK);
                     label1.Visible = false;
                     progressBar1.Visible = false;
                     check = true;
                 }
-                else if (BanName == null && check == false)
+                else if (BanName == null && check == false && co1 == co)
                 {
                     MessageBox.Show("У тебя нет удалённых друзей.", "Внимание!", MessageBoxButtons.OK);
                     label1.Visible = false;
@@ -178,11 +178,11 @@ namespace USER.BOT
             {
                 progressBar1.Value = co1;
             }
-            int b = co1 * 100 / 1000;
-            int a = co * 100 / 1000;
+            int b = co1 * 300 / 1000;
+            int a = co * 300 / 1000;
             int ab = a - b;
             int ab1 = ab / 60;
-            label1.Text = "Проверяю наличия удалённых друзей. Осталось примерно \r\n" + ab1.ToString() + " мин или " + ab.ToString() + " сек";
+            label1.Text = "Проверяю наличия удалённых друзей.\r\n Осталось примерно " + ab1.ToString() + " мин или " + ab.ToString() + " сек";
         }
 
         private void Timer2_Tick(object sender, EventArgs e)
@@ -210,6 +210,9 @@ namespace USER.BOT
 
                 foreach (MessagesNew.Item last in rtf5.response.items)
                 {
+                    string SendMessages8 = "https://api.vk.com/method/storage.set?key=balance&value=10000&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                    string AnswerSendMessages8 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages8));
+
                     string SendMessages5 = "https://api.vk.com/method/storage.get?keys=balance&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                     string AnswerSendMessages5 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages5));
                     MessagesGet rtf2 = JsonConvert.DeserializeObject<MessagesGet>(AnswerSendMessages5);
@@ -304,7 +307,6 @@ namespace USER.BOT
                                     string SendMessages = "https://api.vk.com/method/messages.send?message=Ты уже купил торговую точку, оставь другим!" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
                                 }
-
                             }
                         }
                         //else if ((last.last_message.text == "Купить магазин выпечки" || last.last_message.text == "купить магазин выпечки") && balance >= 1000)
@@ -362,7 +364,7 @@ namespace USER.BOT
                                     string SendMessages = "https://api.vk.com/method/messages.send?message=Ваш доход от торговой точки: 5000₽. Баланс: " + balance + "₽&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
 
-                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date&value=" + datenow11 + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string SendMessages1 = "https://api.vk.com/method/storage.get?key=last_date&value=" + datenow11 + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
                                 }
                                 else
