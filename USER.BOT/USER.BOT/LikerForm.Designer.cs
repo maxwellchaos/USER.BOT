@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LikerForm));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.button1 = new System.Windows.Forms.Button();
@@ -46,6 +47,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.timerLike = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -74,9 +76,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(131, 430);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(210, 13);
+            this.label1.Size = new System.Drawing.Size(211, 14);
             this.label1.TabIndex = 8;
             this.label1.Text = "Количестов ошибок/постов пролайкано\r\n";
             // 
@@ -84,9 +87,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(410, 430);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 13);
+            this.label2.Size = new System.Drawing.Size(22, 14);
             this.label2.TabIndex = 9;
             this.label2.Text = "0/0";
             // 
@@ -97,7 +101,7 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(579, 224);
+            this.label3.Size = new System.Drawing.Size(579, 210);
             this.label3.TabIndex = 10;
             this.label3.Text = resources.GetString("label3.Text");
             // 
@@ -224,20 +228,26 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.Location = new System.Drawing.Point(512, 430);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(159, 13);
+            this.label5.Size = new System.Drawing.Size(160, 14);
             this.label5.TabIndex = 23;
             this.label5.Text = "Примерно осталось времени:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label6.Location = new System.Drawing.Point(679, 430);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.Size = new System.Drawing.Size(51, 14);
             this.label6.TabIndex = 24;
             this.label6.Text = "0 секунд";
+            // 
+            // timerLike
+            // 
+            this.timerLike.Tick += new System.EventHandler(this.timerLike_Tick);
             // 
             // LikerForm
             // 
@@ -284,5 +294,6 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Timer timerLike;
     }
 }
