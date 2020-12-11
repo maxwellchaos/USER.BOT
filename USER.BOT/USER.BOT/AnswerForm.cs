@@ -80,6 +80,7 @@ namespace USER.BOT
 
             progressBar1.Maximum = progress;
             progressBar1.Value = progressBar1.Maximum;
+            label4.Text = "Осталось: " + progressBar1.Value.ToString();
 
             foreach (WallGet.Item itemWG in wg.response.items)
             {
@@ -103,12 +104,14 @@ namespace USER.BOT
                     ListViewItem lvi = new ListViewItem(LVitem);
                     listView1.Items.Add(lvi);
                     progressBar1.Value--;
+                    label4.Text = "Осталось: " + progressBar1.Value.ToString();
                 }
                 Application.DoEvents();
                 Thread.Sleep(500);
             }
 
-            labelOutput.Text = "Выберите запись, комментарии к которой хотите увидеть, " + "\r\n" +
+            labelOutput.Text = "Найдено "+ progress + " записи с комментариями" + "\r\n" +
+                "Выберите запись, комментарии к которой хотите увидеть, " + "\r\n" +
                 "нажав на соответствующее ID, и нажмите на кнопку" + "\r\n" + "для вывода";
             buttonInput.Text = "Вывод";
             listView1.Enabled = true;
@@ -131,6 +134,7 @@ namespace USER.BOT
         {
             progressBar1.Maximum = progress;
             progressBar1.Value = progressBar1.Maximum;
+            label4.Text = "Осталось: " + progressBar1.Value.ToString();
 
             if (labelOutput.Text != "")
             {
@@ -173,6 +177,7 @@ namespace USER.BOT
                     Thread.Sleep(600);
 
                     progressBar1.Value--;
+                    label4.Text = "Осталось: " + progressBar1.Value.ToString();
 
                     foreach (CommentsGet2.Item itemCsG2 in csg2.response.items)
                     {
@@ -194,6 +199,7 @@ namespace USER.BOT
                         Thread.Sleep(600);
 
                         progressBar1.Value--;
+                        label4.Text = "Осталось: " + progressBar1.Value.ToString();
                     }
                 }
             }
@@ -262,7 +268,7 @@ namespace USER.BOT
             {
                 labelOutput.Text = "Выбран комментарий с ID: " + listView2.SelectedItems[0].Text + "\r\n" + 
                     "Введите текст ответа и нажмите кнопку для отправки";
-                commentID = listView2.SelectedItems[0].Text;
+                //commentID = listView2.SelectedItems[0].Text;
                 target = 2;
 
                 textBoxInput.Enabled = true;
@@ -272,6 +278,21 @@ namespace USER.BOT
         private void textBoxInput_TextChanged(object sender, EventArgs e)
         {
             buttonInput.Text = "Отправить";
+        }
+
+        private void listView1_Enter(object sender, EventArgs e)
+        {
+            listView1_SelectedIndexChanged(sender, e);
+        }
+
+        private void listView2_Enter(object sender, EventArgs e)
+        {
+            listView2_SelectedIndexChanged(sender, e);
+        }
+
+        private void listView2_ItemActivate(object sender, EventArgs e)
+        {
+            commentID = listView2.SelectedItems[0].Text;
         }
     }
 }

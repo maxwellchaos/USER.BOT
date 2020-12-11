@@ -45,12 +45,16 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelOutput = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // listView1
             // 
-            this.listView1.BackColor = System.Drawing.SystemColors.Window;
+            this.listView1.BackColor = System.Drawing.SystemColors.Control;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ID1,
             this.Comments,
@@ -59,7 +63,7 @@
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView1.HideSelection = false;
             this.listView1.LargeImageList = this.imageList1;
-            this.listView1.Location = new System.Drawing.Point(12, 12);
+            this.listView1.Location = new System.Drawing.Point(12, 32);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(620, 150);
@@ -68,6 +72,7 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listView1.Enter += new System.EventHandler(this.listView1_Enter);
             // 
             // ID1
             // 
@@ -92,27 +97,30 @@
             // 
             // textBoxInput
             // 
+            this.textBoxInput.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxInput.Enabled = false;
-            this.textBoxInput.Location = new System.Drawing.Point(397, 343);
+            this.textBoxInput.Location = new System.Drawing.Point(397, 383);
             this.textBoxInput.Multiline = true;
             this.textBoxInput.Name = "textBoxInput";
-            this.textBoxInput.Size = new System.Drawing.Size(391, 27);
+            this.textBoxInput.Size = new System.Drawing.Size(267, 27);
             this.textBoxInput.TabIndex = 2;
             this.textBoxInput.TextChanged += new System.EventHandler(this.textBoxInput_TextChanged);
             // 
             // buttonInput
             // 
-            this.buttonInput.Location = new System.Drawing.Point(397, 376);
+            this.buttonInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonInput.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonInput.Location = new System.Drawing.Point(397, 416);
             this.buttonInput.Name = "buttonInput";
             this.buttonInput.Size = new System.Drawing.Size(123, 23);
             this.buttonInput.TabIndex = 3;
             this.buttonInput.Text = "Поиск";
-            this.buttonInput.UseVisualStyleBackColor = true;
+            this.buttonInput.UseVisualStyleBackColor = false;
             this.buttonInput.Click += new System.EventHandler(this.buttonInput_Click);
             // 
             // listView2
             // 
-            this.listView2.BackColor = System.Drawing.SystemColors.Window;
+            this.listView2.BackColor = System.Drawing.SystemColors.Control;
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ID2,
             this.parentID,
@@ -123,14 +131,15 @@
             this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView2.HideSelection = false;
             this.listView2.LargeImageList = this.imageList1;
-            this.listView2.Location = new System.Drawing.Point(12, 168);
+            this.listView2.Location = new System.Drawing.Point(12, 208);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(776, 169);
             this.listView2.SmallImageList = this.imageList1;
             this.listView2.TabIndex = 6;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
-            this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
+            this.listView2.ItemActivate += new System.EventHandler(this.listView2_ItemActivate);
+            this.listView2.Enter += new System.EventHandler(this.listView2_Enter);
             // 
             // ID2
             // 
@@ -160,7 +169,7 @@
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.Control;
-            this.progressBar1.Location = new System.Drawing.Point(526, 376);
+            this.progressBar1.Location = new System.Drawing.Point(526, 416);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(262, 23);
             this.progressBar1.Step = 1;
@@ -168,7 +177,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(638, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(638, 32);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(150, 150);
             this.pictureBox1.TabIndex = 8;
@@ -177,18 +186,69 @@
             // labelOutput
             // 
             this.labelOutput.AutoSize = true;
+            this.labelOutput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.labelOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelOutput.Location = new System.Drawing.Point(12, 346);
+            this.labelOutput.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelOutput.Location = new System.Drawing.Point(12, 380);
             this.labelOutput.Name = "labelOutput";
             this.labelOutput.Size = new System.Drawing.Size(379, 15);
             this.labelOutput.TabIndex = 9;
             this.labelOutput.Text = "Нажмите на кнопку для вывода всех записей с вашей страницы";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Control;
+            this.label1.Location = new System.Drawing.Point(12, 185);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(117, 20);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Комментарии:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 20);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Посты:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
+            this.label3.Location = new System.Drawing.Point(634, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 20);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Фото:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.SystemColors.Control;
+            this.label4.Location = new System.Drawing.Point(670, 385);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 20);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Осталось:";
+            // 
             // AnswerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 413);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.ClientSize = new System.Drawing.Size(800, 461);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelOutput);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.pictureBox1);
@@ -196,8 +256,8 @@
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.buttonInput);
             this.Controls.Add(this.textBoxInput);
-            this.MaximumSize = new System.Drawing.Size(816, 452);
-            this.MinimumSize = new System.Drawing.Size(816, 452);
+            this.MaximumSize = new System.Drawing.Size(816, 500);
+            this.MinimumSize = new System.Drawing.Size(816, 500);
             this.Name = "AnswerForm";
             this.Text = "Ответ на комментарии";
             this.Load += new System.EventHandler(this.AnswerForm_Load);
@@ -225,5 +285,9 @@
         private System.Windows.Forms.ColumnHeader ID1;
         private System.Windows.Forms.ColumnHeader Comments;
         private System.Windows.Forms.ColumnHeader Text1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
