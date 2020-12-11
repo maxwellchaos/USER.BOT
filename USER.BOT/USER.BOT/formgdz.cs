@@ -47,28 +47,28 @@ namespace USER.BOT
 
         private void formgdz_Load(object sender, EventArgs e)
         {
-            Objects[0] = "ничего";
-            Objects[1] = "математика";
-            Objects[2] = "русский";
-            Objects[3] = "физика";
-            Objects[4] = "биология";
-            Objects[5] = "химия";
-            Objects[6] = "ОБЖ";
-            Objects[7] = "Музыка";
-            Objects[8] = "Английский";
-            Objects[9] = "Немецкий";
-            Objects[10] = "Французкий";
-            Objects[11] = "Обшествознание";
-            Objects[12] = "История";
-            Objects[13] = "Литература";
-            Objects[14] = "История";
-            Objects[15] = "Информатика";
-            Objects[16] = "Естествознание";
-            Objects[17] = "Право";
-            Objects[18] = "Физкультура";
-            Objects[19] = "Астрономия";
-            Objects[20] = "Алгебра";
-            Objects[21] = "геометрия";
+            Objects[0] = " ничего ";
+            Objects[1] = " математику ";
+            Objects[2] = " русский ";
+            Objects[3] = " физику ";
+            Objects[4] = " биологию ";
+            Objects[5] = " химию ";
+            Objects[6] = " ОБЖ ";
+            Objects[7] = " музыку ";
+            Objects[8] = " английский ";
+            Objects[9] = " немецкий ";
+            Objects[10] = " французкий ";
+            Objects[11] = " обшествознание ";
+            Objects[12] = " историю россии ";
+            Objects[13] = " литературу ";
+            Objects[14] = " история ";
+            Objects[15] = " информатику ";
+            Objects[16] = " естествознание ";
+            Objects[17] = " право ";
+            Objects[18] = " аизкультуру ";
+            Objects[19] = " астрономию ";
+            Objects[20] = " алгебру ";
+            Objects[21] = " геометрию ";
            
            clas[0] = " детский сад ";
             clas[12] = " АД ";
@@ -221,23 +221,23 @@ namespace USER.BOT
             foreach (messagesgetConversations.Item item in mgc1.response.items)
             {
                 WebClient wc = new WebClient();
-                if (item.last_message.text.ToLower() == "старт")
-                {
-                    reqeuest2 = "https://api.vk.com/method/messages.send?message=Я знаю зачем ты пришёл, я всё устрою ты главное следуй инструкциям которые я тебе дам пример:00(предмет)_00(класс)_00(автор)_0000(упражнение)&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
-                    random_id = rnd.Next();
-                    string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
-                }
                 string[] separator = new string[2];
                 separator[0] = "_";
                 separator[1] = "_";
                 string[] param = item.last_message.text.Split(separator, StringSplitOptions.None);
+                if (LastUserMessageText.ToLower() == "рестарт")
+                {
+                    random_id = rnd.Next();
+                    reqeuest2 = "https://api.vk.com/method/messages.send?message=ВЫ перезагрузили гдзБОТ все ваши настройки зброшены выберете предметот 1 до 21  1 = математика, 2 = русский, 3 = физика, 4 = биология, 5=химия,6=ОБЖ,7=Музыка,8=Английский,9=Немецкий,10=Французкий,11=Обшествознание," +
+                        "12=История России,13=Литература,14=История,15=Информатика,16=Естествознание,17=Право,18=Физкультура,19=Астрономия,20=Алгебра,21=геометрия.&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                    string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
+                    
+                }
+               
 
 
-                
-                
-                // messagesSend ms = JsonConvert.DeserializeObject<messagesSend>(answer3);
-
-                if (LastUserMessageText.Length == 1 || LastUserMessageText.Length == 2)
+                    // messagesSend ms = JsonConvert.DeserializeObject<messagesSend>(answer3);
+                    if (LastUserMessageText.Length == 1 || LastUserMessageText.Length == 2)
                 {
                     int ObjectId = int.Parse(LastUserMessageText);
                     string temp = "вы выбрали " + Objects[ObjectId] + " код:"+ObjectId.ToString();
@@ -249,7 +249,7 @@ namespace USER.BOT
                         string temp2 = "вы выбрали " + clas[classid] + "код:" + classid.ToString();
                         random_id = rnd.Next();
                       
-                        reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp2+"2222222222" + "&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                        reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp2 + "&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
                         string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
                         
                         
@@ -258,7 +258,7 @@ namespace USER.BOT
                     else
                     {
                         random_id = rnd.Next();
-                        reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp + "111111111выберете свой класс от 1 до 11.&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                        reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp + "выберете свой класс от 1 до 11.&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
                      string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
 
                     }
