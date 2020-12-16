@@ -49,7 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,10 +100,10 @@
             // 
             this.textBoxInput.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxInput.Enabled = false;
-            this.textBoxInput.Location = new System.Drawing.Point(397, 383);
+            this.textBoxInput.Location = new System.Drawing.Point(404, 383);
             this.textBoxInput.Multiline = true;
             this.textBoxInput.Name = "textBoxInput";
-            this.textBoxInput.Size = new System.Drawing.Size(267, 27);
+            this.textBoxInput.Size = new System.Drawing.Size(260, 27);
             this.textBoxInput.TabIndex = 2;
             this.textBoxInput.TextChanged += new System.EventHandler(this.textBoxInput_TextChanged);
             // 
@@ -111,9 +111,9 @@
             // 
             this.buttonInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonInput.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonInput.Location = new System.Drawing.Point(397, 416);
+            this.buttonInput.Location = new System.Drawing.Point(404, 445);
             this.buttonInput.Name = "buttonInput";
-            this.buttonInput.Size = new System.Drawing.Size(123, 23);
+            this.buttonInput.Size = new System.Drawing.Size(185, 23);
             this.buttonInput.TabIndex = 3;
             this.buttonInput.Text = "Поиск";
             this.buttonInput.UseVisualStyleBackColor = false;
@@ -139,7 +139,7 @@
             this.listView2.TabIndex = 6;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
-            this.listView2.ItemActivate += new System.EventHandler(this.listView2_ItemActivate);
+            this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
             this.listView2.Enter += new System.EventHandler(this.listView2_Enter);
             // 
             // ID2
@@ -170,9 +170,9 @@
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.Control;
-            this.progressBar1.Location = new System.Drawing.Point(526, 416);
+            this.progressBar1.Location = new System.Drawing.Point(404, 416);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(262, 23);
+            this.progressBar1.Size = new System.Drawing.Size(384, 23);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 7;
             // 
@@ -240,25 +240,26 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "Осталось:";
             // 
-            // checkBox1
+            // button1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.Control;
-            this.checkBox1.Location = new System.Drawing.Point(583, 188);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(205, 17);
-            this.checkBox1.TabIndex = 14;
-            this.checkBox1.Text = "Выбрать несколько комментариев";
-            this.checkBox1.UseVisualStyleBackColor = false;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button1.Enabled = false;
+            this.button1.ForeColor = System.Drawing.SystemColors.Control;
+            this.button1.Location = new System.Drawing.Point(604, 445);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(184, 23);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Выбрать все комментарии";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // AnswerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.ClientSize = new System.Drawing.Size(800, 462);
-            this.Controls.Add(this.checkBox1);
+            this.ClientSize = new System.Drawing.Size(800, 476);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -270,8 +271,8 @@
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.buttonInput);
             this.Controls.Add(this.textBoxInput);
-            this.MaximumSize = new System.Drawing.Size(816, 500);
-            this.MinimumSize = new System.Drawing.Size(816, 500);
+            this.MaximumSize = new System.Drawing.Size(816, 515);
+            this.MinimumSize = new System.Drawing.Size(816, 515);
             this.Name = "AnswerForm";
             this.Text = "Ответ на комментарии";
             this.Load += new System.EventHandler(this.AnswerForm_Load);
@@ -303,6 +304,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button1;
     }
 }

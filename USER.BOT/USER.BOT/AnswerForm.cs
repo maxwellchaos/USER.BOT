@@ -69,6 +69,7 @@ namespace USER.BOT
             buttonInput.Enabled = false;
             listView1.Enabled = false;
             listView2.Enabled = false;
+            Select();
 
             foreach (WallGet.Item itemWG in wg.response.items)
             {
@@ -149,6 +150,7 @@ namespace USER.BOT
                 buttonInput.Enabled = false;
                 listView1.Enabled = false;
                 listView2.Enabled = false;
+                Select();
 
                 foreach (CommentsGet.Item itemCG in csg.response.items)
                 {
@@ -169,8 +171,8 @@ namespace USER.BOT
                     listView2.Items.Add(lvi2);
 
                     string id = itemCG.id.ToString();
-                    Request = "https://api.vk.com/method/wall.getComments?owner_id=" + user_id + "&post_id=" + itemWG.id + "&comment_id=" +
-                        id + "&";
+                    Request = "https://api.vk.com/method/wall.getComments?owner_id=" + user_id + "&post_id=" + itemWG.id + 
+                        "&comment_id=" + id + "&";
                     Answer = GetAnswer(Request, access_token);
                     CommentsGet2 csg2 = JsonConvert.DeserializeObject<CommentsGet2>(Answer);
 
@@ -204,8 +206,12 @@ namespace USER.BOT
                 }
             }
             labelOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "\r\n" +
-                "Для этого нажмите на ID соответствующего комментария" + "\r\n" + "Либо выберите другую запись";
+                "Для этого нажмите на ID соответствующего комментария" + "\r\n" +
+                "Вы можете выбрать несколько, удерживая Ctrl или Shift, или" + "\r\n" + 
+                "выбрать все с помощью кнопки" + "\r\n" +
+                "Либо выберите другую запись";
             buttonInput.Enabled = true;
+            button1.Enabled = true;
             listView1.Enabled  = true;
             listView2.Enabled = true;
         }
@@ -214,23 +220,31 @@ namespace USER.BOT
         {
             if (textBoxInput.Text != "")
             {
-                Request = "https://api.vk.com/method/wall.createComment?owner_id=" + user_id + "&post_id=" + postID + "&message=" +
-                    textBoxInput.Text + "&reply_to_comment=" + commentID + "&";
-                Answer = GetAnswer(Request, access_token);
-                labelOutput.Text = "Комментарий отправлен";
+                labelOutput.Text = "Пожалуйста подождите...";
+                foreach (ListViewItem lwi in listView2.SelectedItems)
+                {
+                    commentID = lwi.Text;
+                    Request = "https://api.vk.com/method/wall.createComment?owner_id=" + user_id + "&post_id=" + postID +
+                        "&message=" + textBoxInput.Text + "&reply_to_comment=" + commentID + "&";
+                    Answer = GetAnswer(Request, access_token);
+
+                    foreach (ListViewItem lvi in listView1.Items)
+                    {
+                        if (lvi.SubItems[0].Text == postID)
+                        {
+                            lvi.SubItems[1].Text = Convert.ToString(Convert.ToInt32(lvi.SubItems[1].Text) + 1);
+                        }
+                    }
+                    Thread.Sleep(600);
+                }
+
+                labelOutput.Text = "Комментарий(ии) отправлен(ы)";
                 textBoxInput.Text = "";
                 progress = 0;
-                foreach (ListViewItem lvi in listView1.Items)
-                {
-                    if (lvi.SubItems[0].Text == postID)
-                    {
-                        lvi.SubItems[1].Text = Convert.ToString(Convert.ToInt32(lvi.SubItems[1].Text) + 1);
-                    }
-                }
             }
             else
             {
-                labelOutput.Text = "Введите ответ на комментарий";
+                labelOutput.Text = "Введите ответ на комментарий(ии)";
             }
         }
 
@@ -259,6 +273,7 @@ namespace USER.BOT
                 textBoxInput.Enabled = false;
                 stage = 2;
                 buttonInput.Enabled = true;
+                button1.Enabled = false;
             }
         }
 
@@ -266,12 +281,22 @@ namespace USER.BOT
         {
             if (listView2.SelectedItems.Count > 0)
             {
-                labelOutput.Text = "Выбран комментарий с ID: " + listView2.SelectedItems[0].Text + "\r\n" + 
+                labelOutput.Text = "Выбран(ы) комментарий(ии) с ID: ";
+                foreach (ListViewItem lvi in listView2.SelectedItems)
+                {
+                    labelOutput.Text = labelOutput.Text + lvi.Text + " ";
+                }
+                labelOutput.Text = labelOutput.Text + "\r\n" +
                     "Введите текст ответа и нажмите кнопку для отправки";
-                //commentID = listView2.SelectedItems[0].Text;
-                target = 2;
 
+                target = 2;
                 textBoxInput.Enabled = true;
+
+                button1.Text = "Убрать выделение";
+            }
+            else
+            {
+                button1.Text = "Выбрать все комментарии";
             }
         }
 
@@ -290,9 +315,24 @@ namespace USER.BOT
             listView2_SelectedIndexChanged(sender, e);
         }
 
-        private void listView2_ItemActivate(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            commentID = listView2.SelectedItems[0].Text;
+            if (button1.Text == "Выбрать все комментарии")
+            {
+                foreach (ListViewItem lvi in listView2.Items)
+                {
+                    lvi.Selected = true;
+                    button1.Text = "Убрать выделение";
+                }
+            }
+            else if (button1.Text == "Убрать выделение")
+            {
+                foreach (ListViewItem lvi in listView2.Items)
+                {
+                    lvi.Selected = false;
+                    button1.Text = "Выбрать все комментарии";
+                }
+            }
         }
     }
 }
