@@ -15,10 +15,15 @@ namespace USER.BOT
 {
     public partial class LikerForm : Form
     {
-        static string access_token;
-        static string users_id;
-        static string UserId;
-        static string captcha_get;
+        public static string access_token;
+        public static string users_id;
+        public static string UserId;
+        public static string captcha_get;
+        static string sComboboxText;
+        static string sTextboxText;
+        static string sLabel2Text;
+        static string sLabel6Text;
+        static string[] TextboxTextLines;
 
         static Wallget.Item SavedItem;
         static idGet SavedIg;
@@ -36,15 +41,23 @@ namespace USER.BOT
         static int cPost;
         static int AllPostCount = 0;
         static int LikeTimer = 0;
+        //Прогресс на прогрессбар*
+        static int postCount = 0;
+        static int iComboboxText;
+        static int TextboxLinesCount = 0;
+        static bool bWaitCaptcha = false;
+        static string sCaptchaAdress;
 
         public LikerForm()
         {
             InitializeComponent();
 
             comboBox1.SelectedIndex = 0;
+            //string[] answer = textBox3.Lines;
+            //answer[i].Split
         }
 
-        public string GetAnswer(string Request, string AccesToken)
+        public static string GetAnswer(string Request, string AccesToken)
         {
             string ReqForAns = Request + access_token + "&v=5.124";
             WebClient client = new WebClient();
@@ -58,21 +71,19 @@ namespace USER.BOT
 
             likes = 0;
 
-            progressBar1.Maximum = AllPostCount;
-
-            label2.Text = "0/0";
+            sLabel2Text = "0/0";
 
             //Создание рандома *1
             Random Rnd = new Random();
 
             //Выделение id
-            for (int i = 0; i < textBox3.Lines.Length; i++)
+            for (int i = 0; i < TextboxLinesCount; i++)
             {
-                if (textBox3.Text.Contains("/"))
+                if (sTextboxText.Contains("/"))
                 {
-                    string[] param = textBox3.Lines[i].Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] param = TextboxTextLines[i].Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
                     UserId = param[param.Length - 1];
-                    textBox3.Lines[i] = UserId;
+                    TextboxTextLines[i] = UserId;
 
                     //Запрос на получение id
                     string Request2 = "https://api.vk.com/method/utils.resolveScreenName?screen_name=" + UserId + "&";
@@ -95,28 +106,24 @@ namespace USER.BOT
 
                         Offset += wg.response.items.Count;
 
-                        //Прогресс на прогрессбар*
-                        int postCount = 0;
-                        progressBar1.Minimum = 0;
-
-                        if (comboBox1.Text == "Все")
+                        if (sComboboxText == "Все")
                         {
                             CountPost = wg.response.count;
                         }
                         else
                         {
-                            CountPost = Convert.ToInt32(comboBox1.Text);
+                            CountPost = iComboboxText;
                         }
 
                         if (CountPost > wg.response.count)
                         {
                             CountPost = wg.response.count;
-                            comboBox1.Text = wg.response.count.ToString();
+                            sComboboxText = wg.response.count.ToString();
                         }
 
                         cPost = CountPost;
 
-                        LikeTimer = CountPost * 4 * (textBox3.Lines.Length - i);
+                        LikeTimer = CountPost * 4 * (TextboxLinesCount - i);
 
                         while (Offset <= wg.response.count)
                         {
@@ -130,9 +137,6 @@ namespace USER.BOT
 
                             wg = JsonConvert.DeserializeObject<Wallget>(Answer);
                             Offset += wg.response.items.Count;
-
-                            //*
-                            progressBar1.Maximum = cPost;
 
                             //Массовый лайкинг
                             foreach (Wallget.Item item in wg.response.items)
@@ -168,9 +172,14 @@ namespace USER.BOT
                                             "\"captcha_sid\":\"337894471349\",\"captcha_img\":" +
                                             "\"https://api.vk.com/captcha.php?sid=337894471349&s=1\"}}";
                                         CaptchaGet cg = JsonConvert.DeserializeObject<CaptchaGet>(Answer4);
-                                        webBrowser1.Navigate(cg.error.captcha_img);
 
-                                        button2.Enabled = true;
+                                        bWaitCaptcha = true;
+                                        sCaptchaAdress = cg.error.captcha_img;
+
+                                        while (bWaitCaptcha == true)
+                                        {
+                                            Thread.Sleep(1000);
+                                        }
 
                                         SavedIg = ig;
                                         SavedItem = item;
@@ -193,12 +202,11 @@ namespace USER.BOT
                                     LikeTimer -= 4;
                                 }
 
-                                label2.Text = bugs.ToString() + "/" + likes.ToString();
-                                label6.Text = LikeTimer.ToString() + " секунд";
+                                sLabel2Text = bugs.ToString() + "/" + likes.ToString();
+                                sLabel6Text = LikeTimer.ToString() + " секунд";
 
                                 //*
                                 postCount = postCount + 1;
-                                progressBar1.Value = postCount;
                                 CountPost -= 1;
                             }
                         }
@@ -210,18 +218,22 @@ namespace USER.BOT
                 }
             }
 
-            label6.Text = "Все посты пролайканы";
+            sLabel6Text = "Все посты пролайканы";
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
             Ban = new Thread(new ThreadStart(Thread_Liker));
             Ban.Start();
+
+            sComboboxText = comboBox1.Text;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             ButtonIsPressed = true;
+
+            bWaitCaptcha = false;
 
             if (textBox2.Text == "")
             {
@@ -230,8 +242,8 @@ namespace USER.BOT
             else
             {
                 //Отправка капчи
-                string Request5 = "https://api.vk.com/method/likes.add?type=post&item_id=" + 
-                    SavedItem.id + "&captcha_sid=" + SavedCg.error.captcha_sid + "&captcha_key=" + textBox2.Text + "&owner_id=" + 
+                string Request5 = "https://api.vk.com/method/likes.add?type=post&item_id=" +
+                    SavedItem.id + "&captcha_sid=" + SavedCg.error.captcha_sid + "&captcha_key=" + textBox2.Text + "&owner_id=" +
                     SavedIg.response.object_id + "&";
                 string Answer5 = GetAnswer(Request5, access_token);
                 textBox2.Text = "";
@@ -272,6 +284,38 @@ namespace USER.BOT
 
         private void timerLike_Tick(object sender, EventArgs e)
         {
+            progressBar1.Value = postCount;
+            
+
+            if (sComboboxText == "Все")
+            {
+                sComboboxText = "Все";
+            }
+            else
+            {
+                iComboboxText = Convert.ToInt32(sComboboxText);
+            }
+
+            TextboxLinesCount = textBox3.Lines.Length;
+
+            sTextboxText = textBox3.Text;
+
+            label6.Text = sLabel6Text;
+
+            label2.Text = sLabel2Text;
+
+            TextboxTextLines = textBox3.Lines;
+
+            webBrowser1.Navigate(sCaptchaAdress);
+
+            if (bWaitCaptcha == true)
+            {
+                button2.Enabled = true;
+            }
+            else
+            {
+                button2.Enabled = false;
+            }
         }
     }
 }

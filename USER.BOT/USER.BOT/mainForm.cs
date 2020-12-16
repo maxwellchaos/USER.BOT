@@ -170,8 +170,8 @@ namespace USER.BOT
         private void ButtonLiking_Click(object sender, EventArgs e)
         {
             LikerForm form = new LikerForm();
-            form.access_token = access_token;
-            form.users_id = user_id;
+            LikerForm.access_token = access_token;
+            LikerForm.users_id = user_id;
             form.ShowDialog();
         }
     }

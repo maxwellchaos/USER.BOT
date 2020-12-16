@@ -247,6 +247,7 @@
             // 
             // timerLike
             // 
+            this.timerLike.Enabled = true;
             this.timerLike.Tick += new System.EventHandler(this.timerLike_Tick);
             // 
             // LikerForm
