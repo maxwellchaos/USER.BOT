@@ -50,6 +50,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -186,13 +187,13 @@
             // 
             // labelOutput
             // 
-            this.labelOutput.AutoSize = true;
+            this.labelOutput.AutoEllipsis = true;
             this.labelOutput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.labelOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelOutput.ForeColor = System.Drawing.SystemColors.Control;
             this.labelOutput.Location = new System.Drawing.Point(12, 380);
             this.labelOutput.Name = "labelOutput";
-            this.labelOutput.Size = new System.Drawing.Size(379, 15);
+            this.labelOutput.Size = new System.Drawing.Size(379, 87);
             this.labelOutput.TabIndex = 9;
             this.labelOutput.Text = "Нажмите на кнопку для вывода всех записей с вашей страницы";
             // 
@@ -253,12 +254,22 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 485);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(776, 88);
+            this.textBox1.TabIndex = 15;
+            // 
             // AnswerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.ClientSize = new System.Drawing.Size(800, 476);
+            this.ClientSize = new System.Drawing.Size(800, 576);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -271,8 +282,8 @@
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.buttonInput);
             this.Controls.Add(this.textBoxInput);
-            this.MaximumSize = new System.Drawing.Size(816, 515);
-            this.MinimumSize = new System.Drawing.Size(816, 515);
+            this.MaximumSize = new System.Drawing.Size(816, 615);
+            this.MinimumSize = new System.Drawing.Size(816, 615);
             this.Name = "AnswerForm";
             this.Text = "Ответ на комментарии";
             this.Load += new System.EventHandler(this.AnswerForm_Load);
@@ -305,5 +316,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

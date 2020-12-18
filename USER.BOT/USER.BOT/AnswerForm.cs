@@ -158,6 +158,7 @@ namespace USER.BOT
 
                     Request = "https://api.vk.com/method/users.get?user_ids=" + itemCG.from_id + "&";
                     Answer = GetAnswer(Request, access_token);
+                    textBox1.Text += "\r\n" + "\r\n" + Answer;
                     UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
 
                     Application.DoEvents();
@@ -174,6 +175,7 @@ namespace USER.BOT
                     Request = "https://api.vk.com/method/wall.getComments?owner_id=" + user_id + "&post_id=" + itemWG.id + 
                         "&comment_id=" + id + "&";
                     Answer = GetAnswer(Request, access_token);
+                    textBox1.Text += "\r\n" + "\r\n" + Answer;
                     CommentsGet2 csg2 = JsonConvert.DeserializeObject<CommentsGet2>(Answer);
 
                     Thread.Sleep(600);
@@ -185,6 +187,7 @@ namespace USER.BOT
                     {
                         Request = "https://api.vk.com/method/users.get?user_ids=" + itemCsG2.from_id + "&";
                         Answer = GetAnswer(Request, access_token);
+                        textBox1.Text += "\r\n" + "\r\n" + Answer;
                         ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
 
                         Application.DoEvents();
@@ -221,13 +224,13 @@ namespace USER.BOT
             if (textBoxInput.Text != "")
             {
                 labelOutput.Text = "Пожалуйста подождите...";
+
+                progressBar1.Maximum = listView2.SelectedItems.Count;
+                progressBar1.Value= listView2.SelectedItems.Count;
+                label4.Text = "Осталось: " + progressBar1.Value.ToString();
+
                 foreach (ListViewItem lwi in listView2.SelectedItems)
                 {
-                    commentID = lwi.Text;
-                    Request = "https://api.vk.com/method/wall.createComment?owner_id=" + user_id + "&post_id=" + postID +
-                        "&message=" + textBoxInput.Text + "&reply_to_comment=" + commentID + "&";
-                    Answer = GetAnswer(Request, access_token);
-
                     foreach (ListViewItem lvi in listView1.Items)
                     {
                         if (lvi.SubItems[0].Text == postID)
@@ -235,6 +238,15 @@ namespace USER.BOT
                             lvi.SubItems[1].Text = Convert.ToString(Convert.ToInt32(lvi.SubItems[1].Text) + 1);
                         }
                     }
+
+                    commentID = lwi.Text;
+                    Request = "https://api.vk.com/method/wall.createComment?owner_id=" + user_id + "&post_id=" + postID +
+                        "&message=" + textBoxInput.Text + "&reply_to_comment=" + commentID + "&";
+                    Answer = GetAnswer(Request, access_token);
+
+                    progressBar1.Value--;
+                    label4.Text = "Осталось: " + progressBar1.Value.ToString();
+                    Application.DoEvents();
                     Thread.Sleep(600);
                 }
 
