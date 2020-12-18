@@ -48,6 +48,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.timerLike = new System.Windows.Forms.Timer(this.components);
+            this.button4 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -57,6 +58,7 @@
             // 
             this.progressBar1.BackColor = System.Drawing.Color.Blue;
             this.progressBar1.Location = new System.Drawing.Point(0, 422);
+            this.progressBar1.Maximum = 0;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(820, 28);
             this.progressBar1.TabIndex = 5;
@@ -248,7 +250,18 @@
             // timerLike
             // 
             this.timerLike.Enabled = true;
+            this.timerLike.Interval = 1000;
             this.timerLike.Tick += new System.EventHandler(this.timerLike_Tick);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(291, 302);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 25;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // LikerForm
             // 
@@ -256,6 +269,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(820, 450);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel3);
@@ -296,5 +310,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Timer timerLike;
+        private System.Windows.Forms.Button button4;
     }
 }

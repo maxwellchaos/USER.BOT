@@ -24,13 +24,15 @@ namespace USER.BOT
         static string sLabel2Text;
         static string sLabel6Text;
         static string[] TextboxTextLines;
+        static string sCaptchaAdress;
 
         static Wallget.Item SavedItem;
         static idGet SavedIg;
         static CaptchaGet SavedCg;
 
-        static bool ButtonIsPressed = true;
         static bool buttonIsPressedClean = true;
+        static bool bSendCaptcha = false;
+        static bool bWaitCaptcha = false;
 
         static Thread Ban;
 
@@ -38,15 +40,12 @@ namespace USER.BOT
         static int likes = 0;
         static int RandomNuber;
         static int CountPost = 0;
-        static int cPost;
-        static int AllPostCount = 0;
         static int LikeTimer = 0;
         //Прогресс на прогрессбар*
         static int postCount = 0;
         static int iComboboxText;
         static int TextboxLinesCount = 0;
-        static bool bWaitCaptcha = false;
-        static string sCaptchaAdress;
+        static int progresbarMax = 0;
 
         public LikerForm()
         {
@@ -101,6 +100,8 @@ namespace USER.BOT
                         string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&";
                         string Answer = GetAnswer(Request, access_token);
 
+                        
+
                         Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
                         int Offset = 0;
 
@@ -118,10 +119,7 @@ namespace USER.BOT
                         if (CountPost > wg.response.count)
                         {
                             CountPost = wg.response.count;
-                            sComboboxText = wg.response.count.ToString();
                         }
-
-                        cPost = CountPost;
 
                         LikeTimer = CountPost * 4 * (TextboxLinesCount - i);
 
@@ -146,12 +144,9 @@ namespace USER.BOT
                                 {
                                     break;
                                 }
+
                                 //Cooldown
-                                for (int a = 0; a < 10; a++)
-                                {
-                                    Application.DoEvents();
-                                    Thread.Sleep(RandomNuber);
-                                }
+                                Thread.Sleep(RandomNuber);
 
                                 string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" +
                                     item.id + "&owner_id=" + ig.response.object_id + "&";
@@ -163,32 +158,20 @@ namespace USER.BOT
 
                                     if (Answer1.Contains("aptcha"))
                                     {
-                                        ButtonIsPressed = false;
-
-                                        string Answer4 = "{ \"error\":{ \"error_code\":14,\"error_msg\":\"Captcha needed\",\"request_params\"" +
-                                            ":[{ \"key\":\"type\",\"value\":\"post\"},{ \"key\":\"item_id\",\"value\":\"185\"}," +
-                                            "{ \"key\":\"owner_id\",\"value\":\"422303825\"},{ \"key\":\"v\",\"value\":\"5.124\"}," +
-                                            "{ \"key\":\"method\",\"value\":\"likes.add\"},{ \"key\":\"oauth\",\"value\":\"1\"}]," +
-                                            "\"captcha_sid\":\"337894471349\",\"captcha_img\":" +
-                                            "\"https://api.vk.com/captcha.php?sid=337894471349&s=1\"}}";
-                                        CaptchaGet cg = JsonConvert.DeserializeObject<CaptchaGet>(Answer4);
+                                        CaptchaGet cg = JsonConvert.DeserializeObject<CaptchaGet>(Answer1);
 
                                         bWaitCaptcha = true;
+                                        bSendCaptcha = false;
                                         sCaptchaAdress = cg.error.captcha_img;
 
-                                        while (bWaitCaptcha == true)
-                                        {
-                                            Thread.Sleep(1000);
-                                        }
 
                                         SavedIg = ig;
                                         SavedItem = item;
                                         SavedCg = cg;
 
-                                        while (ButtonIsPressed == false)
+                                        while (bWaitCaptcha == true)
                                         {
-                                            Application.DoEvents();
-                                            Thread.Sleep(10);
+                                            Thread.Sleep(1000);
                                         }
                                     }
                                     else
@@ -231,10 +214,8 @@ namespace USER.BOT
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ButtonIsPressed = true;
-
             bWaitCaptcha = false;
-
+          
             if (textBox2.Text == "")
             {
 
@@ -284,8 +265,14 @@ namespace USER.BOT
 
         private void timerLike_Tick(object sender, EventArgs e)
         {
-            progressBar1.Value = postCount;
-            
+            if (postCount < progressBar1.Maximum)
+            {
+                progressBar1.Value = postCount;
+            }
+            else
+            {
+                progressBar1.Maximum = 0;
+            }
 
             if (sComboboxText == "Все")
             {
@@ -306,16 +293,28 @@ namespace USER.BOT
 
             TextboxTextLines = textBox3.Lines;
 
-            webBrowser1.Navigate(sCaptchaAdress);
+            if (bSendCaptcha == false)
+            {
+                webBrowser1.Navigate(sCaptchaAdress);
+                bSendCaptcha = true;
+            }
 
             if (bWaitCaptcha == true)
             {
                 button2.Enabled = true;
+                bWaitCaptcha = true;
             }
             else
             {
                 button2.Enabled = false;
             }
+            
+            
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            textBox3.Text = "https://vk.com/m.kholuev\r\nhttps://vk.com/globalosha";
         }
     }
 }
