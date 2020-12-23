@@ -15,6 +15,7 @@ namespace USER.BOT
 {
     public partial class LikerForm : Form
     {
+        public static string LikedIDs;
         public static string access_token;
         public static string users_id;
         public static string UserId;
@@ -78,11 +79,17 @@ namespace USER.BOT
             //Выделение id
             for (int i = 0; i < TextboxLinesCount; i++)
             {
+                LikedIDs = LikedIDs + "TextboxText:" + sTextboxText+ "\r\n";
                 if (sTextboxText.Contains("/"))
                 {
                     string[] param = TextboxTextLines[i].Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
+                    if (param.Length == 0)
+                    {
+                        continue;
+                    }
                     UserId = param[param.Length - 1];
                     TextboxTextLines[i] = UserId;
+                    //LikedIDs = LikedIDs + "UserId:" + UserId.ToString() + "\r\n";
 
                     //Запрос на получение id
                     string Request2 = "https://api.vk.com/method/utils.resolveScreenName?screen_name=" + UserId + "&";
@@ -90,7 +97,9 @@ namespace USER.BOT
 
                     if (Answer2 == "{\"response\":[]}")
                     {
+                        //LikedIDs = LikedIDs + "Answer2:" + Answer2 + "\r\n";
                         break;
+
                     }
                     else
                     {
@@ -100,48 +109,55 @@ namespace USER.BOT
                         string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&";
                         string Answer = GetAnswer(Request, access_token);
 
-                        
+                      
 
                         Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
+                        //LikedIDs = LikedIDs + "Post Count:" + wg.response.items.Count + "\r\n";
                         int Offset = 0;
 
                         Offset += wg.response.items.Count;
 
                         if (sComboboxText == "Все")
                         {
-                            CountPost = wg.response.count;
+                            CountPost = wg.response.items.Count;
                         }
                         else
                         {
                             CountPost = iComboboxText;
                         }
 
-                        if (CountPost > wg.response.count)
+                        if (CountPost > wg.response.items.Count)
                         {
-                            CountPost = wg.response.count;
+                            CountPost = wg.response.items.Count;
                         }
+
+                        progresbarMax = CountPost;
 
                         LikeTimer = CountPost * 4 * (TextboxLinesCount - i);
 
                         while (Offset <= wg.response.count)
                         {
                             //*1
-                            RandomNuber = Rnd.Next(200, 400);
+                            RandomNuber = Rnd.Next(2000, 4000);
 
                             //Повторный запрос на получение информации о стене 
                             Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" +
                                 ig.response.object_id + "&";
+                           
                             Answer = GetAnswer(Request, access_token);
 
                             wg = JsonConvert.DeserializeObject<Wallget>(Answer);
+                            //LikedIDs = LikedIDs + "Owner: " + ig.response.object_id.ToString() + " Count:" + wg.response.items.Count.ToString()+ "\r\n";
                             Offset += wg.response.items.Count;
 
                             //Массовый лайкинг
                             foreach (Wallget.Item item in wg.response.items)
                             {
+                                LikedIDs = LikedIDs + "Count post: " + CountPost.ToString() + " " + iComboboxText.ToString() + "\r\n";
 
                                 if (CountPost <= 0)
                                 {
+                                    //LikedIDs = LikedIDs + " break!!!!! "  + "\r\n";
                                     break;
                                 }
 
@@ -151,7 +167,7 @@ namespace USER.BOT
                                 string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" +
                                     item.id + "&owner_id=" + ig.response.object_id + "&";
                                 string Answer1 = GetAnswer(Request1, access_token);
-
+                                //LikedIDs = LikedIDs + item.id.ToString()+" ";
                                 //Получение и отправка капчи
                                 if (Answer1.Contains("rror"))
                                 {
@@ -193,6 +209,7 @@ namespace USER.BOT
                                 CountPost -= 1;
                             }
                         }
+                        progresbarMax = 0;
                     }
                 }
                 else
@@ -206,6 +223,8 @@ namespace USER.BOT
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            timerLike.Enabled = true;
+
             Ban = new Thread(new ThreadStart(Thread_Liker));
             Ban.Start();
 
@@ -265,13 +284,13 @@ namespace USER.BOT
 
         private void timerLike_Tick(object sender, EventArgs e)
         {
+            textBoxDebug.Text = LikedIDs;
+
+            progressBar1.Maximum = progresbarMax;
+
             if (postCount < progressBar1.Maximum)
             {
                 progressBar1.Value = postCount;
-            }
-            else
-            {
-                progressBar1.Maximum = 0;
             }
 
             if (sComboboxText == "Все")
@@ -281,7 +300,8 @@ namespace USER.BOT
             else
             {
                 iComboboxText = Convert.ToInt32(sComboboxText);
-            }
+                
+            }           
 
             TextboxLinesCount = textBox3.Lines.Length;
 
