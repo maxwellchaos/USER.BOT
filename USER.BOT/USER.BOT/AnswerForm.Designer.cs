@@ -49,8 +49,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.buttonSelect = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,7 +114,7 @@
             this.buttonInput.ForeColor = System.Drawing.SystemColors.Control;
             this.buttonInput.Location = new System.Drawing.Point(404, 445);
             this.buttonInput.Name = "buttonInput";
-            this.buttonInput.Size = new System.Drawing.Size(185, 23);
+            this.buttonInput.Size = new System.Drawing.Size(112, 23);
             this.buttonInput.TabIndex = 3;
             this.buttonInput.Text = "Поиск";
             this.buttonInput.UseVisualStyleBackColor = false;
@@ -241,36 +241,40 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "Осталось:";
             // 
-            // button1
+            // buttonSelect
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button1.Enabled = false;
-            this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(604, 445);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(184, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Выбрать все комментарии";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonSelect.Enabled = false;
+            this.buttonSelect.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonSelect.Location = new System.Drawing.Point(640, 445);
+            this.buttonSelect.Name = "buttonSelect";
+            this.buttonSelect.Size = new System.Drawing.Size(148, 23);
+            this.buttonSelect.TabIndex = 14;
+            this.buttonSelect.Text = "Выбрать все комментарии";
+            this.buttonSelect.UseVisualStyleBackColor = false;
+            this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
             // 
-            // textBox1
+            // buttonDelete
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 485);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(776, 88);
-            this.textBox1.TabIndex = 15;
+            this.buttonDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonDelete.Enabled = false;
+            this.buttonDelete.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonDelete.Location = new System.Drawing.Point(522, 445);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(112, 23);
+            this.buttonDelete.TabIndex = 15;
+            this.buttonDelete.Text = "Удалить";
+            this.buttonDelete.UseVisualStyleBackColor = false;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // AnswerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.ClientSize = new System.Drawing.Size(800, 576);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(800, 476);
+            this.Controls.Add(this.buttonDelete);
+            this.Controls.Add(this.buttonSelect);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -282,8 +286,8 @@
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.buttonInput);
             this.Controls.Add(this.textBoxInput);
-            this.MaximumSize = new System.Drawing.Size(816, 615);
-            this.MinimumSize = new System.Drawing.Size(816, 615);
+            this.MaximumSize = new System.Drawing.Size(816, 515);
+            this.MinimumSize = new System.Drawing.Size(816, 515);
             this.Name = "AnswerForm";
             this.Text = "Ответ на комментарии";
             this.Load += new System.EventHandler(this.AnswerForm_Load);
@@ -315,7 +319,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button buttonSelect;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

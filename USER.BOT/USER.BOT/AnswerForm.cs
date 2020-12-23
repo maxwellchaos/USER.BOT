@@ -141,7 +141,8 @@ namespace USER.BOT
             {
                 WallGet.Item itemWG = new WallGet.Item();
                 itemWG.id = Convert.ToInt16(postID);
-                Request = "https://api.vk.com/method/wall.getComments?owner_id=" + user_id + "&post_id=" + itemWG.id + "&";
+                Request = "https://api.vk.com/method/wall.getComments?owner_id=" + user_id + "&post_id=" + itemWG.id + 
+                    "&count=100&";
                 Answer = GetAnswer(Request, access_token);
                 CommentsGet csg = JsonConvert.DeserializeObject<CommentsGet>(Answer);
                 listView2.Items.Clear();
@@ -158,24 +159,31 @@ namespace USER.BOT
 
                     Request = "https://api.vk.com/method/users.get?user_ids=" + itemCG.from_id + "&";
                     Answer = GetAnswer(Request, access_token);
-                    textBox1.Text += "\r\n" + "\r\n" + Answer;
                     UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
 
                     Application.DoEvents();
 
                     LVitem2[0] = itemCG.id.ToString();
-                    LVitem2[2] = ug.response[0].first_name;
-                    LVitem2[3] = ug.response[0].last_name;
-                    LVitem2[4] = itemCG.text;
+                    if (ug.response.Count != 0)
+                    {
+                        LVitem2[2] = ug.response[0].first_name;
+                        LVitem2[3] = ug.response[0].last_name;
+                        LVitem2[4] = itemCG.text;
+                    }
+                    else
+                    {
+                        LVitem2[2] = "  -";
+                        LVitem2[3] = "  -";
+                        LVitem2[4] = "  -";
+                    }
 
                     ListViewItem lvi2 = new ListViewItem(LVitem2);
                     listView2.Items.Add(lvi2);
 
                     string id = itemCG.id.ToString();
                     Request = "https://api.vk.com/method/wall.getComments?owner_id=" + user_id + "&post_id=" + itemWG.id + 
-                        "&comment_id=" + id + "&";
+                        "&comment_id=" + id + "&count=100&";
                     Answer = GetAnswer(Request, access_token);
-                    textBox1.Text += "\r\n" + "\r\n" + Answer;
                     CommentsGet2 csg2 = JsonConvert.DeserializeObject<CommentsGet2>(Answer);
 
                     Thread.Sleep(600);
@@ -187,7 +195,6 @@ namespace USER.BOT
                     {
                         Request = "https://api.vk.com/method/users.get?user_ids=" + itemCsG2.from_id + "&";
                         Answer = GetAnswer(Request, access_token);
-                        textBox1.Text += "\r\n" + "\r\n" + Answer;
                         ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
 
                         Application.DoEvents();
@@ -209,12 +216,14 @@ namespace USER.BOT
                 }
             }
             labelOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "\r\n" +
+                "или который хотите удалить" + "\r\n" +
                 "Для этого нажмите на ID соответствующего комментария" + "\r\n" +
                 "Вы можете выбрать несколько, удерживая Ctrl или Shift, или" + "\r\n" + 
                 "выбрать все с помощью кнопки" + "\r\n" +
                 "Либо выберите другую запись";
             buttonInput.Enabled = true;
-            button1.Enabled = true;
+            buttonSelect.Enabled = true;
+            buttonDelete.Enabled = true;
             listView1.Enabled  = true;
             listView2.Enabled = true;
         }
@@ -285,7 +294,8 @@ namespace USER.BOT
                 textBoxInput.Enabled = false;
                 stage = 2;
                 buttonInput.Enabled = true;
-                button1.Enabled = false;
+                buttonSelect.Enabled = false;
+                buttonDelete.Enabled = false;
             }
         }
 
@@ -299,16 +309,16 @@ namespace USER.BOT
                     labelOutput.Text = labelOutput.Text + lvi.Text + " ";
                 }
                 labelOutput.Text = labelOutput.Text + "\r\n" +
-                    "Введите текст ответа и нажмите кнопку для отправки";
+                    "Введите текст ответа и нажмите кнопку для отправки, либо нажмите Удалить для удаления комментариев";
 
                 target = 2;
                 textBoxInput.Enabled = true;
 
-                button1.Text = "Убрать выделение";
+                buttonSelect.Text = "Убрать выделение";
             }
             else
             {
-                button1.Text = "Выбрать все комментарии";
+                buttonSelect.Text = "Выбрать все комментарии";
             }
         }
 
@@ -327,24 +337,57 @@ namespace USER.BOT
             listView2_SelectedIndexChanged(sender, e);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonSelect_Click(object sender, EventArgs e)
         {
-            if (button1.Text == "Выбрать все комментарии")
+            if (buttonSelect.Text == "Выбрать все комментарии")
             {
                 foreach (ListViewItem lvi in listView2.Items)
                 {
                     lvi.Selected = true;
-                    button1.Text = "Убрать выделение";
+                    buttonSelect.Text = "Убрать выделение";
                 }
             }
-            else if (button1.Text == "Убрать выделение")
+            else if (buttonSelect.Text == "Убрать выделение")
             {
                 foreach (ListViewItem lvi in listView2.Items)
                 {
                     lvi.Selected = false;
-                    button1.Text = "Выбрать все комментарии";
+                    buttonSelect.Text = "Выбрать все комментарии";
                 }
             }
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            labelOutput.Text = "Пожалуйста подождите...";
+
+            progressBar1.Maximum = listView2.SelectedItems.Count;
+            progressBar1.Value = listView2.SelectedItems.Count;
+            label4.Text = "Осталось: " + progressBar1.Value.ToString();
+
+            foreach (ListViewItem lwi in listView2.SelectedItems)
+            {
+                foreach (ListViewItem lvi in listView1.Items)
+                {
+                    if (lvi.SubItems[0].Text == postID)
+                    {
+                        lvi.SubItems[1].Text = Convert.ToString(Convert.ToInt32(lvi.SubItems[1].Text) - 1);
+                    }
+                }
+
+                commentID = lwi.Text;
+                Request = "https://api.vk.com/method/wall.deleteComment?owner_id=" + user_id + "&comment_id=" + commentID + "&";
+                Answer = GetAnswer(Request, access_token);
+
+                progressBar1.Value--;
+                label4.Text = "Осталось: " + progressBar1.Value.ToString();
+                Application.DoEvents();
+                Thread.Sleep(600);
+            }
+
+            labelOutput.Text = "Комментарий(ии) удален(ы)";
+            textBoxInput.Text = "";
+            progress = 0;
         }
     }
 }
