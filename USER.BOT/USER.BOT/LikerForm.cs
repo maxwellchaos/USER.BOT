@@ -37,6 +37,8 @@ namespace USER.BOT
 
         static Thread Ban;
 
+        static int CountPostforProgressBar;
+        static int LinesCountforProgressbar;
         static int bugs = 0;
         static int likes = 0;
         static int RandomNuber;
@@ -107,9 +109,7 @@ namespace USER.BOT
 
                         //Запрос на получение информации о стене
                         string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&";
-                        string Answer = GetAnswer(Request, access_token);
-
-                      
+                        string Answer = GetAnswer(Request, access_token);                 
 
                         Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
                         //LikedIDs = LikedIDs + "Post Count:" + wg.response.items.Count + "\r\n";
@@ -131,7 +131,13 @@ namespace USER.BOT
                             CountPost = wg.response.items.Count;
                         }
 
-                        progresbarMax = CountPost;
+                        progresbarMax = CountPost;//Установить максимум прогрессбара
+
+                        postCount = 0;//Сколько постов отлайкано
+
+                        CountPostforProgressBar = CountPost;
+
+                        LinesCountforProgressbar = 0;
 
                         LikeTimer = CountPost * 4 * (TextboxLinesCount - i);
 
@@ -180,7 +186,6 @@ namespace USER.BOT
                                         bSendCaptcha = false;
                                         sCaptchaAdress = cg.error.captcha_img;
 
-
                                         SavedIg = ig;
                                         SavedItem = item;
                                         SavedCg = cg;
@@ -198,7 +203,7 @@ namespace USER.BOT
                                 else
                                 {
                                     likes++;
-                                    LikeTimer -= 4;
+                                    
                                 }
 
                                 sLabel2Text = bugs.ToString() + "/" + likes.ToString();
@@ -207,10 +212,12 @@ namespace USER.BOT
                                 //*
                                 postCount = postCount + 1;
                                 CountPost -= 1;
+                                LikeTimer -= 4;
                             }
                         }
-                        progresbarMax = 0;
                     }
+
+                    LinesCountforProgressbar -= 1;
                 }
                 else
                 {
@@ -223,12 +230,24 @@ namespace USER.BOT
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            LinesCountforProgressbar = textBox3.Lines.Length;
+
+            progresbarMax = 0;
+
             timerLike.Enabled = true;
 
-            Ban = new Thread(new ThreadStart(Thread_Liker));
-            Ban.Start();
-
             sComboboxText = comboBox1.Text;
+
+            timerLike_Tick(sender, e);
+
+            if (Ban != null)
+                if (Ban.IsAlive)
+                {
+                    return;
+                }
+
+            Ban = new Thread(new ThreadStart(Thread_Liker));
+            Ban.Start();      
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -283,15 +302,12 @@ namespace USER.BOT
         }
 
         private void timerLike_Tick(object sender, EventArgs e)
-        {
-            textBoxDebug.Text = LikedIDs;
-
+        { 
             progressBar1.Maximum = progresbarMax;
 
-            if (postCount < progressBar1.Maximum)
-            {
-                progressBar1.Value = postCount;
-            }
+            progressBar1.Value = postCount;
+
+            TextboxLinesCount = textBox3.Lines.Length;
 
             if (sComboboxText == "Все")
             {
@@ -302,8 +318,6 @@ namespace USER.BOT
                 iComboboxText = Convert.ToInt32(sComboboxText);
                 
             }           
-
-            TextboxLinesCount = textBox3.Lines.Length;
 
             sTextboxText = textBox3.Text;
 
@@ -328,13 +342,11 @@ namespace USER.BOT
             {
                 button2.Enabled = false;
             }
-            
-            
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            textBox3.Text = "https://vk.com/m.kholuev\r\nhttps://vk.com/globalosha";
+            textBox3.Text = "https://vk.com/m.kholuev\r\nhttps://vk.com/globalosha\r\nhttps://vk.com/id534231144\r\nhttps://vk.com/iddieselpnz\r\nhttps://vk.com/khkpenza\r\nhttps://vk.com/id557737350\r\nhttps://vk.com/dynchikkk";
         }
     }
 }

@@ -49,7 +49,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.timerLike = new System.Windows.Forms.Timer(this.components);
             this.button4 = new System.Windows.Forms.Button();
-            this.textBoxDebug = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -263,21 +262,12 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // textBoxDebug
-            // 
-            this.textBoxDebug.Location = new System.Drawing.Point(375, 5);
-            this.textBoxDebug.Multiline = true;
-            this.textBoxDebug.Name = "textBoxDebug";
-            this.textBoxDebug.Size = new System.Drawing.Size(433, 411);
-            this.textBoxDebug.TabIndex = 26;
-            // 
             // LikerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(820, 450);
-            this.Controls.Add(this.textBoxDebug);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -320,6 +310,5 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Timer timerLike;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBoxDebug;
     }
 }
