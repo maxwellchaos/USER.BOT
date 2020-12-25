@@ -142,5 +142,89 @@ namespace USER.BOT.Properties {
                 this["replay"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int startname {
+            get {
+                return ((int)(this["startname"]));
+            }
+            set {
+                this["startname"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string id_Groups {
+            get {
+                return ((string)(this["id_Groups"]));
+            }
+            set {
+                this["id_Groups"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool stats {
+            get {
+                return ((bool)(this["stats"]));
+            }
+            set {
+                this["stats"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int income {
+            get {
+                return ((int)(this["income"]));
+            }
+            set {
+                this["income"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int biznes {
+            get {
+                return ((int)(this["biznes"]));
+            }
+            set {
+                this["biznes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int lose {
+            get {
+                return ((int)(this["lose"]));
+            }
+            set {
+                this["lose"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool fire {
+            get {
+                return ((bool)(this["fire"]));
+            }
+            set {
+                this["fire"] = value;
+            }
+        }
     }
 }
