@@ -51,7 +51,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.buttonSelect = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // listView1
@@ -79,17 +89,16 @@
             // ID1
             // 
             this.ID1.Text = "ID";
-            this.ID1.Width = 52;
             // 
             // Comments
             // 
             this.Comments.Text = "Комментарии";
-            this.Comments.Width = 85;
+            this.Comments.Width = 86;
             // 
             // Text1
             // 
             this.Text1.Text = "Текст";
-            this.Text1.Width = 380;
+            this.Text1.Width = 470;
             // 
             // imageList1
             // 
@@ -101,7 +110,7 @@
             // 
             this.textBoxInput.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxInput.Enabled = false;
-            this.textBoxInput.Location = new System.Drawing.Point(404, 383);
+            this.textBoxInput.Location = new System.Drawing.Point(413, 211);
             this.textBoxInput.Multiline = true;
             this.textBoxInput.Name = "textBoxInput";
             this.textBoxInput.Size = new System.Drawing.Size(260, 27);
@@ -112,7 +121,7 @@
             // 
             this.buttonInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonInput.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonInput.Location = new System.Drawing.Point(404, 445);
+            this.buttonInput.Location = new System.Drawing.Point(413, 273);
             this.buttonInput.Name = "buttonInput";
             this.buttonInput.Size = new System.Drawing.Size(112, 23);
             this.buttonInput.TabIndex = 3;
@@ -133,7 +142,7 @@
             this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView2.HideSelection = false;
             this.listView2.LargeImageList = this.imageList1;
-            this.listView2.Location = new System.Drawing.Point(12, 208);
+            this.listView2.Location = new System.Drawing.Point(12, 32);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(776, 169);
             this.listView2.SmallImageList = this.imageList1;
@@ -166,12 +175,12 @@
             // Text2
             // 
             this.Text2.Text = "Текст";
-            this.Text2.Width = 332;
+            this.Text2.Width = 420;
             // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.Control;
-            this.progressBar1.Location = new System.Drawing.Point(404, 416);
+            this.progressBar1.Location = new System.Drawing.Point(413, 244);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(384, 23);
             this.progressBar1.Step = 1;
@@ -179,7 +188,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(638, 32);
+            this.pictureBox1.Location = new System.Drawing.Point(7, 32);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(150, 150);
             this.pictureBox1.TabIndex = 8;
@@ -191,9 +200,9 @@
             this.labelOutput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.labelOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelOutput.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelOutput.Location = new System.Drawing.Point(12, 380);
+            this.labelOutput.Location = new System.Drawing.Point(21, 208);
             this.labelOutput.Name = "labelOutput";
-            this.labelOutput.Size = new System.Drawing.Size(379, 87);
+            this.labelOutput.Size = new System.Drawing.Size(379, 92);
             this.labelOutput.TabIndex = 9;
             this.labelOutput.Text = "Нажмите на кнопку для вывода всех записей с вашей страницы";
             // 
@@ -202,7 +211,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(12, 185);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(117, 20);
             this.label1.TabIndex = 10;
@@ -224,7 +233,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.SystemColors.Control;
-            this.label3.Location = new System.Drawing.Point(634, 9);
+            this.label3.Location = new System.Drawing.Point(3, 11);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 20);
             this.label3.TabIndex = 12;
@@ -235,7 +244,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.ForeColor = System.Drawing.SystemColors.Control;
-            this.label4.Location = new System.Drawing.Point(670, 385);
+            this.label4.Location = new System.Drawing.Point(679, 213);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(87, 20);
             this.label4.TabIndex = 13;
@@ -246,7 +255,7 @@
             this.buttonSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonSelect.Enabled = false;
             this.buttonSelect.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonSelect.Location = new System.Drawing.Point(640, 445);
+            this.buttonSelect.Location = new System.Drawing.Point(649, 273);
             this.buttonSelect.Name = "buttonSelect";
             this.buttonSelect.Size = new System.Drawing.Size(148, 23);
             this.buttonSelect.TabIndex = 14;
@@ -259,7 +268,7 @@
             this.buttonDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.buttonDelete.Enabled = false;
             this.buttonDelete.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonDelete.Location = new System.Drawing.Point(522, 445);
+            this.buttonDelete.Location = new System.Drawing.Point(531, 273);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(112, 23);
             this.buttonDelete.TabIndex = 15;
@@ -267,33 +276,75 @@
             this.buttonDelete.UseVisualStyleBackColor = false;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonDelete);
+            this.splitContainer1.Panel2.Controls.Add(this.listView2);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonSelect);
+            this.splitContainer1.Panel2.Controls.Add(this.label4);
+            this.splitContainer1.Panel2.Controls.Add(this.textBoxInput);
+            this.splitContainer1.Panel2.Controls.Add(this.labelOutput);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonInput);
+            this.splitContainer1.Panel2.Controls.Add(this.progressBar1);
+            this.splitContainer1.Size = new System.Drawing.Size(838, 501);
+            this.splitContainer1.SplitterDistance = 190;
+            this.splitContainer1.TabIndex = 16;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.listView1);
+            this.splitContainer2.Panel1.Controls.Add(this.label2);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.pictureBox1);
+            this.splitContainer2.Panel2.Controls.Add(this.label3);
+            this.splitContainer2.Size = new System.Drawing.Size(838, 190);
+            this.splitContainer2.SplitterDistance = 642;
+            this.splitContainer2.TabIndex = 13;
+            // 
             // AnswerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.ClientSize = new System.Drawing.Size(800, 476);
-            this.Controls.Add(this.buttonDelete);
-            this.Controls.Add(this.buttonSelect);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.labelOutput);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.listView2);
-            this.Controls.Add(this.buttonInput);
-            this.Controls.Add(this.textBoxInput);
-            this.MaximumSize = new System.Drawing.Size(816, 515);
-            this.MinimumSize = new System.Drawing.Size(816, 515);
+            this.ClientSize = new System.Drawing.Size(838, 501);
+            this.Controls.Add(this.splitContainer1);
+            this.MinimumSize = new System.Drawing.Size(820, 540);
             this.Name = "AnswerForm";
             this.Text = "Ответ на комментарии";
             this.Load += new System.EventHandler(this.AnswerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -321,5 +372,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonSelect;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }

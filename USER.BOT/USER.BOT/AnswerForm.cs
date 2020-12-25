@@ -259,7 +259,7 @@ namespace USER.BOT
                     Thread.Sleep(600);
                 }
 
-                labelOutput.Text = "Комментарий(ии) отправлен(ы)";
+                labelOutput.Text = "Комментарий(ии) отправлен(ы)" + "\r\n" + "Вы можете выбрать другую запись или комментарий";
                 textBoxInput.Text = "";
                 progress = 0;
             }
@@ -365,26 +365,36 @@ namespace USER.BOT
             progressBar1.Value = listView2.SelectedItems.Count;
             label4.Text = "Осталось: " + progressBar1.Value.ToString();
 
-            foreach (ListViewItem lwi in listView2.SelectedItems)
+            foreach (ListViewItem lvi in listView2.SelectedItems)
             {
-                foreach (ListViewItem lvi in listView1.Items)
+                if (lvi.SubItems[2].Text != "  -")
                 {
-                    if (lvi.SubItems[0].Text == postID)
+                    if (lvi.SubItems[1].Text != "")
                     {
-                        lvi.SubItems[1].Text = Convert.ToString(Convert.ToInt32(lvi.SubItems[1].Text) - 1);
+                        foreach (ListViewItem lvi1 in listView1.Items)
+                        {
+                            if (lvi1.SubItems[0].Text == postID)
+                            {
+                                lvi1.SubItems[1].Text = Convert.ToString(Convert.ToInt32(lvi1.SubItems[1].Text) - 1);
+                            }
+                        }
                     }
+                    commentID = lvi.Text;
+                    Request = "https://api.vk.com/method/wall.deleteComment?owner_id=" + user_id + "&comment_id=" + commentID + "&";
+                    Answer = GetAnswer(Request, access_token);
+
+                    progressBar1.Value--;
+                    label4.Text = "Осталось: " + progressBar1.Value.ToString();
+                    Application.DoEvents();
+                    Thread.Sleep(600);
                 }
-
-                commentID = lwi.Text;
-                Request = "https://api.vk.com/method/wall.deleteComment?owner_id=" + user_id + "&comment_id=" + commentID + "&";
-                Answer = GetAnswer(Request, access_token);
-
-                progressBar1.Value--;
-                label4.Text = "Осталось: " + progressBar1.Value.ToString();
-                Application.DoEvents();
-                Thread.Sleep(600);
+                else
+                {
+                    progressBar1.Value--;
+                    label4.Text = "Осталось: 0";
+                }
             }
-
+            
             labelOutput.Text = "Комментарий(ии) удален(ы)";
             textBoxInput.Text = "";
             progress = 0;
