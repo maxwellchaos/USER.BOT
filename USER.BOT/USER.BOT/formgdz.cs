@@ -275,6 +275,7 @@ namespace USER.BOT
                             }
                             else
                             {
+                               
                                 //автор не выбран
                                 int avtorID = int.Parse(LastUserMessageText);
                                 string temp3 = "Вы выбрали" + avtor[avtorID] + " код:" + param[1].ToString() + "_" + param[2].ToString() + "_" + avtorID.ToString() + "avt" + "_";
@@ -285,29 +286,48 @@ namespace USER.BOT
                         }
                         else
                         {
-                            reqeuest2 = "https://api.vk.com/method/messages.getById?message_ids=" + messegeid.ToString() + "&group_id=199265164&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                            string digitObjKl = Digit + "_" ;
+                            textBox1.Text = digitObjKl;
+                            reqeuest2 = "https://api.vk.com/method/docs.get?owner_id=-199265164&type=4&" + access_token + "&v=5.124";
                             answer2 = Encoding.UTF8.GetString(cl.DownloadData(reqeuest2));
-                            mgbi = JsonConvert.DeserializeObject<messagesgetById>(answer2);
-                            for (int i = mgbi.response.items.Count - 1; i >= 0; i = i - 1)
+                            docsget dc = JsonConvert.DeserializeObject<docsget>(answer2);
+                            foreach (docsget.Item item1 in dc.response.items)
                             {
 
-                                if (mgbi.response.items[i].from_id.ToString() == "380583406")
+                                if (item1.title.Contains(digitObjKl))
                                 {
-                                    LastUserMessageText = (mgbi.response.items[i].text = textBox1.ToString());
-                                }
-                                else
-                                {
-                                    LastBotMessageText = (mgbi.response.items[i].text);
-                                }
 
+                                    string doc_id = "doc" + item1.owner_id.ToString() + "_" + item1.id.ToString();
+                                    // item1.url
+                                    // random_id2 = rnd.Next();
+                                    string[] separator1 = new string[3];
+                                    separator1[0] = ":";
+                                    separator1[1] = "_";
+                                    separator1[2] = " ";
+                                    string[] param1 = item1.title.Split(separator1, StringSplitOptions.None);
+                                    int AutorIndex = avtor1.IndexOf(param1[9] + "=" + param1[2]);
+                                    if (AutorIndex < 0)
+                                    {
+                                        avtor1.Add(param1[9] + "=" + param1[2]);
+                                    }
+
+
+
+                                }
                             }
                             //класс не выбран
-                            int classid = int.Parse(LastUserMessageText);
-                            string temp2 = "Вы выбрали " + clas[classid] + "код:" + param[1].ToString() + "_" + classid.ToString() + "KL" + "_";
-                            random_id = rnd.Next();
-                            reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp2 + "выберете автора." + "&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
-                            string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
+                            string allautors = "";// перечень авторов
+                            foreach (string av in avtor1)
+                            {
+                                allautors = allautors +", "+ av;//обЪеденяют авторов в перечень авторов
+                            }
 
+                                int classid = int.Parse(LastUserMessageText);
+                                string temp2 = "Вы выбрали " + clas[classid] + "код:" + param[1].ToString() + "_" + classid.ToString() + "KL" + "_";
+                                random_id = rnd.Next();
+                                reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp2 + "выберете автора:"+ allautors + "&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                                string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
+                            
                         }
                     }
                     else //пердмет не выбран
