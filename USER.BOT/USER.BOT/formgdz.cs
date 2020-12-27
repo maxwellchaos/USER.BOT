@@ -228,7 +228,7 @@ namespace USER.BOT
                     string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
                 }
                 // messagesSend ms = JsonConvert.DeserializeObject<messagesSend>(answer3);
-                if (LastUserMessageText.Length == 1 || LastUserMessageText.Length == 2)
+                if (LastUserMessageText.Length > 0 && LastUserMessageText.Length < 5)
                 {
 
                     random_id = rnd.Next();
