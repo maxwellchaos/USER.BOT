@@ -95,9 +95,9 @@ namespace USER.BOT
                     {
                         foreach (WallGet.Attachment attachmentsWG in itemWG.attachments)
                         {
-                            if (attachmentsWG.type == "photo")
+                            if (attachmentsWG.type == "photo" && attachmentsWG.photo.sizes.Count > 3)
                             {
-                                LVitem[3] = itemWG.attachments[0].photo.sizes[0].url;
+                                LVitem[3] = itemWG.attachments[0].photo.sizes[3].url;
                             }
                         }
                     }
@@ -223,7 +223,7 @@ namespace USER.BOT
                 "Либо выберите другую запись";
             buttonInput.Enabled = true;
             buttonSelect.Enabled = true;
-            buttonDelete.Enabled = true;
+            //buttonDelete.Enabled = true;
             listView1.Enabled  = true;
             listView2.Enabled = true;
         }
@@ -295,7 +295,7 @@ namespace USER.BOT
                 stage = 2;
                 buttonInput.Enabled = true;
                 buttonSelect.Enabled = false;
-                buttonDelete.Enabled = false;
+                //buttonDelete.Enabled = false;
             }
         }
 
@@ -359,45 +359,45 @@ namespace USER.BOT
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            labelOutput.Text = "Пожалуйста подождите...";
+            //labelOutput.Text = "Пожалуйста подождите...";
 
-            progressBar1.Maximum = listView2.SelectedItems.Count;
-            progressBar1.Value = listView2.SelectedItems.Count;
-            label4.Text = "Осталось: " + progressBar1.Value.ToString();
+            //progressBar1.Maximum = listView2.SelectedItems.Count;
+            //progressBar1.Value = listView2.SelectedItems.Count;
+            //label4.Text = "Осталось: " + progressBar1.Value.ToString();
 
-            foreach (ListViewItem lvi in listView2.SelectedItems)
-            {
-                if (lvi.SubItems[2].Text != "  -")
-                {
-                    if (lvi.SubItems[1].Text != "")
-                    {
-                        foreach (ListViewItem lvi1 in listView1.Items)
-                        {
-                            if (lvi1.SubItems[0].Text == postID)
-                            {
-                                lvi1.SubItems[1].Text = Convert.ToString(Convert.ToInt32(lvi1.SubItems[1].Text) - 1);
-                            }
-                        }
-                    }
-                    commentID = lvi.Text;
-                    Request = "https://api.vk.com/method/wall.deleteComment?owner_id=" + user_id + "&comment_id=" + commentID + "&";
-                    Answer = GetAnswer(Request, access_token);
+            //foreach (ListViewItem lvi in listView2.SelectedItems)
+            //{
+            //    if (lvi.SubItems[2].Text != "  -")
+            //    {
+            //        if (lvi.SubItems[1].Text != "")
+            //        {
+            //            foreach (ListViewItem lvi1 in listView1.Items)
+            //            {
+            //                if (lvi1.SubItems[0].Text == postID)
+            //                {
+            //                    lvi1.SubItems[1].Text = Convert.ToString(Convert.ToInt32(lvi1.SubItems[1].Text) - 1);
+            //                }
+            //            }
+            //        }
+            //        commentID = lvi.Text;
+            //        Request = "https://api.vk.com/method/wall.deleteComment?owner_id=" + user_id + "&comment_id=" + commentID + "&";
+            //        Answer = GetAnswer(Request, access_token);
 
-                    progressBar1.Value--;
-                    label4.Text = "Осталось: " + progressBar1.Value.ToString();
-                    Application.DoEvents();
-                    Thread.Sleep(600);
-                }
-                else
-                {
-                    progressBar1.Value--;
-                    label4.Text = "Осталось: 0";
-                }
-            }
+            //        progressBar1.Value--;
+            //        label4.Text = "Осталось: " + progressBar1.Value.ToString();
+            //        Application.DoEvents();
+            //        Thread.Sleep(600);
+            //    }
+            //    else
+            //    {
+            //        progressBar1.Value--;
+            //        label4.Text = "Осталось: 0";
+            //    }
+            //}
             
-            labelOutput.Text = "Комментарий(ии) удален(ы)";
-            textBoxInput.Text = "";
-            progress = 0;
+            //labelOutput.Text = "Комментарий(ии) удален(ы)";
+            //textBoxInput.Text = "";
+            //progress = 0;
         }
     }
 }
