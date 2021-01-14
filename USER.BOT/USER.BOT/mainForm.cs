@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +18,7 @@ namespace USER.BOT
 {
     public partial class mainForm : Form
     {
+
         string access_token;
         string user_id;
         string BanName;
@@ -27,6 +28,7 @@ namespace USER.BOT
         string random_id;
 
         Form_Happy_day form;
+
         public mainForm()
         {
             InitializeComponent();
@@ -44,10 +46,12 @@ namespace USER.BOT
 
             webBrowser1.BringToFront();
             webBrowser1.Dock = DockStyle.Fill;
+            pictureBoxWait.BringToFront();
 
-            webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304" +
-                "&display=page&redirect_uri=https://oauth.vk.com/blank.html&" +
-                "scope=friends+groups+wall&" +
+
+            webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304"+
+                "&display=page&redirect_uri=https://oauth.vk.com/blank.html&"+
+                "scope=friends+groups+wall+photo&"+
                 "response_type=token&v=5.124&state=123456");
             if(Properties.Settings.Default.ChatBot == true)
             {
@@ -102,6 +106,7 @@ namespace USER.BOT
                     form.Visible = false;
                 }
             }
+            pictureBoxWait.Hide();
         }
 
         private void buttonGetPopularPost_Click(object sender, EventArgs e)
@@ -1845,6 +1850,7 @@ namespace USER.BOT
             }
         }
 
+
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.id_Groups = textBox2.Text;
@@ -1862,5 +1868,15 @@ namespace USER.BOT
                 textBox2.Text = "";
             }
         }
-    }    
+
+        private void ButtonLiking_Click(object sender, EventArgs e)
+        {
+            LikerForm form = new LikerForm();
+            form.access_token = access_token;
+            form.users_id = user_id;
+            form.ShowDialog();
+        }
+    }
 }
+
+

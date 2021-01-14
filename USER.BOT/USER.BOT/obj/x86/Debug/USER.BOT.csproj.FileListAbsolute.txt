@@ -1,43 +1,13 @@
-C:\Users\zzzz\AppData\Local\Temporary Projects\USER.BOT\bin\Debug\USER.BOT.exe
-C:\Users\zzzz\AppData\Local\Temporary Projects\USER.BOT\bin\Debug\USER.BOT.pdb
-C:\Users\zzzz\AppData\Local\Temporary Projects\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
-C:\Users\zzzz\AppData\Local\Temporary Projects\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.Cache
-C:\Users\zzzz\AppData\Local\Temporary Projects\USER.BOT\obj\x86\Debug\USER.BOT.exe
-C:\Users\zzzz\AppData\Local\Temporary Projects\USER.BOT\obj\x86\Debug\USER.BOT.pdb
-C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.exe
-C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.pdb
-C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csprojResolveAssemblyReference.cache
-C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
-C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
-C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.Cache
-C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe
-C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\bin\Debug\USER.BOT.pdb
-C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\bin\Debug\Newtonsoft.Json.dll
-C:\Users\zzzz\Desktop\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.FormMostPopularPost.resources
-D:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe
-D:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.pdb
-D:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\Newtonsoft.Json.dll
-D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csprojAssemblyReference.cache
-D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.FormMostPopularPost.resources
-D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Form_Happy_day.resources
-D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
-D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
-D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.cache
-D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.CoreCompileInputs.cache
-D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.CopyComplete
-D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.exe
-D:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.pdb
-D:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe.config
-I:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe.config
-I:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe
-I:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.pdb
-I:\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\Newtonsoft.Json.dll
-I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csprojAssemblyReference.cache
-I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.FormMostPopularPost.resources
-I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Form_Happy_day.resources
-I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
-I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
-I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.cache
-I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.CopyComplete
-I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.exe
-I:\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.pdb
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csprojResolveAssemblyReference.cache
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.FormMostPopularPost.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Form_Happy_day.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.LikerForm.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.Cache
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe.config
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.exe
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\USER.BOT.pdb
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\bin\Debug\Newtonsoft.Json.dll
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.exe
+C:\Users\zzzz\Downloads\USER.BOT-main (19)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.pdb
