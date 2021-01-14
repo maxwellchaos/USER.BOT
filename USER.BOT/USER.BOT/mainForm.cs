@@ -25,6 +25,8 @@ namespace USER.BOT
         string messagesEnd;
         int co;
         int co1;
+        string random_id;
+
         Form_Happy_day form;
 
         public mainForm()
@@ -65,6 +67,7 @@ namespace USER.BOT
                 textBox1.Text = "Суда введи access token сообщества";
                 Properties.Settings.Default.TokenChatBot = "Суда введи access token сообщества";
             }
+            textBox2.Text = Properties.Settings.Default.id_Groups;
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -149,8 +152,6 @@ namespace USER.BOT
                 string AnswerBanFriends = Encoding.UTF8.GetString(cl.DownloadData(BanFriendsId));
                 BanFriends rtf1 = JsonConvert.DeserializeObject<BanFriends>(AnswerBanFriends);
 
-                co1++;
-
                 Application.DoEvents();
                 Thread.Sleep(300);
                 foreach (BanFriends.ResponseBanFriends item1 in rtf1.response)
@@ -195,17 +196,14 @@ namespace USER.BOT
 
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            for (int d = 2; d < 2; d++)
-            {
-
-            }
-
             if (checkBox1.Checked == true)
             {
                 Properties.Settings.Default.ChatBot = true;
+                checkBox1.Text = "Чат-игра бот вкл";
             }
             if (checkBox1.Checked == false)
             {
+                checkBox1.Text = "Чат-игра бот выкл";
                 Properties.Settings.Default.ChatBot = false;
             }
             if (Properties.Settings.Default.ChatBot == true)
@@ -218,12 +216,13 @@ namespace USER.BOT
 
                 foreach (MessagesNew.Item last in rtf5.response.items)
                 {
+                    random_id = last.last_message.random_id.ToString();
                     string SendMessages5 = "https://api.vk.com/method/storage.get?keys=balance&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                     string AnswerSendMessages5 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages5));
                     MessagesGet rtf2 = JsonConvert.DeserializeObject<MessagesGet>(AnswerSendMessages5);
                     foreach (MessagesGet.Response key in rtf2.response)
                     {
-                        if(key.value == "" || key.value == null)
+                        if (key.value == "" || key.value == null)
                         {
                             string CasinoMessages = "https://api.vk.com/method/storage.set?key=balance&value=1&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                             string AnswerCasinoMessages = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages));
@@ -233,14 +232,39 @@ namespace USER.BOT
                             int balance = Convert.ToInt32(key.value);
                             if (last.last_message.text == "Старт" || last.last_message.text == "старт")
                             {
+
+                                string SendMessages30 = "https://api.vk.com/method/storage.get?keys=users&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                string AnswerSendMessages30 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages30));
+                                MessagesGet rtf60 = JsonConvert.DeserializeObject<MessagesGet>(AnswerSendMessages30);
+                                foreach (MessagesGet.Response key1 in rtf60.response)
+                                {
+                                    string[] users = key1.value.Split(new[] { "-"}, StringSplitOptions.RemoveEmptyEntries);
+                                    if (!users.Contains(last.last_message.peer_id.ToString()))
+                                    {
+                                        key1.value += last.last_message.peer_id.ToString();
+
+                                        string SendMessages31 = "https://api.vk.com/method/storage.set?&key=users&value= " + key1.value + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                        string AnswerSendMessages31 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages31));
+                                    }
+                                }
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
+
                                 string SendMessages = "https://api.vk.com/method/storage.set?key=balance&value=1&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
 
-                                string SendMessages1 = "https://api.vk.com/method/messages.send?message=Тебе дали стартовый баланс в 10000₽. Напиши Баланс, чтобы узнать 'баланс'." + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                string SendMessages1 = "https://api.vk.com/method/messages.send?message=Тебе дали стартовый баланс в 1₽. Напиши Баланс, чтобы узнать 'баланс'." + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
                             }
                             else if (last.last_message.text == "Баланс" || last.last_message.text == "баланс")
                             {
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
+
                                 string SendMessages2 = "https://api.vk.com/method/storage.getKeys?user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages2 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages2));
 
@@ -253,16 +277,22 @@ namespace USER.BOT
                             }
                             else if (last.last_message.text == "Ставка на всё" || last.last_message.text == "ставка на всё" || last.last_message.text == "Ставка на все" || last.last_message.text == "ставка на все")
                             {
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
+
                                 string SendMessages2 = "https://api.vk.com/method/storage.getKeys?user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages2 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages2));
 
                                 string SendMessages1 = "https://api.vk.com/method/storage.get?keys=balance&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
                                 MessagesGet rtf = JsonConvert.DeserializeObject<MessagesGet>(AnswerSendMessages1);
-                                int casino = random.Next(1, 4);
+                                int casino = random.Next(1, 3);
 
-                                if (casino == 1 || casino == 2)
+                                if (casino == 1)
                                 {
+                                    Properties.Settings.Default.lose += balance;
                                     balance = 1;
 
                                     string CasinoMessages = "https://api.vk.com/method/storage.set?key=balance&value=10&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
@@ -271,9 +301,10 @@ namespace USER.BOT
                                     string SendMessages = "https://api.vk.com/method/messages.send?message=Ставка не выиграла. Баланс: " + balance + "₽&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
                                 }
-                                else if (casino == 3)
+                                else if (casino == 2)
                                 {
                                     balance *= 2;
+                                    Properties.Settings.Default.income += balance;
 
                                     string CasinoMessages = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerCasinoMessages = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages));
@@ -286,9 +317,17 @@ namespace USER.BOT
                             // завод, промышленость, магазины, услуги, фонды 
                             // чёрный рынок
                             else if (last.last_message.text == "Купить бизнес" || last.last_message.text == "купить бизнес")
-                            {
+                            {//статистика
+                             //уведомление о сгорании денег
+                             //сгорание денег
+                             //больше денег
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
+
                                 string SendMessages = "https://api.vk.com/method/messages.send?message=Выбери бизнес: \r\n" +
-                                    "Торговая точка на рынке: цена 1 000₽; доход 50₽ в день\r\n" +
+                                    "Торговая точка: цена 1 000₽; доход 50₽ в день\r\n" +
                                     "Магазин выпечки: цена 50 000₽; доход 100₽ в день\r\n" +
                                     "Магазин цветов: цена 100 000₽; доход 1 000₽ в день\r\n" +
                                     "Магазин обуви: цена 150 000₽; доход 2 000₽ в день\r\n" +
@@ -297,6 +336,8 @@ namespace USER.BOT
                                     "Пятёрочка: цена 1 000 000₽; доход 20 000₽ в день\r\n" +
                                     "Торговый центр: цена 500 000₽; доход 6 000₽ в день\r\n" +
                                     "Завод: цена 1 500 000₽; доход 50 000₽ в день\r\n" +
+                                    "Яблоко: цена  500 000 000₽; доход 100 000₽ в день\r\n" +
+                                    "Гугл: цена 1 000 000 000₽; доход 1 000 000₽ в день\r\n" +
                                     "Напиши купить и название бизнеса с изменением падежа" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
                             }
@@ -304,6 +345,11 @@ namespace USER.BOT
                             {
                                 if (balance >= 1000)
                                 {
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+
                                     string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
                                     MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
@@ -311,7 +357,8 @@ namespace USER.BOT
                                     {
                                         if (d1.value == "" || d1.value == null)
                                         {
-                                            balance -= 10000;
+                                            balance -= 1000;
+                                            Properties.Settings.Default.biznes++;
 
                                             DateTime date11 = DateTime.Now;
                                             string datenow11 = date11.Day.ToString() + "." + date11.Month;
@@ -343,6 +390,11 @@ namespace USER.BOT
                             {
                                 if (balance >= 50000)
                                 {
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+
                                     string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date1" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
                                     MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
@@ -351,6 +403,7 @@ namespace USER.BOT
                                         if (d1.value == "" || d1.value == null)
                                         {
                                             balance -= 50000;
+                                            Properties.Settings.Default.biznes++;
 
                                             DateTime date11 = DateTime.Now;
                                             string datenow11 = date11.Day.ToString() + "." + date11.Month;
@@ -381,6 +434,11 @@ namespace USER.BOT
                             {
                                 if (balance >= 100000)
                                 {
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+
                                     string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date2" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
                                     MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
@@ -389,6 +447,7 @@ namespace USER.BOT
                                         if (d1.value == "" || d1.value == null)
                                         {
                                             balance -= 100000;
+                                            Properties.Settings.Default.biznes++;
 
                                             DateTime date11 = DateTime.Now;
                                             string datenow11 = date11.Day.ToString() + "." + date11.Month;
@@ -424,9 +483,15 @@ namespace USER.BOT
                                     MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
                                     foreach (MessagesGet.Response d1 in rtf1.response)
                                     {
+                                        if (Properties.Settings.Default.startname == 0)
+                                        {
+                                            Properties.Settings.Default.startname = last.last_message.peer_id;
+                                        }
+
                                         if (d1.value == "" || d1.value == null)
                                         {
                                             balance -= 150000;
+                                            Properties.Settings.Default.biznes++;
 
                                             DateTime date11 = DateTime.Now;
                                             string datenow11 = date11.Day.ToString() + "." + date11.Month;
@@ -457,6 +522,11 @@ namespace USER.BOT
                             {
                                 if (balance >= 150000)
                                 {
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+
                                     string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date4" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
                                     MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
@@ -465,6 +535,7 @@ namespace USER.BOT
                                         if (d1.value == "" || d1.value == null)
                                         {
                                             balance -= 150000;
+                                            Properties.Settings.Default.biznes++;
 
                                             DateTime date11 = DateTime.Now;
                                             string datenow11 = date11.Day.ToString() + "." + date11.Month;
@@ -495,6 +566,11 @@ namespace USER.BOT
                             {
                                 if (balance >= 1000000)
                                 {
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+
                                     string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date5" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
                                     MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
@@ -503,6 +579,7 @@ namespace USER.BOT
                                         if (d1.value == "" || d1.value == null)
                                         {
                                             balance -= 1000000;
+                                            Properties.Settings.Default.biznes++;
 
                                             DateTime date11 = DateTime.Now;
                                             string datenow11 = date11.Day.ToString() + "." + date11.Month;
@@ -533,6 +610,11 @@ namespace USER.BOT
                             {
                                 if (balance >= 1000000)
                                 {
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+
                                     string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date6" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
                                     MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
@@ -541,6 +623,7 @@ namespace USER.BOT
                                         if (d1.value == "" || d1.value == null)
                                         {
                                             balance -= 1000000;
+                                            Properties.Settings.Default.biznes++;
 
                                             DateTime date11 = DateTime.Now;
                                             string datenow11 = date11.Day.ToString() + "." + date11.Month;
@@ -571,6 +654,11 @@ namespace USER.BOT
                             {
                                 if (balance >= 500000)
                                 {
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+
                                     string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date7" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
                                     MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
@@ -579,7 +667,7 @@ namespace USER.BOT
                                         if (d1.value == "" || d1.value == null)
                                         {
                                             balance -= 500000;
-
+                                            Properties.Settings.Default.biznes++;
                                             DateTime date11 = DateTime.Now;
                                             string datenow11 = date11.Day.ToString() + "." + date11.Month;
 
@@ -609,6 +697,11 @@ namespace USER.BOT
                             {
                                 if (balance >= 1500000)
                                 {
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+
                                     string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date8" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
                                     MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
@@ -617,7 +710,7 @@ namespace USER.BOT
                                         if (d1.value == "" || d1.value == null)
                                         {
                                             balance -= 1500000;
-
+                                            Properties.Settings.Default.biznes++;
                                             DateTime date11 = DateTime.Now;
                                             string datenow11 = date11.Day.ToString() + "." + date11.Month;
 
@@ -643,8 +736,99 @@ namespace USER.BOT
                                     string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
                                 }
                             }
+                            else if (last.last_message.text.ToLower() == "купить яблоко")
+                            {
+                                if (balance >= 500000000)
+                                {
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+
+                                    string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date9" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
+                                    MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
+                                    foreach (MessagesGet.Response d1 in rtf1.response)
+                                    {
+                                        if (d1.value == "" || d1.value == null)
+                                        {
+                                            balance -= 500000000;
+                                            Properties.Settings.Default.biznes++;
+                                            DateTime date11 = DateTime.Now;
+                                            string datenow11 = date11.Day.ToString() + "." + date11.Month;
+
+                                            string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date9&value=" + datenow11 + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                            string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                            string SendMessages = "https://api.vk.com/method/messages.send?message=Вы купили магазин техники яблоко, теперь ты получаешь 100 000₽ в день. Баланс: " + balance + "₽&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                            string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                            string CasinoMessages = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                            string AnswerCasinoMessages = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages));
+                                        }
+                                        else
+                                        {
+                                            string SendMessages = "https://api.vk.com/method/messages.send?message=У тебя уже есть яблоко!" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                            string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=У тебя не хватает денег. Стоимость 500 000 000₽. Баланс: " + balance + "₽&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            else if (last.last_message.text.ToLower() == "купить гугл")
+                            {
+                                if (balance >= 1000000000)
+                                {
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+
+                                    string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date10" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
+                                    MessagesGet rtf1 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
+                                    foreach (MessagesGet.Response d1 in rtf1.response)
+                                    {
+                                        if (d1.value == "" || d1.value == null)
+                                        {
+                                            balance -= 1000000000;
+                                            Properties.Settings.Default.biznes++;
+                                            DateTime date11 = DateTime.Now;
+                                            string datenow11 = date11.Day.ToString() + "." + date11.Month;
+
+                                            string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date10&value=" + datenow11 + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                            string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                            string SendMessages = "https://api.vk.com/method/messages.send?message=Вы купили гугл, теперь ты получаешь 1 000 000₽ в день. Баланс: " + balance + "₽&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                            string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                            string CasinoMessages = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                            string AnswerCasinoMessages = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages));
+                                        }
+                                        else
+                                        {
+                                            string SendMessages = "https://api.vk.com/method/messages.send?message=У тебя уже есть гугл!" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                            string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=У тебя не хватает денег. Стоимость 1 000 000 000₽. Баланс: " + balance + "₽&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
                             else if (last.last_message.text == "Доход" || last.last_message.text == "доход")
                             {
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
+
                                 DateTime date11 = DateTime.Now;
                                 string datenow11 = date11.Day.ToString() + "." + date11.Month;
 
@@ -665,9 +849,10 @@ namespace USER.BOT
                                     {
                                         if (d.value != datenow11)
                                         {
-                                            if(d.value != "")
+                                            if (d.value != "")
                                             {
                                                 balance += 50;
+                                                Properties.Settings.Default.income += balance;
 
                                                 string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                                 string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
@@ -694,11 +879,12 @@ namespace USER.BOT
                                     MessagesGet rtf3 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages3);
                                     foreach (MessagesGet.Response d in rtf3.response)
                                     {
-                                        if (d.value != datenow11 )
+                                        if (d.value != datenow11)
                                         {
                                             if (d.value != "")
                                             {
                                                 balance += 100;
+                                                Properties.Settings.Default.income += balance;
 
                                                 string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                                 string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
@@ -726,6 +912,7 @@ namespace USER.BOT
                                             if (d.value != "")
                                             {
                                                 balance += 1000;
+                                                Properties.Settings.Default.income += balance;
 
                                                 string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                                 string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
@@ -748,11 +935,12 @@ namespace USER.BOT
                                     MessagesGet rtf6 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
                                     foreach (MessagesGet.Response d in rtf6.response)
                                     {
-                                        if (d.value != datenow11 )
+                                        if (d.value != datenow11)
                                         {
                                             if (d.value != "")
                                             {
                                                 balance += 2000;
+                                                Properties.Settings.Default.income += balance;
 
                                                 string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                                 string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
@@ -780,6 +968,7 @@ namespace USER.BOT
                                             if (d.value != "")
                                             {
                                                 balance += 2000;
+                                                Properties.Settings.Default.income += balance;
 
                                                 string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                                 string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
@@ -802,11 +991,12 @@ namespace USER.BOT
                                     MessagesGet rtf8 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages7);
                                     foreach (MessagesGet.Response d in rtf8.response)
                                     {
-                                        if (d.value != datenow11 )
+                                        if (d.value != datenow11)
                                         {
                                             if (d.value != "")
                                             {
                                                 balance += 20000;
+                                                Properties.Settings.Default.income += balance;
 
                                                 string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                                 string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
@@ -834,6 +1024,7 @@ namespace USER.BOT
                                             if (d.value != "")
                                             {
                                                 balance += 20000;
+                                                Properties.Settings.Default.income += balance;
 
                                                 string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                                 string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
@@ -861,6 +1052,7 @@ namespace USER.BOT
                                             if (d.value != "")
                                             {
                                                 balance += 6000;
+                                                Properties.Settings.Default.income += balance;
 
                                                 string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                                 string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
@@ -888,6 +1080,7 @@ namespace USER.BOT
                                             if (d.value != "")
                                             {
                                                 balance += 50000;
+                                                Properties.Settings.Default.income += balance;
 
                                                 string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                                 string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
@@ -905,13 +1098,75 @@ namespace USER.BOT
                                             string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
                                         }
                                     }
+                                    string CasinoMessages11 = "https://api.vk.com/method/storage.get?keys=last_date9" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerCasinoMessages11 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages11));
+                                    MessagesGet rtf12 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages11);
+                                    foreach (MessagesGet.Response d in rtf12.response)
+                                    {
+                                        if (d.value != datenow11)
+                                        {
+                                            if (d.value != "")
+                                            {
+                                                balance += 100000;
+                                                Properties.Settings.Default.income += balance;
+
+                                                string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                                string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
+
+                                                string SendMessages = "https://api.vk.com/method/messages.send?message=Ваш доход от яблока: 100 000₽. Баланс: " + balance + "₽&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                                string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                                string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date9&value=" + datenow11 + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                                string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            string SendMessages = "https://api.vk.com/method/messages.send?message=Сегодня ты уже забрал свои деньги" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                            string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                        }
+                                    }
+                                    string CasinoMessages12 = "https://api.vk.com/method/storage.get?keys=last_date10" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerCasinoMessages12 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages12));
+                                    MessagesGet rtf13 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages12);
+                                    foreach (MessagesGet.Response d in rtf13.response)
+                                    {
+                                        if (d.value != datenow11)
+                                        {
+                                            if (d.value != "")
+                                            {
+                                                balance += 1000000;
+                                                Properties.Settings.Default.income += balance;
+
+                                                string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                                string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
+
+                                                string SendMessages = "https://api.vk.com/method/messages.send?message=Ваш доход от гуглп: 1 000 000₽. Баланс: " + balance + "₽&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                                string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                                string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date10&value=" + datenow11 + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                                string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            string SendMessages = "https://api.vk.com/method/messages.send?message=Сегодня ты уже забрал свои деньги" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                            string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                        }
+                                    }
                                     string SendMessages33 = "https://api.vk.com/method/messages.send?message=Твой баланс: " + balance + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerSendMessages33 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages33));
                                 }
                             }
                             else if (last.last_message.text == "Дай млн" || last.last_message.text == "дай млн")
                             {
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
+
                                 balance += 1000000;
+                                Properties.Settings.Default.income += balance;
                                 string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
 
@@ -920,17 +1175,46 @@ namespace USER.BOT
                             }
                             else if (last.last_message.text == "Привет" || last.last_message.text == "привет")
                             {
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
+
                                 string SendMessages = "https://api.vk.com/method/messages.send?message=Приветствую тебя" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
                             }
                             else if (last.last_message.text == "Как дела" || last.last_message.text == "как дела" || last.last_message.text == "Как дела?" || last.last_message.text == "как дела?")
                             {
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
+
                                 string SendMessages = "https://api.vk.com/method/messages.send?message=Пойдёт" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
                             }
                             else if (last.last_message.text == "Начать" || last.last_message.text == "начать")
                             {
-                                string SendMessages8 = "https://api.vk.com/method/storage.set?key=balance&value=10000&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                string SendMessages30 = "https://api.vk.com/method/storage.get?keys=users&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                string AnswerSendMessages30 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages30));
+                                MessagesGet rtf60 = JsonConvert.DeserializeObject<MessagesGet>(AnswerSendMessages30);
+                                foreach (MessagesGet.Response key1 in rtf60.response)
+                                {
+                                    string[] users = key1.value.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+                                    if (!users.Contains(last.last_message.peer_id.ToString()))
+                                    {
+                                        key1.value += last.last_message.peer_id.ToString();
+
+                                        string SendMessages31 = "https://api.vk.com/method/storage.set?&key=users&value= " + key1.value + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                        string AnswerSendMessages31 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages31));
+                                    }
+                                }
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
+
+                                string SendMessages8 = "https://api.vk.com/method/storage.set?key=balance&value=1&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages8 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages8));
 
                                 string SendMessages = "https://api.vk.com/method/messages.send?message=Привет! Напиши «старт», чтобы получить свой стартовый капитал или Напиши «купить бизнес», чтобы ознакомиться с покупкой бизнеса. Ты можешь делать ставки, только напиши «ставка на всё»(Дисклеймер: это просто игра. ₽ - это игровая валюта и ничего более). Так же ты можешь играть в «камень, ножницы, бумага», написав: камень, ножницы или бумагу. Напиши «help» или «помоги», чтобы узнать весь список команд и их действия." + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
@@ -938,6 +1222,10 @@ namespace USER.BOT
                             }
                             else if (last.last_message.text == "Ножницы" || last.last_message.text == "ножницы")
                             {
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
                                 int kmn = random.Next(1, 4);
                                 // 1 ножницы
                                 // 2 бумага
@@ -959,6 +1247,7 @@ namespace USER.BOT
                                     string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
 
                                     balance += 100;
+                                    Properties.Settings.Default.income += balance;
                                     string SendMessages8 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerSendMessages8 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages8));
                                 }
@@ -973,6 +1262,10 @@ namespace USER.BOT
                             }
                             else if (last.last_message.text == "Бумага" || last.last_message.text == "бумага")
                             {
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
                                 int kmn = random.Next(1, 4);
                                 // 1 ножницы
                                 // 2 бумага
@@ -1002,12 +1295,17 @@ namespace USER.BOT
                                     string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
 
                                     balance += 100;
+                                    Properties.Settings.Default.income += balance;
                                     string SendMessages8 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerSendMessages8 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages8));
                                 }
                             }
                             else if (last.last_message.text == "Камень" || last.last_message.text == "камень")
                             {
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
                                 int kmn = random.Next(1, 4);
                                 // 1 ножницы
                                 // 2 бумага
@@ -1021,7 +1319,8 @@ namespace USER.BOT
                                     string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
 
                                     balance += 100;
-                                    string SendMessages8 = "https://api.vk.com/method/storage.set?key=balance&value="+balance+"&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    Properties.Settings.Default.income += balance;
+                                    string SendMessages8 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                     string AnswerSendMessages8 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages8));
 
                                 }
@@ -1055,6 +1354,10 @@ namespace USER.BOT
                             }
                             else if (last.last_message.text == "удалить" || last.last_message.text == "Удалить")
                             {
+                                if (Properties.Settings.Default.startname == 0)
+                                {
+                                    Properties.Settings.Default.startname = last.last_message.peer_id;
+                                }
                                 string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date&value=" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
 
@@ -1082,7 +1385,6 @@ namespace USER.BOT
                                 string SendMessages11 = "https://api.vk.com/method/storage.set?key=last_date8&value=" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerSendMessages11 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages11));
 
-
                                 string CasinoMessages = "https://api.vk.com/method/storage.set?key=balance&value=1" + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
                                 string AnswerCasinoMessages = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages));
 
@@ -1091,25 +1393,36 @@ namespace USER.BOT
                             }
                             else
                             {
-                                if (last.last_message.text != Properties.Settings.Default.replay)
+                                string CasinoMessages4 = "https://api.vk.com/method/storage.get?key=save&value=" + last.last_message + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                string AnswerCasinoMessages4 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages4));
+                                MessagesGet rtf8 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages4);
+                                foreach (MessagesGet.Response d in rtf8.response)
                                 {
-                                    string click = last.last_message.text;
-                                    int a = click.Length;
-                                    int b = a * 3;
-                                    balance += b;
+                                    if (Properties.Settings.Default.startname == 0)
+                                    {
+                                        Properties.Settings.Default.startname = last.last_message.peer_id;
+                                    }
+                                    if (last.last_message.text != d.value)
+                                    {
+                                        string click = last.last_message.text;
+                                        int a = click.Length;
+                                        int b = a * 3;
+                                        balance += b;
+                                        Properties.Settings.Default.income += b;
+                                        string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                        string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
 
-                                    string CasinoMessages2 = "https://api.vk.com/method/storage.set?key=balance&value=" + balance + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
-                                    string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
+                                        string SendMessages3 = "https://api.vk.com/method/messages.send?message=Ты написал " + a + " символов, теперь твой баланс " + balance + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                        string AnswerSendMessages3 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages3));
 
-                                    string SendMessages3 = "https://api.vk.com/method/messages.send?message=Ты написал " + a + " символов, теперь твой баланс " + balance + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
-                                    string AnswerSendMessages3 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages3));
-
-                                    Properties.Settings.Default.replay = last.last_message.text;
-                                }
-                                else
-                                {
-                                    string SendMessages3 = "https://api.vk.com/method/messages.send?message=АХАХАХА! Копировать и вставить, попробуй что нибудь получше!" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
-                                    string AnswerSendMessages3 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages3));
+                                        string CasinoMessages5 = "https://api.vk.com/method/storage.set?key=save&value=" + last.last_message + "&user_id=" + last.last_message.peer_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                        string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
+                                    }
+                                    else
+                                    {
+                                        string SendMessages3 = "https://api.vk.com/method/messages.send?message=АХАХАХА! Копировать и вставить, попробуй что нибудь получше!" + "&random_id=" + last.last_message.random_id + "&peer_id=" + last.last_message.peer_id + "" + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                        string AnswerSendMessages3 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages3));
+                                    }
                                 }
                                 //int end = random.Next(1, 4);
                                 //if (end == 1)
@@ -1133,6 +1446,357 @@ namespace USER.BOT
                     }
                 }
 
+                DateTime date = DateTime.Now;
+                int hour = date.Hour;
+                if (hour < 18)
+                {
+                    Properties.Settings.Default.startname = 0;
+                    Properties.Settings.Default.income = 0;
+                    Properties.Settings.Default.lose = 0;
+                    Properties.Settings.Default.biznes = 0;
+                    Properties.Settings.Default.stats = false;
+                    Properties.Settings.Default.fire = false;
+                }
+                if(hour >= 22 && Properties.Settings.Default.fire == false)
+                {
+                    string SendMessages30 = "https://api.vk.com/method/storage.get?keys=users&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                    string AnswerSendMessages30 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages30));
+                    MessagesGet rtf60 = JsonConvert.DeserializeObject<MessagesGet>(AnswerSendMessages30);
+                    foreach (MessagesGet.Response key1 in rtf60.response)
+                    {
+                        DateTime date11 = DateTime.Now;
+                        string datenow11 = date11.Day.ToString() + "." + date11.Month;
+
+                        string[] users = key1.value.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+                        int max = users.Length;
+                        for (int i = 0; i <= max; i++)
+                        {
+                            string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
+                            MessagesGet rtf12 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
+                            foreach (MessagesGet.Response d1 in rtf12.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+                                }
+                            }
+                            string CasinoMessages6 = "https://api.vk.com/method/storage.get?keys=last_date2" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages6 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages6));
+                            MessagesGet rtf2 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages6);
+                            foreach (MessagesGet.Response d1 in rtf2.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date2&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                }
+                            }
+                            string CasinoMessages7 = "https://api.vk.com/method/storage.get?keys=last_date3" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages7 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages7));
+                            MessagesGet rtf3 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages7);
+                            foreach (MessagesGet.Response d1 in rtf3.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date3&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                }
+                            }
+                            string CasinoMessages8 = "https://api.vk.com/method/storage.get?keys=last_date4" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages8 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages8));
+                            MessagesGet rtf4 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages8);
+                            foreach (MessagesGet.Response d1 in rtf4.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date4&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                }
+                            }
+                            string CasinoMessages9 = "https://api.vk.com/method/storage.get?keys=last_date5" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages9 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages9));
+                            MessagesGet rtf6 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages9);
+                            foreach (MessagesGet.Response d1 in rtf6.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date5&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                }
+                            }
+                            string CasinoMessages1 = "https://api.vk.com/method/storage.get?keys=last_date6" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages1 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages1));
+                            MessagesGet rtf = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages1);
+                            foreach (MessagesGet.Response d1 in rtf.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date6&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                }
+                            }
+                            string CasinoMessages2 = "https://api.vk.com/method/storage.get?keys=last_date7" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
+                            MessagesGet rtf7 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages2);
+                            foreach (MessagesGet.Response d1 in rtf7.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date7&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                }
+                            }
+                            string CasinoMessages3 = "https://api.vk.com/method/storage.get?keys=last_date8" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages3 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages3));
+                            MessagesGet rtf8 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages3);
+                            foreach (MessagesGet.Response d1 in rtf8.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date8&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                }
+                            }
+                            string CasinoMessages4 = "https://api.vk.com/method/storage.get?keys=last_date9" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages4 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages4));
+                            MessagesGet rtf80 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages4);
+                            foreach (MessagesGet.Response d1 in rtf80.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date9&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                }
+                            }
+                            string CasinoMessages10 = "https://api.vk.com/method/storage.get?keys=last_date10" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages10 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages10));
+                            MessagesGet rtf10 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages10);
+                            foreach (MessagesGet.Response d1 in rtf10.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date10&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                }
+                            }
+                            string CasinoMessages11 = "https://api.vk.com/method/storage.get?keys=last_date11" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages11 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages11));
+                            MessagesGet rtf11 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages11);
+                            foreach (MessagesGet.Response d1 in rtf11.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+
+                                    string SendMessages1 = "https://api.vk.com/method/storage.set?key=last_date11&value=" + datenow11 + "&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages1 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages1));
+
+                                }
+                            }
+                        }
+                    }
+                    Properties.Settings.Default.fire = true;
+                }
+                if (hour >= 18 && Properties.Settings.Default.stats == false)
+                {
+
+                    string BanFriendsId = "https://api.vk.com/method/users.get?user_id=" + Properties.Settings.Default.startname + "&fields=deactivated" + "&" + access_token + "&v=5.124";
+                    string AnswerBanFriends = Encoding.UTF8.GetString(cl.DownloadData(BanFriendsId));
+                    BanFriends rtf1 = JsonConvert.DeserializeObject<BanFriends>(AnswerBanFriends);
+                    string one_name = "";
+                    foreach (BanFriends.ResponseBanFriends item1 in rtf1.response)
+                    {
+                        one_name = item1.first_name + " " + item1.last_name;
+                    }
+                    string best = "Сегодня первым начал играть @id" + Properties.Settings.Default.startname + "(" + one_name + ").\r\n" +
+                        "Сумма заработка всех пользователей: " + Properties.Settings.Default.income + "₽.\r\n"
+                        + "Куплено бизнесов " + Properties.Settings.Default.biznes+ ".\r\n" +
+                        "Проигранно " + Properties.Settings.Default.lose + "₽ в казино.";
+
+                    string Request = "https://api.vk.com/method/wall.post?message=" + best + "&owner_id=-" + Properties.Settings.Default.id_Groups + "&" + access_token + "&v=5.124";
+                    string AnswerFriends1 = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                    Properties.Settings.Default.stats = true;
+
+                    string SendMessages30 = "https://api.vk.com/method/storage.get?keys=users&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                    string AnswerSendMessages30 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages30));
+                    MessagesGet rtf60 = JsonConvert.DeserializeObject<MessagesGet>(AnswerSendMessages30);
+                    foreach (MessagesGet.Response key1 in rtf60.response)
+                    {
+                        DateTime date11 = DateTime.Now;
+                        string datenow11 = date11.Day.ToString() + "." + date11.Month;
+
+                        string[] users = key1.value.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+                        int max = users.Length;
+                        for (int i = 0; i <= max; i++)
+                        {
+                            string CasinoMessages5 = "https://api.vk.com/method/storage.get?keys=last_date" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages5 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages5));
+                            MessagesGet rtf12 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages5);
+                            foreach (MessagesGet.Response d1 in rtf12.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            string CasinoMessages6 = "https://api.vk.com/method/storage.get?keys=last_date2" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages6 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages6));
+                            MessagesGet rtf2 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages6);
+                            foreach (MessagesGet.Response d1 in rtf2.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            string CasinoMessages7 = "https://api.vk.com/method/storage.get?keys=last_date3" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages7 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages7));
+                            MessagesGet rtf3 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages7);
+                            foreach (MessagesGet.Response d1 in rtf3.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            string CasinoMessages8 = "https://api.vk.com/method/storage.get?keys=last_date4" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages8 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages8));
+                            MessagesGet rtf4 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages8);
+                            foreach (MessagesGet.Response d1 in rtf4.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            string CasinoMessages9 = "https://api.vk.com/method/storage.get?keys=last_date5" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages9 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages9));
+                            MessagesGet rtf6 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages9);
+                            foreach (MessagesGet.Response d1 in rtf6.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            string CasinoMessages1 = "https://api.vk.com/method/storage.get?keys=last_date6" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages1 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages1));
+                            MessagesGet rtf = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages1);
+                            foreach (MessagesGet.Response d1 in rtf.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            string CasinoMessages2 = "https://api.vk.com/method/storage.get?keys=last_date7" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages2 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages2));
+                            MessagesGet rtf7 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages2);
+                            foreach (MessagesGet.Response d1 in rtf7.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            string CasinoMessages3 = "https://api.vk.com/method/storage.get?keys=last_date8" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages3 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages3));
+                            MessagesGet rtf8 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages3);
+                            foreach (MessagesGet.Response d1 in rtf8.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            string CasinoMessages4 = "https://api.vk.com/method/storage.get?keys=last_date9" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages4 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages4));
+                            MessagesGet rtf80 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages4);
+                            foreach (MessagesGet.Response d1 in rtf80.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            string CasinoMessages10 = "https://api.vk.com/method/storage.get?keys=last_date10" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages10 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages10));
+                            MessagesGet rtf10 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages10);
+                            foreach (MessagesGet.Response d1 in rtf10.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                            string CasinoMessages11 = "https://api.vk.com/method/storage.get?keys=last_date11" + "&user_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                            string AnswerCasinoMessages11 = Encoding.UTF8.GetString(cl.DownloadData(CasinoMessages11));
+                            MessagesGet rtf11 = JsonConvert.DeserializeObject<MessagesGet>(AnswerCasinoMessages11);
+                            foreach (MessagesGet.Response d1 in rtf11.response)
+                            {
+                                if (d1.value != datenow11)
+                                {
+                                    string SendMessages = "https://api.vk.com/method/messages.send?message=Если ты сегодня не заберёшь прибыль с бизнеса до 10 вечера, прибырь прогорит" + "&random_id=" + random_id + "&peer_id=" + users[i] + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                                    string AnswerSendMessages = Encoding.UTF8.GetString(cl.DownloadData(SendMessages));
+                                }
+                            }
+                        }
+                    }
+
+                }
+
             }
         }
 
@@ -1146,6 +1810,10 @@ namespace USER.BOT
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            WebClient cl = new WebClient();
+
+            string SendMessages31 = "https://api.vk.com/method/storage.set?&key=users&value= &user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+            string AnswerSendMessages31 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages31));
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -1182,6 +1850,25 @@ namespace USER.BOT
             }
         }
 
+
+        private void TextBox2_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.id_Groups = textBox2.Text;
+            if (textBox2.Text == "")
+            {
+                checkBox1.Checked = false;
+                Properties.Settings.Default.ChatBot = false;
+            }
+        }
+
+        private void TextBox2_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (textBox2.Text == "Суда введи id сообщества")
+            {
+                textBox2.Text = "";
+            }
+        }
+
         private void ButtonLiking_Click(object sender, EventArgs e)
         {
             LikerForm form = new LikerForm();
@@ -1191,4 +1878,5 @@ namespace USER.BOT
         }
     }
 }
+
 
