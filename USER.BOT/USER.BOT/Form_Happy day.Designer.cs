@@ -37,8 +37,6 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.timer_happy = new System.Windows.Forms.Timer(this.components);
@@ -127,30 +125,11 @@
             this.button1.BackColor = System.Drawing.SystemColors.Control;
             this.button1.Location = new System.Drawing.Point(540, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(296, 26);
+            this.button1.Size = new System.Drawing.Size(306, 26);
             this.button1.TabIndex = 1;
             this.button1.Text = "Проверка праздника и поздравление с праздником";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(540, 98);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(296, 38);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Напиши текст ниже и нажми для отправки всем друзьям";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(537, 142);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(327, 179);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // radioButton1
             // 
@@ -460,10 +439,10 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(841, 12);
+            this.button6.Location = new System.Drawing.Point(853, 12);
             this.button6.Margin = new System.Windows.Forms.Padding(2);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(140, 37);
+            this.button6.Size = new System.Drawing.Size(132, 41);
             this.button6.TabIndex = 29;
             this.button6.Text = "Поздравить сегодня своим праздником";
             this.button6.UseVisualStyleBackColor = true;
@@ -478,9 +457,9 @@
             this.panel2.Controls.Add(this.label17);
             this.panel2.Controls.Add(this.Text_Holiday);
             this.panel2.Controls.Add(this.label16);
-            this.panel2.Location = new System.Drawing.Point(540, 326);
+            this.panel2.Location = new System.Drawing.Point(540, 105);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(213, 232);
+            this.panel2.Size = new System.Drawing.Size(213, 216);
             this.panel2.TabIndex = 30;
             this.panel2.Visible = false;
             // 
@@ -553,8 +532,6 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listView1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -582,8 +559,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Timer timer_happy;
