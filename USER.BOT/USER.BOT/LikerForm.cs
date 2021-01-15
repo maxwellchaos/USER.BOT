@@ -266,14 +266,6 @@ namespace USER.BOT
             }
         }
 
-        private void textBox2_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                button2_Click(sender, e);
-            }
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
             panel3.Visible = !panel3.Visible;
@@ -348,6 +340,11 @@ namespace USER.BOT
             {
                 button2.Enabled = false;
             }
+        }
+
+        private void TextBox2_MouseClick(object sender, MouseEventArgs e)
+        {
+            textBox2.Text = "";
         }
     }
 }

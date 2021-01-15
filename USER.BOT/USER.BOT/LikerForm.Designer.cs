@@ -125,7 +125,7 @@
             this.textBox2.TabIndex = 13;
             this.textBox2.Text = "Введите капчу если потребуется";
             this.textBox2.Click += new System.EventHandler(this.textBox2_Click);
-            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
+            this.textBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBox2_MouseClick);
             // 
             // button2
             // 
