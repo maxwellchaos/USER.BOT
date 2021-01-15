@@ -81,6 +81,7 @@ namespace USER.BOT
             //Выделение id
             for (int i = 0; i < TextboxLinesCount; i++)
             {
+
                 LikedIDs = LikedIDs + "TextboxText:" + sTextboxText + "\r\n";
 
                 string[] param = TextboxTextLines[i].Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
@@ -103,113 +104,120 @@ namespace USER.BOT
                 }
                 else
                 {
-                    idGet ig = JsonConvert.DeserializeObject<idGet>(Answer2);
-
-                    //Запрос на получение информации о стене
-                    string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&";
-                    string Answer = GetAnswer(Request, access_token);
-
-                    Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
-
-                    int Offset = 0;
-
-                    Offset += wg.response.items.Count;
-
-                    if (sComboboxText == "Все")
+                    try
                     {
-                        CountPost = wg.response.items.Count;
-                    }
-                    else
-                    {
-                        CountPost = iComboboxText;
-                    }
+                        idGet ig = JsonConvert.DeserializeObject<idGet>(Answer2);
 
-                    if (CountPost > wg.response.items.Count)
-                    {
-                        CountPost = wg.response.items.Count;
-                    }
+                        //Запрос на получение информации о стене
+                        string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&";
+                        string Answer = GetAnswer(Request, access_token);
 
-                    progresbarMax = CountPost;//Установить максимум прогрессбара
+                        Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
 
-                    postCount = 0;//Сколько постов отлайкано
+                        int Offset = 0;
 
-                    CountPostforProgressBar = CountPost;
-
-                    LinesCountforProgressbar = 0;
-
-                    LikeTimer = CountPost * 4 * (TextboxLinesCount - i);
-
-                    while (Offset <= wg.response.count)
-                    {
-                        //*1
-                        RandomNuber = Rnd.Next(2000, 4000);
-
-                        //Повторный запрос на получение информации о стене 
-                        Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" +
-                            ig.response.object_id + "&";
-
-                        Answer = GetAnswer(Request, access_token);
-
-                        wg = JsonConvert.DeserializeObject<Wallget>(Answer);
-                        //LikedIDs = LikedIDs + "Owner: " + ig.response.object_id.ToString() + " Count:" + wg.response.items.Count.ToString()+ "\r\n";
                         Offset += wg.response.items.Count;
 
-                        //Массовый лайкинг
-                        foreach (Wallget.Item item in wg.response.items)
+                        if (sComboboxText == "Все")
                         {
-                            LikedIDs = LikedIDs + "Count post: " + CountPost.ToString() + " " + iComboboxText.ToString() + "\r\n";
+                            CountPost = wg.response.items.Count;
+                        }
+                        else
+                        {
+                            CountPost = iComboboxText;
+                        }
 
-                            if (CountPost <= 0)
+                        if (CountPost > wg.response.items.Count)
+                        {
+                            CountPost = wg.response.items.Count;
+                        }
+
+                        progresbarMax = CountPost;//Установить максимум прогрессбара
+
+                        postCount = 0;//Сколько постов отлайкано
+
+                        CountPostforProgressBar = CountPost;
+
+                        LinesCountforProgressbar = 0;
+
+                        LikeTimer = CountPost * 4 * (TextboxLinesCount - i);
+
+                        while (Offset <= wg.response.count)
+                        {
+                            //*1
+                            RandomNuber = Rnd.Next(2000, 4000);
+
+                            //Повторный запрос на получение информации о стене 
+                            Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" +
+                                ig.response.object_id + "&";
+
+                            Answer = GetAnswer(Request, access_token);
+
+                            wg = JsonConvert.DeserializeObject<Wallget>(Answer);
+
+                            Offset += wg.response.items.Count;
+
+                            //Массовый лайкинг
+                            foreach (Wallget.Item item in wg.response.items)
                             {
-                                break;
-                            }
+                                LikedIDs = LikedIDs + "Count post: " + CountPost.ToString() + " " + iComboboxText.ToString() + "\r\n";
 
-                            //Cooldown
-                            Thread.Sleep(RandomNuber);
-
-                            string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" +
-                                item.id + "&owner_id=" + ig.response.object_id + "&";
-                            string Answer1 = GetAnswer(Request1, access_token);
-
-                            //Получение и отправка капчи
-                            if (Answer1.Contains("rror"))
-                            {
-
-                                if (Answer1.Contains("aptcha"))
+                                if (CountPost <= 0)
                                 {
-                                    CaptchaGet cg = JsonConvert.DeserializeObject<CaptchaGet>(Answer1);
+                                    break;
+                                }
 
-                                    bWaitCaptcha = true;
-                                    bSendCaptcha = false;
-                                    sCaptchaAdress = cg.error.captcha_img;
+                                //Cooldown
+                                Thread.Sleep(RandomNuber);
 
-                                    SavedIg = ig;
-                                    SavedItem = item;
-                                    SavedCg = cg;
+                                string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" +
+                                    item.id + "&owner_id=" + ig.response.object_id + "&";
+                                string Answer1 = GetAnswer(Request1, access_token);
 
-                                    while (bWaitCaptcha == true)
+                                //Получение и отправка капчи
+                                if (Answer1.Contains("rror"))
+                                {
+
+                                    if (Answer1.Contains("aptcha"))
                                     {
-                                        Thread.Sleep(1000);
+                                        CaptchaGet cg = JsonConvert.DeserializeObject<CaptchaGet>(Answer1);
+
+                                        bWaitCaptcha = true;
+                                        bSendCaptcha = false;
+                                        sCaptchaAdress = cg.error.captcha_img;
+
+                                        SavedIg = ig;
+                                        SavedItem = item;
+                                        SavedCg = cg;
+
+                                        while (bWaitCaptcha == true)
+                                        {
+                                            Thread.Sleep(1000);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        bugs++;
                                     }
                                 }
                                 else
                                 {
-                                    bugs++;
+                                    likes++;
                                 }
-                            }
-                            else
-                            {
-                                likes++;
-                            }
 
-                            sLabel2Text = bugs.ToString() + "/" + likes.ToString();
-                            sLabel6Text = LikeTimer.ToString() + " секунд";
+                                sLabel2Text = bugs.ToString() + "/" + likes.ToString();
+                                sLabel6Text = LikeTimer.ToString() + " секунд";
 
-                            //*
-                            postCount = postCount + 1;
-                            CountPost -= 1;
-                            LikeTimer -= 4;
+                                //*
+                                postCount = postCount + 1;
+                                CountPost -= 1;
+                                LikeTimer -= 4;
+                            }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        continue;
                     }
                 }
 
@@ -218,6 +226,7 @@ namespace USER.BOT
 
             sLabel6Text = "Все посты пролайканы";
         }
+    
 
         private void Button1_Click(object sender, EventArgs e)
         {
