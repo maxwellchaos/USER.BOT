@@ -226,5 +226,16 @@ namespace USER.BOT.Properties {
                 this["fire"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection NewHoliday {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["NewHoliday"]));
+            }
+            set {
+                this["NewHoliday"] = value;
+            }
+        }
     }
 }

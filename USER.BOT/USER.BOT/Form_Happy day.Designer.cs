@@ -69,7 +69,16 @@
             this.label12 = new System.Windows.Forms.Label();
             this.USER_BOT = new System.Windows.Forms.NotifyIcon(this.components);
             this.label13 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button7 = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.photo_url = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.Text_Holiday = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // listView1
@@ -449,11 +458,93 @@
             this.label13.Size = new System.Drawing.Size(0, 13);
             this.label13.TabIndex = 25;
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(841, 12);
+            this.button6.Margin = new System.Windows.Forms.Padding(2);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(140, 37);
+            this.button6.TabIndex = 29;
+            this.button6.Text = "Поздравить сегодня своим праздником";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.Button6_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panel2.Controls.Add(this.button7);
+            this.panel2.Controls.Add(this.label18);
+            this.panel2.Controls.Add(this.photo_url);
+            this.panel2.Controls.Add(this.label17);
+            this.panel2.Controls.Add(this.Text_Holiday);
+            this.panel2.Controls.Add(this.label16);
+            this.panel2.Location = new System.Drawing.Point(540, 326);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(213, 232);
+            this.panel2.TabIndex = 30;
+            this.panel2.Visible = false;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(53, 187);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(89, 23);
+            this.button7.TabIndex = 37;
+            this.button7.Text = "Поздравить";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.Button7_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label18.Location = new System.Drawing.Point(188, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(22, 24);
+            this.label18.TabIndex = 36;
+            this.label18.Text = "Х";
+            this.label18.Click += new System.EventHandler(this.Label18_Click);
+            // 
+            // photo_url
+            // 
+            this.photo_url.Location = new System.Drawing.Point(17, 161);
+            this.photo_url.Name = "photo_url";
+            this.photo_url.Size = new System.Drawing.Size(181, 20);
+            this.photo_url.TabIndex = 35;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(57, 145);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(89, 13);
+            this.label17.TabIndex = 34;
+            this.label17.Text = "Ссылка на фото";
+            // 
+            // Text_Holiday
+            // 
+            this.Text_Holiday.Location = new System.Drawing.Point(17, 30);
+            this.Text_Holiday.Multiline = true;
+            this.Text_Holiday.Name = "Text_Holiday";
+            this.Text_Holiday.Size = new System.Drawing.Size(181, 103);
+            this.Text_Holiday.TabIndex = 33;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(50, 8);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(112, 13);
+            this.label16.TabIndex = 32;
+            this.label16.Text = "Текст поздравления";
+            // 
             // Form_Happy_day
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(996, 665);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.progressBar1);
@@ -475,6 +566,8 @@
             this.Load += new System.EventHandler(this.Form_Happy_day_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -521,5 +614,13 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.NotifyIcon USER_BOT;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox photo_url;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox Text_Holiday;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button button7;
     }
 }

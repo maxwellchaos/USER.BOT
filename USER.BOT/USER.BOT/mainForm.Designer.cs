@@ -48,13 +48,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pictureBoxWait = new System.Windows.Forms.PictureBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWait)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -103,7 +101,6 @@
             this.buttonLiking.TabIndex = 9;
             this.buttonLiking.Text = "Массовый лайкинг";
             this.buttonLiking.UseVisualStyleBackColor = true;
-            this.buttonLiking.Click += new System.EventHandler(this.ButtonLiking_Click);
             // 
             // pictureBoxAvatar
             // 
@@ -214,14 +211,6 @@
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // pictureBoxWait
-            // 
-            this.pictureBoxWait.Image = global::USER.BOT.Properties.Resources.image_861701171351153465139;
-            this.pictureBoxWait.Location = new System.Drawing.Point(66, -118);
-            this.pictureBoxWait.Name = "pictureBoxWait";
-            this.pictureBoxWait.Size = new System.Drawing.Size(769, 533);
-            this.pictureBoxWait.TabIndex = 19;
-            this.pictureBoxWait.TabStop = false;
             // 
             // timer2
             // 
@@ -276,7 +265,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.Ban_friends);
-            this.Controls.Add(this.pictureBoxWait);
             this.Controls.Add(this.buttonGDZ);
             this.Controls.Add(this.buttonFindComments);
             this.Controls.Add(this.buttonMassComment);
@@ -293,7 +281,6 @@
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWait)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,7 +306,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.PictureBox pictureBoxWait;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox textBox1;

@@ -176,7 +176,7 @@ namespace USER.BOT
                         Thread.Sleep(50);
                         if (co == co1)
                         {
-                            if (happyday_name != null) 
+                            if (happyday_name != null)
                             {
                                 if (MessageBox.Show("Молодец, сегодня ты не забыл поздравить с днём рождения: " + happyday_name + "с текстом (" + happyday_text + ")", "Внимание!!!", MessageBoxButtons.OK) == DialogResult.OK)
                                 {
@@ -185,26 +185,26 @@ namespace USER.BOT
                             }
                             else if (happyday_name != null && happy8_name != null)
                             {
-                                if(MessageBox.Show("Молодец, сегодня ты не забыл поздравить с днём рождения: " + happyday_name + "с текстом (" + happy8_text + ") и так же ты не забыл поздравить всех подруг с 8 мартом, с текстом (" + happy8_text + ")", "Внимание!!!", MessageBoxButtons.OK) == DialogResult.OK)
+                                if (MessageBox.Show("Молодец, сегодня ты не забыл поздравить с днём рождения: " + happyday_name + "с текстом (" + happy8_text + ") и так же ты не забыл поздравить всех подруг с 8 мартом, с текстом (" + happy8_text + ")", "Внимание!!!", MessageBoxButtons.OK) == DialogResult.OK)
                                 {
                                     Properties.Settings.Default.Pstart = false;
                                 }
                             }
-                            else if(happyday_name != null && happy23_name != null) 
+                            else if (happyday_name != null && happy23_name != null)
                             {
                                 if (MessageBox.Show("Молодец, сегодня ты не забыл поздравить с днём рождения: " + happyday_name + "с текстом (" + happy23_text + ") и так же ты не забыл поздравить всех мужчин с 23 февраля, с текстом (" + happy23_text + ")", "Внимание!!!", MessageBoxButtons.OK) == DialogResult.OK)
                                 {
                                     Properties.Settings.Default.Pstart = false;
                                 }
                             }
-                            else if(happyday_name != null && happynewyear_name != null)
+                            else if (happyday_name != null && happynewyear_name != null)
                             {
                                 if (MessageBox.Show("Молодец, сегодня ты не забыл поздравить с днём рождения: " + happyday_name + "с текстом (" + happynewyear_text + ") и так же ты не забыл поздравить всех друзей с новым годом, с текстом (" + happynewyear_text + "). С новым годом!!!", "Внимание!!!", MessageBoxButtons.OK) == DialogResult.OK)
                                 {
                                     Properties.Settings.Default.Pstart = false;
                                 }
                             }
-                            else if(happyday_name == null && happynewyear_name == null && happy23_name == null && happy8_name == null)
+                            else if (happyday_name == null && happynewyear_name == null && happy23_name == null && happy8_name == null)
                             {
                                 if (MessageBox.Show("Сегодня скучный день. У твоих друзей сегодня нет праздника.", "Внимание!!!", MessageBoxButtons.OK) == DialogResult.OK)
                                 {
@@ -301,7 +301,7 @@ namespace USER.BOT
             if (setting == true && Properties.Settings.Default.Pstart != false)
             {
                 if (textBox3.Text != "" && textBox2.Text != "" && textBox4.Text != "" && textBox8.Text != "")
-                {   
+                {
                     x = 2;
                     string FriendsId = "https://api.vk.com/method/friends.get?fields=can_post,bdate,sex&" + access_token + "&v=5.124";
                     WebClient cl = new WebClient();
@@ -322,7 +322,7 @@ namespace USER.BOT
                             ListViewItem lvi = new ListViewItem(LvItem);
                             listView1.Items.Add(lvi);
 
-                            
+
                             DateTime date1 = DateTime.Now;
                             string datenow = date1.Day.ToString() + "." + date1.Month;
                             Properties.Settings.Default.WhatDay = datenow;
@@ -501,24 +501,24 @@ namespace USER.BOT
                 int a = co * 500 / 1000;
                 int ab = a - b / 60;
                 int ab1 = ab / 60;
-                label12.Text = "Проверяю наличия праздника. Осталось примерно " + ab1.ToString() + " мин или " + ab.ToString()+ " сек";
+                label12.Text = "Проверяю наличия праздника. Осталось примерно " + ab1.ToString() + " мин или " + ab.ToString() + " сек";
             }
             else if (x == 1)
             {
                 int b = co1 * 50 / 1000;
-                int a = co * 50 / 1000;       
+                int a = co * 50 / 1000;
                 int ab = a - b / 60;
                 int ab1 = ab / 60;
                 label12.Text = "Проверяю наличия праздника. Осталось примерно " + ab1.ToString() + " мин или " + ab.ToString() + " сек";
             }
             progressBar1.Maximum = co;
-            if(co1 <= co)progressBar1.Value = co1;
+            if (co1 <= co) progressBar1.Value = co1;
 
             Properties.Settings.Default.birthday = textBox3.Text;
             Properties.Settings.Default.march8 = textBox2.Text;
             Properties.Settings.Default.february23 = textBox4.Text;
             Properties.Settings.Default.newyear = textBox8.Text;
-            if (textBox5.Text.Contains ("http") && textBox5.Text != "")
+            if (textBox5.Text.Contains("http") && textBox5.Text != "")
             {
                 string[] birthday = textBox5.Text.Split(new[] { "=", "%" }, StringSplitOptions.RemoveEmptyEntries);
                 textBox5.Text = birthday[1];
@@ -536,6 +536,11 @@ namespace USER.BOT
             if (textBox9.Text.Contains("http") && textBox9.Text != "")
             {
                 string[] birthday = textBox9.Text.Split(new[] { "=", "%" }, StringSplitOptions.RemoveEmptyEntries);
+                textBox9.Text = birthday[1];
+            }
+            if (photo_url.Text.Contains("http") && photo_url.Text != "")
+            {
+                string[] birthday = photo_url.Text.Split(new[] { "=", "%" }, StringSplitOptions.RemoveEmptyEntries);
                 textBox9.Text = birthday[1];
             }
             setting = Properties.Settings.Default.PSetting;
@@ -647,6 +652,70 @@ namespace USER.BOT
             Form_Happy_day form = new Form_Happy_day();
             form.Show();
             form.Visible = false;
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            panel2.Visible = true;
+        }
+
+        private void Label18_Click(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+        }
+
+        private void Button7_Click(object sender, EventArgs e)
+        {
+            listView1.Items.Clear();
+            string FriendsId = "https://api.vk.com/method/friends.get?fields=can_post,bdate,sex&" + access_token + "&v=5.124";
+            WebClient cl = new WebClient();
+            string AnswerFriends = Encoding.UTF8.GetString(cl.DownloadData(FriendsId));
+            FriendsGet1 rtf = JsonConvert.DeserializeObject<FriendsGet1>(AnswerFriends);
+            co = rtf.response.count;
+            foreach (FriendsGet1.Item item in rtf.response.items)
+            {
+                if (rtf.response.count != co1)
+                {
+                    string[] LvItem = new string[5];
+                    LvItem[0] = item.first_name + " " + item.last_name;
+                    LvItem[1] = item.id.ToString();
+                    LvItem[2] = item.sex.ToString();
+                    LvItem[3] = item.bdate;
+                    LvItem[4] = item.can_post.ToString();
+                    co1++;
+                    ListViewItem lvi = new ListViewItem(LvItem);
+                    listView1.Items.Add(lvi);
+
+
+                    DateTime date1 = DateTime.Now;
+                    string datenow = date1.Day.ToString() + "." + date1.Month;
+                    Properties.Settings.Default.WhatDay = datenow;
+                    Properties.Settings.Default.Save();
+                    listView1.Items[listView1.Items.Count - 1].EnsureVisible();
+                    if (item.bdate != null)
+                    {
+                        if (item.can_post == 1)
+                        {
+
+                            string Request = "https://api.vk.com/method/wall.post?message=" + Text_Holiday.Text + "&owner_id=" + item.id + "&" + "attachments=" + photo_url.Text + "&" + access_token + "&v=5.124";
+                            string AnswerFriends1 = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                            happyday_name = happyday_name + item.first_name + " " + item.last_name;
+
+                        }
+                        else if (item.can_post == 0)
+                        {
+
+                            string Request = "https://api.vk.com/method/wall.get?owner_id=" + item.id + "&" + access_token + "&v=5.124";
+                            string AnswerFriends2 = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                            GetProfileInfo rt = JsonConvert.DeserializeObject<GetProfileInfo>(AnswerFriends2);
+                            string[] id = AnswerFriends2.Split(new[] { ":", "," }, StringSplitOptions.RemoveEmptyEntries);
+                            string Request1 = "https://api.vk.com/method/wall.createComment?post_id=" + id[5] + "&message=" + Text_Holiday.Text + "&owner_id=" + item.id + "&" + "attachments=" + photo_url.Text + "&" + access_token + "&v=5.124";
+                            string AnswerFriends1 = Encoding.UTF8.GetString(cl.DownloadData(Request1));
+                            happyday_name = happyday_name + item.first_name + " " + item.last_name + ", ";
+                        }
+                    }
+                }
+            }
         }
     }
 }
