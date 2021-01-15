@@ -111,9 +111,9 @@ namespace USER.BOT
                 Thread.Sleep(500);
             }
 
-            labelOutput.Text = "Найдено "+ progress + " записи с комментариями" + "\r\n" +
+            labelOutput.Text = "Найдено "+ progress + " записи с комментариями " + "\r\n" +
                 "Выберите запись, комментарии к которой хотите увидеть, " + "\r\n" +
-                "нажав на соответствующее ID, и нажмите на кнопку" + "\r\n" + "для вывода";
+                "нажав на соответствующее ID, и нажмите на кнопку " + "\r\n" + "для вывода";
             buttonInput.Text = "Вывод";
             listView1.Enabled = true;
             listView2.Enabled = true;
@@ -215,11 +215,11 @@ namespace USER.BOT
                     }
                 }
             }
-            labelOutput.Text = "Выберите комментарий, ответ на который хотите отправить" + "\r\n" +
-                "или который хотите удалить" + "\r\n" +
-                "Для этого нажмите на ID соответствующего комментария" + "\r\n" +
-                "Вы можете выбрать несколько, удерживая Ctrl или Shift, или" + "\r\n" + 
-                "выбрать все с помощью кнопки" + "\r\n" +
+            labelOutput.Text = "Выберите комментарий, ответ на который хотите отправить " + "\r\n" +
+                "или который хотите удалить " + "\r\n" +
+                "Для этого нажмите на ID соответствующего комментария " + "\r\n" +
+                "Вы можете выбрать несколько, удерживая Ctrl или Shift, или " + "\r\n" + 
+                "выбрать все с помощью кнопки " + "\r\n" +
                 "Либо выберите другую запись";
             buttonInput.Enabled = true;
             buttonSelect.Enabled = true;
@@ -259,7 +259,7 @@ namespace USER.BOT
                     Thread.Sleep(600);
                 }
 
-                labelOutput.Text = "Комментарий(ии) отправлен(ы)" + "\r\n" + "Вы можете выбрать другую запись или комментарий";
+                labelOutput.Text = "Комментарий(ии) отправлен(ы) " + "\r\n" + "Вы можете выбрать другую запись или комментарий";
                 textBoxInput.Text = "";
                 progress = 0;
             }
@@ -308,7 +308,7 @@ namespace USER.BOT
                 {
                     labelOutput.Text = labelOutput.Text + lvi.Text + " ";
                 }
-                labelOutput.Text = labelOutput.Text + "\r\n" +
+                labelOutput.Text = labelOutput.Text + " " + "\r\n" +
                     "Введите текст ответа и нажмите кнопку для отправки, либо нажмите Удалить для удаления комментариев";
 
                 target = 2;
@@ -394,10 +394,20 @@ namespace USER.BOT
             //        label4.Text = "Осталось: 0";
             //    }
             //}
-            
+
             //labelOutput.Text = "Комментарий(ии) удален(ы)";
             //textBoxInput.Text = "";
             //progress = 0;
+        }
+
+        private void labelOutput_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(labelOutput.Text);
+        }
+
+        private void buttonDelete_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
