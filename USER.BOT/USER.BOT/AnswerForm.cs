@@ -95,9 +95,15 @@ namespace USER.BOT
                     {
                         foreach (WallGet.Attachment attachmentsWG in itemWG.attachments)
                         {
-                            if (attachmentsWG.type == "photo" && attachmentsWG.photo.sizes.Count > 3)
+                            try
                             {
-                                LVitem[3] = itemWG.attachments[0].photo.sizes[3].url;
+                                if (attachmentsWG.type == "photo" && attachmentsWG.photo.sizes.Count > 3)
+                                {
+                                    LVitem[3] = itemWG.attachments[0].photo.sizes[3].url;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
                             }
                         }
                     }
