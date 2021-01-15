@@ -28,12 +28,6 @@ namespace USER.BOT
         static string[] TextboxTextLines;
         static string sCaptchaAdress;
 
-        //another
-        static Wallget.Item SavedItem;
-        static idGet SavedIg;
-        static Thread Ban;
-        static CaptchaGet SavedCg;
-
         //bool
         static bool buttonIsPressedClean = true;
         static bool bSendCaptcha = false;
@@ -51,6 +45,12 @@ namespace USER.BOT
         static int iComboboxText;
         static int TextboxLinesCount = 0;
         static int progresbarMax = 0;
+
+        //another
+        static Wallget.Item SavedItem;
+        static idGet SavedIg;
+        static Thread Ban;
+        static CaptchaGet SavedCg;
 
         public LikerForm()
         {
@@ -244,13 +244,13 @@ namespace USER.BOT
             }
 
             Ban = new Thread(new ThreadStart(Thread_Liker));
-            Ban.Start();      
+            Ban.Start();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             bWaitCaptcha = false;
-          
+
             if (textBox2.Text == "")
             {
 
@@ -309,7 +309,7 @@ namespace USER.BOT
                     button1.Enabled = true;
                 }
             }
-           
+
             progressBar1.Maximum = progresbarMax;
 
             progressBar1.Value = postCount;
@@ -323,7 +323,7 @@ namespace USER.BOT
             else
             {
                 iComboboxText = Convert.ToInt32(sComboboxText);
-            }           
+            }
 
             sTextboxText = textBox3.Text;
 
@@ -348,11 +348,6 @@ namespace USER.BOT
             {
                 button2.Enabled = false;
             }
-        }
-
-        private void Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
