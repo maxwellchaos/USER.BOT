@@ -13,8 +13,11 @@ using Microsoft.Win32;
 
 namespace USER.BOT
 {
+
+   
+
     public partial class LikerForm : Form
-    {
+    {        
         //string
         public static string LikedIDs;
         public static string access_token;
@@ -27,6 +30,7 @@ namespace USER.BOT
         static string sLabel6Text;
         static string[] TextboxTextLines;
         static string sCaptchaAdress;
+        static string SomeOneLabel;
 
         //bool
         static bool buttonIsPressedClean = true;
@@ -45,6 +49,7 @@ namespace USER.BOT
         static int iComboboxText;
         static int TextboxLinesCount = 0;
         static int progresbarMax = 0;
+        static int blockWallCount;
 
         //another
         static Wallget.Item SavedItem;
@@ -73,7 +78,9 @@ namespace USER.BOT
 
             likes = 0;
 
-            sLabel2Text = "0/0";
+            bugs = 0;
+
+            sLabel2Text = "0/0/0";
 
             //Создание рандома *1
             Random Rnd = new Random();
@@ -103,7 +110,7 @@ namespace USER.BOT
                     continue;
                 }
                 else
-                {
+                {               
                     try
                     {
                         idGet ig = JsonConvert.DeserializeObject<idGet>(Answer2);
@@ -113,6 +120,21 @@ namespace USER.BOT
                         string Answer = GetAnswer(Request, access_token);
 
                         Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
+
+                        if (Answer.Contains("private"))
+                        {
+                            throw new PersonException("");
+                        }
+
+                        if (Answer.Contains("oo many requests"))
+                        {
+                            throw new PersonException("");
+                        }
+
+                        if (Answer.Contains("eleted or banned"))
+                        {
+                            throw new PersonException("");
+                        }
 
                         int Offset = 0;
 
@@ -149,9 +171,8 @@ namespace USER.BOT
 
                             //Повторный запрос на получение информации о стене 
                             Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" +
-                                ig.response.object_id + "&";
-
-                            Answer = GetAnswer(Request, access_token);
+                                ig.response.object_id + "&";                     
+                            Answer = GetAnswer(Request, access_token);                       
 
                             wg = JsonConvert.DeserializeObject<Wallget>(Answer);
 
@@ -205,7 +226,7 @@ namespace USER.BOT
                                     likes++;
                                 }
 
-                                sLabel2Text = bugs.ToString() + "/" + likes.ToString();
+                                sLabel2Text = bugs.ToString() + "/" + likes.ToString() + "/" + blockWallCount.ToString();
                                 sLabel6Text = LikeTimer.ToString() + " секунд";
 
                                 //*
@@ -215,9 +236,13 @@ namespace USER.BOT
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (PersonException ex)
                     {
-                        continue;
+                        blockWallCount++;
+                    }
+                    catch (Exception ex2)
+                    {
+                        bugs++;
                     }
                 }
 
@@ -230,6 +255,12 @@ namespace USER.BOT
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            likes = 0;
+
+            bugs = 0;
+
+            sLabel2Text = "0/0/0";
+
             button1.Enabled = false;
 
             LinesCountforProgressbar = textBox3.Lines.Length;
@@ -355,5 +386,13 @@ namespace USER.BOT
         {
             textBox2.Text = "";
         }
+
+    }
+
+    class PersonException : Exception
+    {
+        public PersonException(string message)
+            : base(message)
+        { }
     }
 }
