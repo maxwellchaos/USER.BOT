@@ -48,27 +48,26 @@
             this.label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.buttonChatBot = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAvatar)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(236, 12);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Location = new System.Drawing.Point(315, 15);
+            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(290, 131);
+            this.webBrowser1.Size = new System.Drawing.Size(387, 161);
             this.webBrowser1.TabIndex = 0;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
             // buttonSelebrate
             // 
-            this.buttonSelebrate.Location = new System.Drawing.Point(655, 70);
+            this.buttonSelebrate.Location = new System.Drawing.Point(873, 86);
+            this.buttonSelebrate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonSelebrate.Name = "buttonSelebrate";
-            this.buttonSelebrate.Size = new System.Drawing.Size(256, 22);
+            this.buttonSelebrate.Size = new System.Drawing.Size(341, 27);
             this.buttonSelebrate.TabIndex = 12;
             this.buttonSelebrate.Text = "Поздравление с праздником";
             this.buttonSelebrate.UseVisualStyleBackColor = true;
@@ -76,9 +75,10 @@
             // 
             // buttonGetPopularPost
             // 
-            this.buttonGetPopularPost.Location = new System.Drawing.Point(655, 296);
+            this.buttonGetPopularPost.Location = new System.Drawing.Point(873, 373);
+            this.buttonGetPopularPost.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonGetPopularPost.Name = "buttonGetPopularPost";
-            this.buttonGetPopularPost.Size = new System.Drawing.Size(258, 24);
+            this.buttonGetPopularPost.Size = new System.Drawing.Size(344, 30);
             this.buttonGetPopularPost.TabIndex = 11;
             this.buttonGetPopularPost.Text = "Самый популярный пост";
             this.buttonGetPopularPost.UseVisualStyleBackColor = true;
@@ -86,80 +86,89 @@
             // 
             // buttonTextBot
             // 
-            this.buttonTextBot.Location = new System.Drawing.Point(655, 41);
+            this.buttonTextBot.Location = new System.Drawing.Point(873, 50);
+            this.buttonTextBot.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonTextBot.Name = "buttonTextBot";
-            this.buttonTextBot.Size = new System.Drawing.Size(256, 23);
+            this.buttonTextBot.Size = new System.Drawing.Size(341, 28);
             this.buttonTextBot.TabIndex = 10;
             this.buttonTextBot.Text = "Бот автоответчик для группы";
             this.buttonTextBot.UseVisualStyleBackColor = true;
             // 
             // buttonLiking
             // 
-            this.buttonLiking.Location = new System.Drawing.Point(655, 12);
+            this.buttonLiking.Location = new System.Drawing.Point(873, 15);
+            this.buttonLiking.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonLiking.Name = "buttonLiking";
-            this.buttonLiking.Size = new System.Drawing.Size(256, 23);
+            this.buttonLiking.Size = new System.Drawing.Size(341, 28);
             this.buttonLiking.TabIndex = 9;
             this.buttonLiking.Text = "Массовый лайкинг";
             this.buttonLiking.UseVisualStyleBackColor = true;
             // 
             // pictureBoxAvatar
             // 
-            this.pictureBoxAvatar.Location = new System.Drawing.Point(12, 12);
+            this.pictureBoxAvatar.Location = new System.Drawing.Point(16, 15);
+            this.pictureBoxAvatar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBoxAvatar.Name = "pictureBoxAvatar";
-            this.pictureBoxAvatar.Size = new System.Drawing.Size(110, 108);
+            this.pictureBoxAvatar.Size = new System.Drawing.Size(147, 133);
             this.pictureBoxAvatar.TabIndex = 15;
             this.pictureBoxAvatar.TabStop = false;
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(128, 51);
+            this.labelName.Location = new System.Drawing.Point(171, 63);
+            this.labelName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(57, 13);
+            this.labelName.Size = new System.Drawing.Size(75, 17);
             this.labelName.TabIndex = 14;
             this.labelName.Text = "labelName";
             // 
             // labelFamily
             // 
             this.labelFamily.AutoSize = true;
-            this.labelFamily.Location = new System.Drawing.Point(128, 22);
+            this.labelFamily.Location = new System.Drawing.Point(171, 27);
+            this.labelFamily.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFamily.Name = "labelFamily";
-            this.labelFamily.Size = new System.Drawing.Size(58, 13);
+            this.labelFamily.Size = new System.Drawing.Size(78, 17);
             this.labelFamily.TabIndex = 13;
             this.labelFamily.Text = "labelFamily";
             // 
             // buttonMassComment
             // 
-            this.buttonMassComment.Location = new System.Drawing.Point(655, 98);
+            this.buttonMassComment.Location = new System.Drawing.Point(873, 121);
+            this.buttonMassComment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonMassComment.Name = "buttonMassComment";
-            this.buttonMassComment.Size = new System.Drawing.Size(256, 22);
+            this.buttonMassComment.Size = new System.Drawing.Size(341, 27);
             this.buttonMassComment.TabIndex = 16;
             this.buttonMassComment.Text = "Массовый комментинг";
             this.buttonMassComment.UseVisualStyleBackColor = true;
             // 
             // buttonFindComments
             // 
-            this.buttonFindComments.Location = new System.Drawing.Point(655, 126);
+            this.buttonFindComments.Location = new System.Drawing.Point(873, 155);
+            this.buttonFindComments.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonFindComments.Name = "buttonFindComments";
-            this.buttonFindComments.Size = new System.Drawing.Size(256, 22);
+            this.buttonFindComments.Size = new System.Drawing.Size(341, 27);
             this.buttonFindComments.TabIndex = 17;
             this.buttonFindComments.Text = "Поиск неотвеченных комментариев";
             this.buttonFindComments.UseVisualStyleBackColor = true;
             // 
             // buttonGDZ
             // 
-            this.buttonGDZ.Location = new System.Drawing.Point(655, 154);
+            this.buttonGDZ.Location = new System.Drawing.Point(873, 190);
+            this.buttonGDZ.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonGDZ.Name = "buttonGDZ";
-            this.buttonGDZ.Size = new System.Drawing.Size(256, 22);
+            this.buttonGDZ.Size = new System.Drawing.Size(341, 27);
             this.buttonGDZ.TabIndex = 18;
             this.buttonGDZ.Text = "ГДЗ бот";
             this.buttonGDZ.UseVisualStyleBackColor = true;
             // 
             // Ban_friends
             // 
-            this.Ban_friends.Location = new System.Drawing.Point(655, 182);
+            this.Ban_friends.Location = new System.Drawing.Point(873, 260);
+            this.Ban_friends.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Ban_friends.Name = "Ban_friends";
-            this.Ban_friends.Size = new System.Drawing.Size(256, 22);
+            this.Ban_friends.Size = new System.Drawing.Size(341, 27);
             this.Ban_friends.TabIndex = 19;
             this.Ban_friends.Text = "бан удалённых друзей";
             this.Ban_friends.UseVisualStyleBackColor = true;
@@ -172,10 +181,10 @@
             this.columnHeader1,
             this.columnHeader2});
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(0, 371);
-            this.listView1.Margin = new System.Windows.Forms.Padding(2);
+            this.listView1.Location = new System.Drawing.Point(0, 457);
+            this.listView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(10, 10);
+            this.listView1.Size = new System.Drawing.Size(12, 11);
             this.listView1.TabIndex = 20;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -192,18 +201,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(655, 211);
+            this.label1.Location = new System.Drawing.Point(869, 291);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 13);
+            this.label1.Size = new System.Drawing.Size(79, 17);
             this.label1.TabIndex = 21;
             this.label1.Text = "Подожди...";
             this.label1.Visible = false;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(658, 249);
+            this.progressBar1.Location = new System.Drawing.Point(873, 337);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(123, 23);
+            this.progressBar1.Size = new System.Drawing.Size(164, 28);
             this.progressBar1.TabIndex = 22;
             this.progressBar1.Visible = false;
             // 
@@ -212,55 +223,23 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // timer2
+            // buttonChatBot
             // 
-            this.timer2.Enabled = true;
-            this.timer2.Interval = 1000;
-            this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(655, 326);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(146, 17);
-            this.checkBox1.TabIndex = 23;
-            this.checkBox1.Text = "Чат-игра бот(вкл\\выкл)";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            this.checkBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CheckBox1_MouseDown);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(655, 353);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(243, 20);
-            this.textBox1.TabIndex = 24;
-            this.textBox1.Text = "Суда введи access token сообщества";
-            this.textBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseClick);
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(655, 377);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(243, 20);
-            this.textBox2.TabIndex = 25;
-            this.textBox2.Text = "Суда введи id сообщества";
-            this.textBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBox2_MouseClick);
-            this.textBox2.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
+            this.buttonChatBot.Location = new System.Drawing.Point(872, 225);
+            this.buttonChatBot.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonChatBot.Name = "buttonChatBot";
+            this.buttonChatBot.Size = new System.Drawing.Size(341, 27);
+            this.buttonChatBot.TabIndex = 26;
+            this.buttonChatBot.Text = "Монополия (чат-бот)";
+            this.buttonChatBot.UseVisualStyleBackColor = true;
+            this.buttonChatBot.Click += new System.EventHandler(this.button1_Click);
             // 
             // mainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(923, 410);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.checkBox1);
+            this.ClientSize = new System.Drawing.Size(1231, 523);
+            this.Controls.Add(this.buttonChatBot);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listView1);
@@ -277,6 +256,7 @@
             this.Controls.Add(this.buttonTextBot);
             this.Controls.Add(this.buttonLiking);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "mainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -306,10 +286,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button buttonChatBot;
     }
 }
 

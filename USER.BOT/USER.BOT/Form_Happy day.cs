@@ -237,7 +237,7 @@ namespace USER.BOT
                                 }
                             }
                         }
-                        catch(Exception ex) { }
+                        catch(Exception ex) { MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
                     }
                 }
                 else
@@ -457,7 +457,7 @@ namespace USER.BOT
                         }
                         catch(Exception ex)
                         {
-
+                            MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -553,7 +553,7 @@ namespace USER.BOT
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -718,7 +718,7 @@ namespace USER.BOT
                         }
                     }
                 }
-                catch(Exception ex) { }
+                catch(Exception ex) { MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
                 if (co == co1)
                 {
                     if (happyday_name != null)
