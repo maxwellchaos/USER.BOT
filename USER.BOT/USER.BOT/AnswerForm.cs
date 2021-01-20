@@ -34,7 +34,7 @@ namespace USER.BOT
 
         private void AnswerForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private string GetAnswer(string Request, string AccessToken)
@@ -61,7 +61,7 @@ namespace USER.BOT
         private void OutputPosts()
         {
             stage = 1;
-            Request = "https://api.vk.com/method/wall.get?";
+            Request = "https://api.vk.com/method/wall.get?owner_id="+ user_id +"&";
             Answer = GetAnswer(Request, access_token);
             wg = JsonConvert.DeserializeObject<WallGet>(Answer);
 
@@ -95,15 +95,23 @@ namespace USER.BOT
                     {
                         foreach (WallGet.Attachment attachmentsWG in itemWG.attachments)
                         {
-                            try
+                            if (attachmentsWG.type == "photo")
                             {
-                                if (attachmentsWG.type == "photo" && attachmentsWG.photo.sizes.Count > 3)
+                                try
                                 {
-                                    LVitem[3] = itemWG.attachments[0].photo.sizes[3].url;
+                                    if (attachmentsWG.photo.sizes.Count > 3)
+                                    {
+                                        LVitem[3] = itemWG.attachments[0].photo.sizes[3].url;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    LVitem[3] = itemWG.attachments[0].photo.sizes[0].url;
                                 }
                             }
-                            catch (Exception ex)
+                            else
                             {
+                                LVitem[3] = null;
                             }
                         }
                     }
@@ -414,6 +422,20 @@ namespace USER.BOT
         private void buttonDelete_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                user_id = "-" + textBox1.Text;
+                textBox1.Enabled = false;
+                textBox1.Text = "";
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }
