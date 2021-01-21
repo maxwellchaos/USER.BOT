@@ -47,6 +47,9 @@ namespace USER.BOT
 
         private void buttonInput_Click(object sender, EventArgs e)
         {
+            button1.Enabled = false;
+            textBox1.Enabled = false;
+
             if (stage == 0)
             {
                 OutputPosts();
@@ -95,7 +98,11 @@ namespace USER.BOT
                     {
                         foreach (WallGet.Attachment attachmentsWG in itemWG.attachments)
                         {
-                            if (attachmentsWG.type == "photo")
+                            if (attachmentsWG.type != "photo")
+                            {
+                                LVitem[3] = null;
+                            }
+                            else
                             {
                                 try
                                 {
@@ -108,10 +115,6 @@ namespace USER.BOT
                                 {
                                     LVitem[3] = itemWG.attachments[0].photo.sizes[0].url;
                                 }
-                            }
-                            else
-                            {
-                                LVitem[3] = null;
                             }
                         }
                     }
@@ -230,7 +233,6 @@ namespace USER.BOT
                 }
             }
             labelOutput.Text = "Выберите комментарий, ответ на который хотите отправить " + "\r\n" +
-                "или который хотите удалить " + "\r\n" +
                 "Для этого нажмите на ID соответствующего комментария " + "\r\n" +
                 "Вы можете выбрать несколько, удерживая Ctrl или Shift, или " + "\r\n" + 
                 "выбрать все с помощью кнопки " + "\r\n" +
@@ -431,6 +433,7 @@ namespace USER.BOT
                 user_id = "-" + textBox1.Text;
                 textBox1.Enabled = false;
                 textBox1.Text = "";
+                button1.Enabled = false;
             }
             catch (Exception ex)
             {
