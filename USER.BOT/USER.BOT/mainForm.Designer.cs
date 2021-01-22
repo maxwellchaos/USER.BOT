@@ -147,8 +147,9 @@
             this.buttonFindComments.Name = "buttonFindComments";
             this.buttonFindComments.Size = new System.Drawing.Size(256, 22);
             this.buttonFindComments.TabIndex = 17;
-            this.buttonFindComments.Text = "Поиск неотвеченных комментариев";
+            this.buttonFindComments.Text = "Ответ на комментарии к записям";
             this.buttonFindComments.UseVisualStyleBackColor = true;
+            this.buttonFindComments.Click += new System.EventHandler(this.buttonFindComments_Click);
             // 
             // buttonGDZ
             // 
