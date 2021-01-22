@@ -13,203 +13,386 @@ using Microsoft.Win32;
 
 namespace USER.BOT
 {
+
+   
+
     public partial class LikerForm : Form
-    {
-        public string access_token;
-        public string users_id;
-        string UserId;
-        public string captcha_get;
+    {        
+        //string
+        public static string LikedIDs;
+        public static string access_token;
+        public static string users_id;
+        public static string UserId;
+        public static string captcha_get;
+        static string sComboboxText;
+        static string sTextboxText;
+        static string sLabel2Text;
+        static string sLabel6Text;
+        static string[] TextboxTextLines;
+        static string sCaptchaAdress;
+        static string SomeOneLabel;
 
-        Wallget.Item SavedItem;
-        idGet SavedIg;
-        CaptchaGet SavedCg;       
+        //bool
+        static bool buttonIsPressedClean = true;
+        static bool bSendCaptcha = false;
+        static bool bWaitCaptcha = false;
 
-        bool ButtonIsPressed = true;
+        //int
+        static int CountPostforProgressBar;
+        static int LinesCountforProgressbar;
+        static int bugs = 0;
+        static int likes = 0;
+        static int RandomNuber;
+        static int CountPost = 0;
+        static int LikeTimer = 0;
+        static int postCount = 0;
+        static int iComboboxText;
+        static int TextboxLinesCount = 0;
+        static int progresbarMax = 0;
+        static int blockWallCount;
 
-        int bugs = 0;
-        int likes = 0;
-        int RandomNuber;
-
-        int CountPost = 0;
-        int cPost;
+        //another
+        static Wallget.Item SavedItem;
+        static idGet SavedIg;
+        static Thread Ban;
+        static CaptchaGet SavedCg;
 
         public LikerForm()
         {
             InitializeComponent();
+
+            comboBox1.SelectedIndex = 0;
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        public static string GetAnswer(string Request, string AccesToken)
         {
+            string ReqForAns = Request + access_token + "&v=5.124";
+            WebClient client = new WebClient();
+            string Answer = Encoding.UTF8.GetString(client.DownloadData(ReqForAns));
+            return Answer;
+        }
 
-            if (textBox1.Text == " ")
+        static void Thread_Liker()
+        {
+            buttonIsPressedClean = true;
+
+            likes = 0;
+
+            bugs = 0;
+
+            sLabel2Text = "0/0/0";
+
+            //Создание рандома *1
+            Random Rnd = new Random();
+
+            //Выделение id
+            for (int i = 0; i < TextboxLinesCount; i++)
             {
 
-            }
-            if (textBox1.Text == "Вставьте ссылку или id")
-            {
+                LikedIDs = LikedIDs + "TextboxText:" + sTextboxText + "\r\n";
 
-            }
-            else
-            {
-                //Создание рандома *1
-                Random Rnd = new Random();
+                string[] param = TextboxTextLines[i].Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
 
-                //Выделение id
-                string[] param = textBox1.Text.Split(new[] { "//", "/" }, StringSplitOptions.RemoveEmptyEntries);
+                if (param.Length == 0)
+                {
+                    continue;
+                }
+
                 UserId = param[param.Length - 1];
-                textBox1.Text = UserId;
+                TextboxTextLines[i] = UserId;
 
                 //Запрос на получение id
-                string Request2 = "https://api.vk.com/method/utils.resolveScreenName?screen_name=" + UserId + "&" + access_token + "&v=5.124";
-                WebClient client2 = new WebClient();
-                string Answer2 = Encoding.UTF8.GetString(client2.DownloadData(Request2));
+                string Request2 = "https://api.vk.com/method/utils.resolveScreenName?screen_name=" + UserId + "&";
+                string Answer2 = GetAnswer(Request2, access_token);
 
-                idGet ig = JsonConvert.DeserializeObject<idGet>(Answer2);
-
-                //Запрос на получение информации о стене
-                string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
-                WebClient client = new WebClient();
-                string Answer = Encoding.UTF8.GetString(client.DownloadData(Request));
-
-                Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
-                int Offset = 0;
-
-                Offset += wg.response.items.Count;
-
-                //Прогресс на прогрессбар*
-                int postCount = 0;
-                progressBar1.Minimum = 0;
-
-                if (comboBox1.Text == "Все")
+                if (Answer2 == "{\"response\":[]}")
                 {
-                    CountPost = wg.response.count;
+                    continue;
                 }
                 else
-                {
-                    CountPost = Convert.ToInt32(comboBox1.Text);
-                }
-
-                if (CountPost > wg.response.count)
-                {
-                    CountPost = wg.response.count;
-                    comboBox1.Text = wg.response.count.ToString();
-                }
-
-                cPost = CountPost;
-
-                while (Offset <= wg.response.count)
-                {
-                    //*1
-                    RandomNuber = Rnd.Next(200, 400);
-
-                    //Повторный запрос на получение информации о стене 
-                    Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
-                    client = new WebClient();
-                    Answer = Encoding.UTF8.GetString(client.DownloadData(Request));
-
-                    wg = JsonConvert.DeserializeObject<Wallget>(Answer);
-                    Offset += wg.response.items.Count;
-
-                    //*
-                    progressBar1.Maximum = cPost;
-
-                    //Массовый лайкинг
-                    foreach (Wallget.Item item in wg.response.items)
+                {               
+                    try
                     {
+                        idGet ig = JsonConvert.DeserializeObject<idGet>(Answer2);
 
-                        if (CountPost <= 0)
+                        //Запрос на получение информации о стене
+                        string Request = "https://api.vk.com/method/wall.get?count=100&" + "owner_id=" + ig.response.object_id + "&";
+                        string Answer = GetAnswer(Request, access_token);
+
+                        Wallget wg = JsonConvert.DeserializeObject<Wallget>(Answer);
+
+                        if (Answer.Contains("private"))
                         {
-                            break;
+                            throw new PersonException("");
                         }
-                        //Cooldown
-                        for (int i = 0; i < 10; i++)
+
+                        if (Answer.Contains("oo many requests"))
                         {
-                            Application.DoEvents();
-                            Thread.Sleep(RandomNuber);
+                            throw new PersonException("");
                         }
 
-                        string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" + item.id + "&owner_id=" + ig.response.object_id + "&" + access_token + "&v=5.124";
-                        WebClient client1 = new WebClient();
-                        string Answer1 = Encoding.UTF8.GetString(client1.DownloadData(Request1));
-
-                        //Получение и отправка капчи
-                        if (Answer1.Contains("rror"))
+                        if (Answer.Contains("eleted or banned"))
                         {
+                            throw new PersonException("");
+                        }
 
-                            if (Answer1.Contains("aptcha"))
-                            {
-                                ButtonIsPressed = false;
+                        int Offset = 0;
 
-                                string Answer4 = "{ \"error\":{ \"error_code\":14,\"error_msg\":\"Captcha needed\",\"request_params\":[{ \"key\":\"type\",\"value\":\"post\"},{ \"key\":\"item_id\",\"value\":\"185\"},{ \"key\":\"owner_id\",\"value\":\"422303825\"},{ \"key\":\"v\",\"value\":\"5.124\"},{ \"key\":\"method\",\"value\":\"likes.add\"},{ \"key\":\"oauth\",\"value\":\"1\"}],\"captcha_sid\":\"337894471349\",\"captcha_img\":\"https://api.vk.com/captcha.php?sid=337894471349&s=1\"}}";
-                                CaptchaGet cg = JsonConvert.DeserializeObject<CaptchaGet>(Answer4);
-                                webBrowser1.Navigate(cg.error.captcha_img);
+                        Offset += wg.response.items.Count;
 
-                                SavedIg = ig;
-                                SavedItem = item;
-                                SavedCg = cg;
-
-                                while (ButtonIsPressed == false)
-                                {
-                                    Application.DoEvents();
-                                    Thread.Sleep(10);
-                                }
-                            }
-                            else
-                            {
-                                bugs++;
-                            }
+                        if (sComboboxText == "Все")
+                        {
+                            CountPost = wg.response.items.Count;
                         }
                         else
                         {
-                            likes++;
+                            CountPost = iComboboxText;
                         }
 
-                        label2.Text = bugs.ToString() + "/" + likes.ToString() + "/" + cPost;
+                        if (CountPost > wg.response.items.Count)
+                        {
+                            CountPost = wg.response.items.Count;
+                        }
 
-                        //*
-                        postCount = postCount + 1;
-                        progressBar1.Value = postCount;
-                        CountPost -= 1;
+                        progresbarMax = CountPost;//Установить максимум прогрессбара
+
+                        postCount = 0;//Сколько постов отлайкано
+
+                        CountPostforProgressBar = CountPost;
+
+                        LinesCountforProgressbar = 0;
+
+                        LikeTimer = CountPost * 4 * (TextboxLinesCount - i);
+
+                        while (Offset <= wg.response.count)
+                        {
+                            //*1
+                            RandomNuber = Rnd.Next(2000, 4000);
+
+                            //Повторный запрос на получение информации о стене 
+                            Request = "https://api.vk.com/method/wall.get?count=100&Offset=" + Offset.ToString() + "&owner_id=" +
+                                ig.response.object_id + "&";                     
+                            Answer = GetAnswer(Request, access_token);                       
+
+                            wg = JsonConvert.DeserializeObject<Wallget>(Answer);
+
+                            Offset += wg.response.items.Count;
+
+                            //Массовый лайкинг
+                            foreach (Wallget.Item item in wg.response.items)
+                            {
+                                LikedIDs = LikedIDs + "Count post: " + CountPost.ToString() + " " + iComboboxText.ToString() + "\r\n";
+
+                                if (CountPost <= 0)
+                                {
+                                    break;
+                                }
+
+                                //Cooldown
+                                Thread.Sleep(RandomNuber);
+
+                                string Request1 = "https://api.vk.com/method/likes.add?type=post&item_id=" +
+                                    item.id + "&owner_id=" + ig.response.object_id + "&";
+                                string Answer1 = GetAnswer(Request1, access_token);
+
+                                //Получение и отправка капчи
+                                if (Answer1.Contains("rror"))
+                                {
+
+                                    if (Answer1.Contains("aptcha"))
+                                    {
+                                        CaptchaGet cg = JsonConvert.DeserializeObject<CaptchaGet>(Answer1);
+
+                                        bWaitCaptcha = true;
+                                        bSendCaptcha = false;
+                                        sCaptchaAdress = cg.error.captcha_img;
+
+                                        SavedIg = ig;
+                                        SavedItem = item;
+                                        SavedCg = cg;
+
+                                        while (bWaitCaptcha == true)
+                                        {
+                                            Thread.Sleep(1000);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        bugs++;
+                                    }
+                                }
+                                else
+                                {
+                                    likes++;
+                                }
+
+                                sLabel2Text = bugs.ToString() + "/" + likes.ToString() + "/" + blockWallCount.ToString();
+                                sLabel6Text = LikeTimer.ToString() + " секунд";
+
+                                //*
+                                postCount = postCount + 1;
+                                CountPost -= 1;
+                                LikeTimer -= 4;
+                            }
+                        }
+                    }
+                    catch (PersonException ex)
+                    {
+                        blockWallCount++;
+                    }
+                    catch (Exception ex2)
+                    {
+                        bugs++;
                     }
                 }
+
+                LinesCountforProgressbar -= 1;
             }
+
+            sLabel6Text = "Все посты пролайканы";
+        }
+    
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            likes = 0;
+
+            bugs = 0;
+
+            sLabel2Text = "0/0/0";
+
+            button1.Enabled = false;
+
+            LinesCountforProgressbar = textBox3.Lines.Length;
+
+            progresbarMax = 0;
+
+            postCount = 0;
+
+            timerLike.Enabled = true;
+
+            sComboboxText = comboBox1.Text;
+
+            timerLike_Tick(sender, e);
+
+            if (Ban != null)
+            {
+                if (Ban.IsAlive)
+                {
+                    return;
+                }
+            }
+
+            Ban = new Thread(new ThreadStart(Thread_Liker));
+            Ban.Start();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ButtonIsPressed = true;
+            bWaitCaptcha = false;
 
-            if (textBox2.Text == " ")
-            {
-
-            }
-            if(textBox2.Text == "Введите капчу если потребуется")
+            if (textBox2.Text == "")
             {
 
             }
             else
             {
                 //Отправка капчи
-                string Request5 = "https://api.vk.com/method/likes.add?type=post&item_id=" + SavedItem.id + "&captcha_sid=" + SavedCg.error.captcha_sid + "&captcha_key=" + textBox2.Text + "&owner_id=" + SavedIg.response.object_id + "&" + access_token + "&v=5.124";
-                WebClient client5 = new WebClient();
-                string Answer5 = Encoding.UTF8.GetString(client5.DownloadData(Request5));
+                string Request5 = "https://api.vk.com/method/likes.add?type=post&item_id=" +
+                    SavedItem.id + "&captcha_sid=" + SavedCg.error.captcha_sid + "&captcha_key=" + textBox2.Text + "&owner_id=" +
+                    SavedIg.response.object_id + "&";
+                string Answer5 = GetAnswer(Request5, access_token);
                 textBox2.Text = "";
-            }
-
-            
-        }
-
-        private void textBox2_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                button2_Click(sender, e);
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             panel3.Visible = !panel3.Visible;
-        }   
+        }
+
+        private void textBox3_Click(object sender, EventArgs e)
+        {
+            while (buttonIsPressedClean == true)
+            {
+                textBox3.Text = "";
+                break;
+            }
+
+            buttonIsPressedClean = false;
+        }
+
+        private void textBox2_Click(object sender, EventArgs e)
+        {
+            if (button2.Enabled == true)
+            {
+                textBox2.Text = "";
+            }
+        }
+
+        private void timerLike_Tick(object sender, EventArgs e)
+        {
+            button1.Enabled = false;
+
+            if (Ban != null)
+            {
+                if (!Ban.IsAlive)
+                {
+                    button1.Enabled = true;
+                }
+            }
+
+            progressBar1.Maximum = progresbarMax;
+
+            progressBar1.Value = postCount;
+
+            TextboxLinesCount = textBox3.Lines.Length;
+
+            if (sComboboxText == "Все")
+            {
+                sComboboxText = "Все";
+            }
+            else
+            {
+                iComboboxText = Convert.ToInt32(sComboboxText);
+            }
+
+            sTextboxText = textBox3.Text;
+
+            label6.Text = sLabel6Text;
+
+            label2.Text = sLabel2Text;
+
+            TextboxTextLines = textBox3.Lines;
+
+            if (bSendCaptcha == false)
+            {
+                webBrowser1.Navigate(sCaptchaAdress);
+                bSendCaptcha = true;
+            }
+
+            if (bWaitCaptcha == true)
+            {
+                button2.Enabled = true;
+                bWaitCaptcha = true;
+            }
+            else
+            {
+                button2.Enabled = false;
+            }
+        }
+
+        private void TextBox2_MouseClick(object sender, MouseEventArgs e)
+        {
+            textBox2.Text = "";
+        }
+
+    }
+
+    class PersonException : Exception
+    {
+        public PersonException(string message)
+            : base(message)
+        { }
     }
 }

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LikerForm));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,35 +42,34 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.timerLike = new System.Windows.Forms.Timer(this.components);
+            this.panel4 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.Color.Blue;
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar1.Location = new System.Drawing.Point(0, 422);
+            this.progressBar1.Location = new System.Drawing.Point(0, 1);
+            this.progressBar1.Maximum = 0;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(820, 28);
             this.progressBar1.TabIndex = 5;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(3, 82);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(217, 20);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "Вставьте ссылку или id";
-            // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(217, 73);
+            this.button1.Size = new System.Drawing.Size(217, 39);
             this.button1.TabIndex = 6;
             this.button1.Text = "Атака лайками";
             this.button1.UseVisualStyleBackColor = true;
@@ -80,34 +79,38 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(152, 428);
+            this.label1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(28, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(282, 13);
+            this.label1.Size = new System.Drawing.Size(226, 14);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Количестов ошибок/постов пролайкано/всего постов\r\n";
+            this.label1.Text = "Количестов ошибок/постов пролайкано/***\r\n";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(515, 428);
+            this.label2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(287, 8);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(31, 14);
             this.label2.TabIndex = 9;
             this.label2.Text = "0/0/0";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(1, -6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(587, 182);
+            this.label3.Size = new System.Drawing.Size(585, 252);
             this.label3.TabIndex = 10;
             this.label3.Text = resources.GetString("label3.Text");
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(3, 174);
+            this.webBrowser1.Location = new System.Drawing.Point(3, 204);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(217, 155);
@@ -115,18 +118,22 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(3, 335);
+            this.textBox2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox2.Location = new System.Drawing.Point(3, 364);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(217, 20);
             this.textBox2.TabIndex = 13;
             this.textBox2.Text = "Введите капчу если потребуется";
-            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
+            this.textBox2.Click += new System.EventHandler(this.textBox2_Click);
+            this.textBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBox2_MouseClick);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(3, 361);
+            this.button2.Enabled = false;
+            this.button2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(3, 387);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(217, 55);
+            this.button2.Size = new System.Drawing.Size(217, 39);
             this.button2.TabIndex = 14;
             this.button2.Text = "Отправьте капчу";
             this.button2.UseVisualStyleBackColor = true;
@@ -135,6 +142,8 @@
             // comboBox1
             // 
             this.comboBox1.AllowDrop = true;
+            this.comboBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.comboBox1.DisplayMember = " ";
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
@@ -145,16 +154,17 @@
             "50 ",
             "100",
             "Все"});
-            this.comboBox1.Location = new System.Drawing.Point(3, 147);
+            this.comboBox1.Location = new System.Drawing.Point(3, 178);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(217, 21);
             this.comboBox1.TabIndex = 17;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(3, 5);
+            this.button3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button3.Location = new System.Drawing.Point(3, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(110, 28);
+            this.button3.Size = new System.Drawing.Size(180, 26);
             this.button3.TabIndex = 18;
             this.button3.Text = "Как пользоваться";
             this.button3.UseVisualStyleBackColor = true;
@@ -163,58 +173,108 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 105);
+            this.label4.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(0, 133);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(189, 39);
+            this.label4.Size = new System.Drawing.Size(196, 42);
             this.label4.TabIndex = 19;
-            this.label4.Text = "Вберите из выпадающего списка \r\nколичество постов, которое хотите \r\nпролайкать. Э" +
-    "то обязательно!!!";
+            this.label4.Text = "Выберите из выпадающего списка \r\nколичество постов, которое хотите \r\nпролайкать. " +
+    "Это обязательно!!!";
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.textBox3);
             this.panel1.Controls.Add(this.webBrowser1);
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(221, 422);
+            this.panel1.Size = new System.Drawing.Size(820, 459);
             this.panel1.TabIndex = 20;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox3.Location = new System.Drawing.Point(3, 45);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox3.Size = new System.Drawing.Size(217, 87);
+            this.textBox3.TabIndex = 23;
+            this.textBox3.Text = "Введите ссылку или id\r\nВы можете ввести несколько cсылок или id, но каждая ссылка" +
+    " или id должны быть с новой строчки";
+            this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.button3);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(221, 0);
+            this.panel2.Location = new System.Drawing.Point(228, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(599, 42);
+            this.panel2.Size = new System.Drawing.Size(592, 39);
             this.panel2.TabIndex = 21;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.label3);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel3.Location = new System.Drawing.Point(221, 42);
+            this.panel3.Location = new System.Drawing.Point(228, 37);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(594, 380);
+            this.panel3.Size = new System.Drawing.Size(592, 394);
             this.panel3.TabIndex = 22;
             this.panel3.Visible = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(473, 8);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(160, 14);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Примерно осталось времени:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(666, 8);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 14);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "0 секунд";
+            // 
+            // timerLike
+            // 
+            this.timerLike.Interval = 1000;
+            this.timerLike.Tick += new System.EventHandler(this.timerLike_Tick);
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.label2);
+            this.panel4.Controls.Add(this.label1);
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.progressBar1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 430);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(820, 29);
+            this.panel4.TabIndex = 25;
             // 
             // LikerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 450);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(820, 459);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.progressBar1);
             this.Name = "LikerForm";
             this.Text = "LikerForm";
             this.panel1.ResumeLayout(false);
@@ -222,15 +282,15 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -244,5 +304,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Timer timerLike;
+        private System.Windows.Forms.Panel panel4;
     }
 }
