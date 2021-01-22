@@ -183,6 +183,7 @@ namespace USER.BOT
             public bool can_access_closed { get; set; }
             public string photo_50 { get; set; }
             public string photo_100 { get; set; }
+            public int is_friend { get; set; }
         }
     }
 
