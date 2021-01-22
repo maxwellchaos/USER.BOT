@@ -1,6 +1,3 @@
-
-
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -76,45 +73,7 @@ namespace USER.BOT
             textBox2.Text = Properties.Settings.Default.id_Groups;
         }
 
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            if (webBrowser1.Url.ToString().Contains("access_token"))
-            {
-                string[] param = webBrowser1.Url.ToString().Split(new[] { "#", "&" }, StringSplitOptions.RemoveEmptyEntries);
-                access_token = param[1];
-
-                string Request = "https://api.vk.com/method/account.getProfileInfo?" +
-                access_token + "&v=5.124";
-
-                string Answer = GetAnswer(Request, access_token);
-
-                GetProfileInfo gpi = JsonConvert.DeserializeObject<GetProfileInfo>(Answer);
-                labelFamily.Text = gpi.response.last_name;
-                labelName.Text = gpi.response.first_name;
-                user_id = gpi.response.id.ToString();
-
-                Request = "https://api.vk.com/method/users.get?fields=photo_100&" +
-                access_token + "&v=5.124";
-
-                Answer = GetAnswer(Request, access_token);
-
-                UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer);
-                pictureBoxAvatar.ImageLocation = ug.response[0].photo_100;
-                user_id = ug.response[0].id.ToString();
-                webBrowser1.Hide();
-
-                if (Properties.Settings.Default.PSetting == true)
-                {
-                    form = new Form_Happy_day();
-                    form.access_token = access_token;
-                    form.user_id = user_id;
-                    form.Show();
-                    form.Visible = false;
-                }
-            }
-            pictureBoxWait.Hide();
-        }
-
+     
         private void buttonGetPopularPost_Click(object sender, EventArgs e)
         {
             FormMostPopularPost frm = new FormMostPopularPost();
@@ -123,72 +82,10 @@ namespace USER.BOT
             frm.Show();
         }
 
-        private void ButtonSelebrate_Click(object sender, EventArgs e)
-        {
-            form = new Form_Happy_day();
-            form.access_token = access_token;
-            form.user_id = user_id;
-            form.Visible = true;
-        }
-
-        private void Ban_friends_Click(object sender, EventArgs e)
-        {
-            BanName = "";
-            co = 0;
-            co1 = 0;
-            progressBar1.Value = 0;
-            bool check = false;
-            progressBar1.Visible = true;
-            label1.Visible = true;
-            string FriendsId = "https://api.vk.com/method/friends.get?fields=can_post,bdate,sex&" + access_token + "&v=5.124";
-            WebClient cl = new WebClient();
-            string AnswerFriends = Encoding.UTF8.GetString(cl.DownloadData(FriendsId));
-            FriendsGet1 rtf = JsonConvert.DeserializeObject<FriendsGet1>(AnswerFriends);
-            progressBar1.Maximum = rtf.response.count;
-            co = rtf.response.count;
-            foreach (FriendsGet1.Item item in rtf.response.items)
-            {
-                string[] LvItem = new string[2];
-                LvItem[0] = item.last_name + item.first_name;
-                LvItem[1] = item.id.ToString();
-                ListViewItem lvi = new ListViewItem(LvItem);
-                listView1.Items.Add(lvi);
-                string BanFriendsId = "https://api.vk.com/method/users.get?user_ids=" + item.id + "&fields=deactivated" + "&" + access_token + "&v=5.124";
-                WebClient cl1 = new WebClient();
-                string AnswerBanFriends = Encoding.UTF8.GetString(cl.DownloadData(BanFriendsId));
-                BanFriends rtf1 = JsonConvert.DeserializeObject<BanFriends>(AnswerBanFriends);
-
-                Application.DoEvents();
-                Thread.Sleep(300);
-                foreach (BanFriends.ResponseBanFriends item1 in rtf1.response)
-                {
-                    if (item1.deactivated == "deleted" || item1.deactivated == "banned")
-                    {
-                        string BanFriendsId1 = "https://api.vk.com/method/friends.delete?user_id=" + item.id + "&" + access_token + "&v=5.124";
-                        WebClient cl11 = new WebClient();
-                        string AnswerBanFriends1 = Encoding.UTF8.GetString(cl.DownloadData(BanFriendsId1));
-                        BanName = BanName + item1.last_name + " " + item1.first_name + "; ";
-                    }
-                }
-                if (BanName != null && check == false && co1 == co)
-                {
-                    MessageBox.Show("Эти друзья удаленны из списка друзей: " + BanName, "Внимание!", MessageBoxButtons.OK);
-                    label1.Visible = false;
-                    progressBar1.Visible = false;
-                    check = true;
-                }
-                else if (BanName == null && check == false && co1 == co)
-                {
-                    MessageBox.Show("У тебя нет удалённых друзей.", "Внимание!", MessageBoxButtons.OK);
-                    label1.Visible = false;
-                    progressBar1.Visible = false;
-                    check = true;
-                }
-            }
-        }
-
+      
         private void Timer1_Tick(object sender, EventArgs e)
         {
+          
             if (co1 <= co)
             {
                 progressBar1.Value = co1;
@@ -1875,16 +1772,7 @@ namespace USER.BOT
             }
         }
 
-        private void ButtonLiking_Click(object sender, EventArgs e)
-        {
-            LikerForm form = new LikerForm();
-            form.access_token = access_token;
-            form.users_id = user_id;
-            form.ShowDialog();
-        }
-   
-
-
+     
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             if (webBrowser1.Url.ToString().Contains("access_token"))
@@ -1914,6 +1802,7 @@ namespace USER.BOT
                 pictureBoxAvatar.ImageLocation = ug.response[0].photo_100;
                 user_id = ug.response[0].id.ToString();
                 webBrowser1.Hide();
+                pictureBoxWait.Hide();
 
                 if (Properties.Settings.Default.PSetting == true)
                 {
@@ -1926,14 +1815,7 @@ namespace USER.BOT
             }
         }
 
-        private void buttonGetPopularPost_Click(object sender, EventArgs e)
-        {
-            FormMostPopularPost frm = new FormMostPopularPost();
-            frm.access_token = this.access_token;
-            frm.user_id = user_id;
-            frm.Show();
-        }
-
+     
         private void ButtonSelebrate_Click(object sender, EventArgs e)
         {
             form = new Form_Happy_day();
@@ -1944,6 +1826,12 @@ namespace USER.BOT
 
         private void Ban_friends_Click(object sender, EventArgs e)
         {
+
+            BanName = "";
+            co = 0;
+            co1 = 0;
+            progressBar1.Value = 0;
+            bool check = false;
             progressBar1.Visible = true;
             label1.Visible = true;
             string FriendsId = "https://api.vk.com/method/friends.get?fields=can_post,bdate,sex&" + access_token + "&v=5.124";
@@ -1957,7 +1845,6 @@ namespace USER.BOT
                 string[] LvItem = new string[2];
                 LvItem[0] = item.last_name + item.first_name;
                 LvItem[1] = item.id.ToString();
-                co1++;
                 ListViewItem lvi = new ListViewItem(LvItem);
                 listView1.Items.Add(lvi);
                 string BanFriendsId = "https://api.vk.com/method/users.get?user_ids=" + item.id + "&fields=deactivated" + "&" + access_token + "&v=5.124";
@@ -1965,54 +1852,64 @@ namespace USER.BOT
                 string AnswerBanFriends = Encoding.UTF8.GetString(cl.DownloadData(BanFriendsId));
                 BanFriends rtf1 = JsonConvert.DeserializeObject<BanFriends>(AnswerBanFriends);
 
-                for (int i = 0; i < rtf.response.count; i = i + 1)
-                {
-                    Application.DoEvents();
-                    Thread.Sleep(100);
-                    co1++;
-                }
+                Application.DoEvents();
+                Thread.Sleep(300);
                 foreach (BanFriends.ResponseBanFriends item1 in rtf1.response)
                 {
-                    if(item1.deactivated == "deleted" || item1.deactivated == "banned")
+                    if (item1.deactivated == "deleted" || item1.deactivated == "banned")
                     {
-                        string BanFriendsId1 = "https://api.vk.com/method/friends.delete?user_id=" + item.id +"&" + access_token + "&v=5.124";
+                        string BanFriendsId1 = "https://api.vk.com/method/friends.delete?user_id=" + item.id + "&" + access_token + "&v=5.124";
                         WebClient cl11 = new WebClient();
                         string AnswerBanFriends1 = Encoding.UTF8.GetString(cl.DownloadData(BanFriendsId1));
                         BanName = BanName + item1.last_name + " " + item1.first_name + "; ";
                     }
                 }
-                if (BanName != null)
+                if (BanName != null && check == false && co1 == co)
                 {
                     MessageBox.Show("Эти друзья удаленны из списка друзей: " + BanName, "Внимание!", MessageBoxButtons.OK);
                     label1.Visible = false;
                     progressBar1.Visible = false;
+                    check = true;
                 }
-                else
+                else if (BanName == null && check == false && co1 == co)
                 {
                     MessageBox.Show("У тебя нет удалённых друзей.", "Внимание!", MessageBoxButtons.OK);
                     label1.Visible = false;
                     progressBar1.Visible = false;
+                    check = true;
                 }
             }
+
+
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            if (co1 <= co)
-            {
-                progressBar1.Value = co1;
-            }
-            int b = co1 * 100 / 1000;
-            int a = co * 100 / 1000;
-            int ab = a - b;
-            int ab1 = ab / 60;
-            label1.Text = "Проверяю наличия удалённых друзей. Осталось примерно \r\n" + ab1.ToString() + " мин или " + ab.ToString() + " сек";
-        }
+      
         private void ButtonLiking_Click(object sender, EventArgs e)
         {
             LikerForm form = new LikerForm();
             LikerForm.access_token = access_token;
             LikerForm.users_id = user_id;
+            form.ShowDialog();
+        }
+
+        private void buttonGDZ_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonFindComments_Click(object sender, EventArgs e)
+        {
+            AnswerForm form = new AnswerForm();
+            form.access_token = access_token;
+            form.user_id = user_id;
+            form.ShowDialog();
+        }
+
+        private void buttonMassComment_Click(object sender, EventArgs e)
+        {
+            FormMassComment form = new FormMassComment();
+            form.access_token = access_token;
+            form.user_id = user_id;
             form.ShowDialog();
         }
     }

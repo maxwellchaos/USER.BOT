@@ -309,11 +309,14 @@ namespace USER.BOT
             public string deactivated { get; set; }
             public string bdate { get; set; }
             public int sex { get; set; }
-
-
+        }
+        public class Response
+        {
+            public int count { get; set; }
+            public List<Item> items { get; set; }
         }
 
-}
+    }
     public class WallGet
     {
         public class Size
@@ -375,35 +378,6 @@ namespace USER.BOT
             public int mail_count { get; set; }
             public int user_reposted { get; set; }
         }
-
-       public class Size
-        {
-            public int height { get; set; }
-            public string url { get; set; }
-            public string type { get; set; }
-            public int width { get; set; }
-        }
-
-        public class Photo
-        {
-            public int album_id { get; set; }
-            public int date { get; set; }
-            public int id { get; set; }
-            public int owner_id { get; set; }
-            public bool has_tags { get; set; }
-            public string access_key { get; set; }
-            public List<Size> sizes { get; set; }
-            public string text { get; set; }
-            public int? post_id { get; set; }
-        }
-
-        public class Attachment
-        {
-            public string type { get; set; }
-            public Photo photo { get; set; }
-        }
-
-
         public class Views
         {
             public int count { get; set; }
@@ -430,9 +404,6 @@ namespace USER.BOT
             public Reposts reposts { get; set; }
 
             public Views views { get; set; }
-            public int? can_pin { get; set; }
-            public List<Attachment> attachments { get; set; }
-            public Views views { get; set; }
             public int? edited { get; set; }
 
         }
@@ -443,11 +414,11 @@ namespace USER.BOT
             public List<Item> items { get; set; }
         }
 
-
+        public Response response { get; set; }
     }
 
 
-        public Response response { get; set; }
+       
 
 
 

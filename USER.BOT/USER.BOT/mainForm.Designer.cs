@@ -159,6 +159,7 @@
             this.buttonGDZ.TabIndex = 18;
             this.buttonGDZ.Text = "ГДЗ бот";
             this.buttonGDZ.UseVisualStyleBackColor = true;
+            this.buttonGDZ.Click += new System.EventHandler(this.buttonGDZ_Click);
             // 
             // Ban_friends
             // 
@@ -216,10 +217,11 @@
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
             // pictureBoxWait
             // 
             this.pictureBoxWait.Image = global::USER.BOT.Properties.Resources.image_861701171351153465139;
-            this.pictureBoxWait.Location = new System.Drawing.Point(66, -118);
+            this.pictureBoxWait.Location = new System.Drawing.Point(46, -89);
             this.pictureBoxWait.Name = "pictureBoxWait";
             this.pictureBoxWait.Size = new System.Drawing.Size(769, 533);
             this.pictureBoxWait.TabIndex = 19;
@@ -278,7 +280,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.Ban_friends);
-            this.Controls.Add(this.pictureBoxWait);
             this.Controls.Add(this.buttonGDZ);
             this.Controls.Add(this.buttonFindComments);
             this.Controls.Add(this.buttonMassComment);
@@ -290,6 +291,7 @@
             this.Controls.Add(this.buttonGetPopularPost);
             this.Controls.Add(this.buttonTextBot);
             this.Controls.Add(this.buttonLiking);
+            this.Controls.Add(this.pictureBoxWait);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainForm";
             this.Text = "MainForm";
