@@ -139,6 +139,7 @@
             this.buttonMassComment.TabIndex = 16;
             this.buttonMassComment.Text = "Массовый комментинг";
             this.buttonMassComment.UseVisualStyleBackColor = true;
+            this.buttonMassComment.Click += new System.EventHandler(this.buttonMassComment_Click);
             // 
             // buttonFindComments
             // 
