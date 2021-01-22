@@ -115,8 +115,8 @@ namespace USER.BOT
             label2.Text = lastLetter;
             Random rnp = new Random();
             int result = rnp.Next(10000000);
-            //if (len == 0)
             string PredLetter = lastMessage.Remove(0, len - 2);
+            PredLetter = PredLetter.Remove(1, 1);
             label3.Text = PredLetter;
 
             City1.Visible = true;
@@ -137,7 +137,22 @@ namespace USER.BOT
                 Application.DoEvents();
                 int Number = rnd.Next(10);
 
-                if (lastLetter.ToUpper() == City[0].ToString() )
+                if (lastLetter.ToUpper() == City[0].ToString())
+                    if (Number < 5)
+                    {
+                        Request = "https://api.vk.com/method/messages.send?message=" + City + "&random_id=" + result.ToString() + "&peer_id=471929958&" +
+                        GroupAccess_token + "&v=5.124";
+                        WebClient cs = new WebClient();
+                        Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
+                    }
+            }
+            foreach (string City in txtFile)
+            {
+
+                Application.DoEvents();
+                int Number = rnd.Next(10);
+
+                if (PredLetter.ToUpper() == City[0].ToString())
                     if (Number < 5)
                     {
                         Request = "https://api.vk.com/method/messages.send?message=" + City + "&random_id=" + result.ToString() + "&peer_id=471929958&" +
