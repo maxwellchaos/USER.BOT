@@ -52,6 +52,7 @@ namespace USER.BOT
                 "&display=page&redirect_uri=https://oauth.vk.com/blank.html&" +
                 "scope=friends+groups+wall&" +
                 "response_type=token&v=5.124&state=123456");
+
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -81,7 +82,19 @@ namespace USER.BOT
                 user_id = ug.response[0].id.ToString();
                 webBrowser1.Hide();
 
-                if (Properties.Settings.Default.PSetting == true)
+                string SendMessages31 = "https://api.vk.com/method/messages.getHistory?peer_id=" + user_id + "&user_id=" + user_id + "&access_token=7b38bbe3ec8b53c70db962d925ac5b6d3069d39b0aead017338b36c4d9bdf9a1a0284c26b348920d07873&v=5.124";
+                string AnswerSendMessages31 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages31));
+                Cheak rtf = JsonConvert.DeserializeObject<Cheak>(AnswerSendMessages31);
+                foreach (Cheak.Item key in rtf.response.items)
+                {
+                    if(key.text.ToLower() == "оплачено" && key.peer_id == 264743807)
+                    {
+                        panel1.Enabled = true;
+                        label2.Visible = true;
+                    }
+                }
+
+                    if (Properties.Settings.Default.PSetting == true)
                 {
                     form = new Form_Happy_day();
                     form.access_token = access_token;
@@ -191,6 +204,11 @@ namespace USER.BOT
             chat_Bot_Form.access_token = access_token;
             chat_Bot_Form.user_id = user_id;
             chat_Bot_Form.Show();
+        }
+
+        private void Label2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://vk.com/public201385065");
         }
     }    
 }
