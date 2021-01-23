@@ -87,14 +87,28 @@ namespace USER.BOT
                 Cheak rtf = JsonConvert.DeserializeObject<Cheak>(AnswerSendMessages31);
                 foreach (Cheak.Item key in rtf.response.items)
                 {
-                    if(key.text.ToLower() == "оплачено" && key.peer_id == 264743807)
+                    try
                     {
-                        panel1.Enabled = true;
-                        label2.Visible = true;
+                        if (key.text.ToLower() == "оплачено" && key.from_id == -201385065)
+                        {
+                            panel1.Enabled = true;
+                            label2.Visible = false;
+                            Properties.Settings.Default.isStart = true;
+                        }
+                        else if (Properties.Settings.Default.isStart == false && Properties.Settings.Default.isStartTimer > 0)
+                        {
+                            panel1.Enabled = true;
+                            timer2.Enabled = true;
+                            label3.Visible = true;
+                        }
+                    }
+                    catch
+                    {
+
                     }
                 }
 
-                    if (Properties.Settings.Default.PSetting == true)
+                if (Properties.Settings.Default.PSetting == true)
                 {
                     form = new Form_Happy_day();
                     form.access_token = access_token;
@@ -209,6 +223,20 @@ namespace USER.BOT
         private void Label2_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://vk.com/public201385065");
+        }
+
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+            int time = Properties.Settings.Default.isStartTimer;
+            label3.Text = "Пробная версия версия. Осталось " + (time / 60 ) + " мин " + (time - (60 * (time / 60))) + " сек ";
+            time--;
+            Properties.Settings.Default.isStartTimer = time;
+            if (time < 0)
+            {
+                label3.Text = "Время пробной версии закончилось";
+                timer2.Enabled = false;
+                panel1.Enabled = false;
+            }
         }
     }    
 }
