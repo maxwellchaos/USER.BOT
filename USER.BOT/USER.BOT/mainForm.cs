@@ -1,6 +1,3 @@
-
-
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,8 +11,6 @@ using System.Net;
 using Microsoft.Win32;
 using System.Reflection;
 using System.Threading;
-
-
 
 namespace USER.BOT
 {
@@ -57,7 +52,7 @@ namespace USER.BOT
 
             webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304"+
                 "&display=page&redirect_uri=https://oauth.vk.com/blank.html&"+
-                "scope=friends+groups+wall+photo&"+
+                "scope=friends+groups+wall+photo+docs&"+
                 "response_type=token&v=5.124&state=123456");
             if(Properties.Settings.Default.ChatBot == true)
             {
@@ -114,7 +109,14 @@ namespace USER.BOT
             }
             pictureBoxWait.Hide();
         }
+   private void buttonGDZ_Click(object sender, EventArgs e)
+        {
+            formgdz frmgdz = new formgdz();
+            frmgdz.access_token = this.access_token;
+            frmgdz.user_id = user_id;
+            frmgdz.Show();
 
+        }
         private void buttonGetPopularPost_Click(object sender, EventArgs e)
         {
             FormMostPopularPost frm = new FormMostPopularPost();
@@ -2017,3 +2019,5 @@ namespace USER.BOT
         }
     }
 }
+
+
