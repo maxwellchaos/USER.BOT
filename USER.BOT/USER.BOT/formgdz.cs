@@ -170,13 +170,15 @@ namespace USER.BOT
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            try
+            //try
             {
+                string Groupaccess_token;
+                Groupaccess_token = textboxGroup.Text;
                 string LastUserMessageText = "";
                 string LastBotMessageText = "";
                 Random rnd = new Random();
                 int random_id = rnd.Next();
-                string reqeuest2 = "https://api.vk.com/method/messages.getConversations?access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                string reqeuest2 = "https://api.vk.com/method/messages.getConversations?access_token="+Groupaccess_token+"&v=5.124";
                 WebClient cl = new WebClient();
                 string answer2 = Encoding.UTF8.GetString(cl.DownloadData(reqeuest2));
                 messagesgetConversations mg = JsonConvert.DeserializeObject<messagesgetConversations>(answer2);
@@ -187,10 +189,10 @@ namespace USER.BOT
                 }
 
                 int random_id2 = rnd.Next();
-                reqeuest2 = "https://api.vk.com/method/messages.getConversations?access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                reqeuest2 = "https://api.vk.com/method/messages.getConversations?access_token=" + Groupaccess_token + "&v=5.124";
 
 
-                reqeuest2 = "https://api.vk.com/method/messages.getById?message_ids=" + messegeid.ToString() + "&group_id=199265164&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                reqeuest2 = "https://api.vk.com/method/messages.getById?message_ids=" + messegeid.ToString() + "&group_id=199265164&access_token=" + Groupaccess_token + "&v=5.124";
                 answer2 = Encoding.UTF8.GetString(cl.DownloadData(reqeuest2));
                 messagesgetById mgbi = JsonConvert.DeserializeObject<messagesgetById>(answer2);
 
@@ -210,7 +212,7 @@ namespace USER.BOT
                 label3.Text = LastUserMessageText;
                 label4.Text = LastBotMessageText;
                 //  string code = LastBotMessageText;
-                reqeuest2 = "https://api.vk.com/method/messages.getConversations?filter=unanswered&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                reqeuest2 = "https://api.vk.com/method/messages.getConversations?filter=unanswered&access_token=" + Groupaccess_token + "&v=5.124";
                 WebClient wc2 = new WebClient();
                 string answer4 = Encoding.UTF8.GetString(wc2.DownloadData(reqeuest2));
                 messagesgetConversations mgc1 = JsonConvert.DeserializeObject<messagesgetConversations>(answer4);
@@ -269,7 +271,7 @@ namespace USER.BOT
                                     int exerciseID = int.Parse(LastUserMessageText);
                                     string temp4 = "Вы выбрали " + exerciseID + " код: " + param[1].ToString() + "_" + param[2].ToString() + "_" + param[3] + "_" + exerciseID.ToString() + "ex" + "_";
                                     random_id = rnd.Next();
-                                    reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp4 + " Вы закончили создание кода для нахождение гдз задания.&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                                    reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp4 + " Вы закончили создание кода для нахождение гдз задания.&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=" + Groupaccess_token + "&v=5.124";
                                     string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
 
                                     //упражнение выбрано 
@@ -285,7 +287,7 @@ namespace USER.BOT
                                             string doc_id = "doc" + item1.owner_id.ToString() + "_" + item1.id.ToString();
                                             // item1.url
                                             // random_id2 = rnd.Next();
-                                            reqeuest2 = "https://api.vk.com/method/messages.send?attachment=" + doc_id + "&message=Держии ответ&type=4&user_id=" + mg.response.items[0].last_message.from_id.ToString() + "&random_id=" + random_id2 + "&" + GroupAccess_token + "&v=5.124";
+                                            reqeuest2 = "https://api.vk.com/method/messages.send?attachment=" + doc_id + "&message=Держии ответ&type=4&user_id=" + mg.response.items[0].last_message.from_id.ToString() + "&random_id=" + random_id2 + "&" + Groupaccess_token + "&v=5.124";
                                             answer2 = Encoding.UTF8.GetString(cl.DownloadData(reqeuest2));
 
                                         }
@@ -299,7 +301,7 @@ namespace USER.BOT
                                     int avtorID = int.Parse(LastUserMessageText);
                                     string temp3 = "Вы выбрали " + avtorID + " код:" + param[1].ToString() + "_" + param[2].ToString() + "_" + avtorID.ToString() + "avt" + "_";
                                     random_id = rnd.Next();
-                                    reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp3 + " Выберете упражнение&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                                    reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp3 + " Выберете упражнение&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=" + Groupaccess_token + "&v=5.124";
                                     string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
                                 }
                             }
@@ -348,7 +350,7 @@ namespace USER.BOT
                                 int classid = int.Parse(LastUserMessageText);
                                 string temp2 = "Вы выбрали " + clas[classid] + "код:" + param[1].ToString() + "_" + classid.ToString() + "KL" + "_";
                                 random_id = rnd.Next();
-                                reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp2 + "выберете автора:" + allautors + "&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                                reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp2 + "выберете автора:" + allautors + "&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=" + Groupaccess_token + "&v=5.124";
                                 string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
 
                             }
@@ -358,18 +360,18 @@ namespace USER.BOT
                             int ObjectId = int.Parse(LastUserMessageText);
                             string temp = "Вы выбрали " + Objects[ObjectId] + " код:" + ObjectId.ToString() + "obj" + "_";
                             random_id = rnd.Next();
-                            reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp + "&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                            reqeuest2 = "https://api.vk.com/method/messages.send?message=" + temp + "&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=" + Groupaccess_token + "&v=5.124";
                             string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
                         }
                     }
 
                 }
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+            //catch(Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
 
-            }
+            //}
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -387,6 +389,11 @@ namespace USER.BOT
             textBox2.Lines = System.IO.Directory.GetFiles(Application.StartupPath + @"\загрузки");
             byte[] b = cl.UploadFile(dgUS.response.upload_url, textBox2.Text);
             textBox3.Text = Encoding.UTF8.GetString(b);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            timer2.Enabled = true;
         }
     }
 }
