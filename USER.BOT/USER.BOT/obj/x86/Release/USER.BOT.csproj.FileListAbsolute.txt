@@ -1,0 +1,9 @@
+C:\Users\zzzz\Downloads\USER.BOT-main (26)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Release\USER.BOT.csprojResolveAssemblyReference.cache
+C:\Users\zzzz\Downloads\USER.BOT-main (26)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Release\USER.BOT.FormMassComment.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (26)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Release\USER.BOT.AnswerForm.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (26)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Release\USER.BOT.FormMostPopularPost.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (26)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Release\USER.BOT.Form_Happy_day.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (26)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Release\USER.BOT.LikerForm.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (26)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Release\USER.BOT.mainForm.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (26)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Release\USER.BOT.Properties.Resources.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (26)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Release\USER.BOT.csproj.GenerateResource.Cache

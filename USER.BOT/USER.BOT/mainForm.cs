@@ -2019,5 +2019,3 @@ namespace USER.BOT
         }
     }
 }
-
-
