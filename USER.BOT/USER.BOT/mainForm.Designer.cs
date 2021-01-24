@@ -149,7 +149,7 @@
             this.buttonMassComment.TabIndex = 16;
             this.buttonMassComment.Text = "Массовый комментинг";
             this.buttonMassComment.UseVisualStyleBackColor = true;
-            this.buttonMassComment.Click += new System.EventHandler(this.buttonMassComment_Click);
+           // this.buttonMassComment.Click += new System.EventHandler(this.buttonMassComment_Click);
             // 
             // buttonFindComments
             // 
@@ -160,7 +160,7 @@
             this.buttonFindComments.TabIndex = 17;
             this.buttonFindComments.Text = "Ответ на комментарии к записям";
             this.buttonFindComments.UseVisualStyleBackColor = true;
-            this.buttonFindComments.Click += new System.EventHandler(this.buttonFindComments_Click);
+            //this.buttonFindComments.Click += new System.EventHandler(this.buttonFindComments_Click);
             // 
             // buttonGDZ
             // 
