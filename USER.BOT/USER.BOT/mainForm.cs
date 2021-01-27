@@ -1884,6 +1884,13 @@ namespace USER.BOT
             LikerForm.users_id = user_id;
             form.ShowDialog();
         }
+
+        private void buttonCityBot_Click(object sender, EventArgs e)
+        {
+            FormChatBot form = new FormChatBot();
+            form.access_token = access_token;
+            form.ShowDialog();
+        }
    
 
 
