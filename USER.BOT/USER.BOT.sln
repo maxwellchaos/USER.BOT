@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "USER.BOT", "USER.BOT\USER.BOT.csproj", "{1542D6DC-37A8-442F-AE6A-627495E3017F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "USER.BOT", "USER.BOT.csproj", "{1542D6DC-37A8-442F-AE6A-627495E3017F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

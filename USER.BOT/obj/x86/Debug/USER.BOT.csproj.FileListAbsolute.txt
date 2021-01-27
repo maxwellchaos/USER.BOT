@@ -24,3 +24,5 @@ C:\Activators\USER.BOT\obj\x86\Debug\USER.BOT.FormChatBot.resources
 C:\Activators\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
 C:\Activators\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
 C:\Activators\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.Cache
+C:\Users\Виктор\Desktop\USER.BOT\obj\x86\Debug\USER.BOT.exe
+C:\Users\Виктор\Desktop\USER.BOT\obj\x86\Debug\USER.BOT.pdb
