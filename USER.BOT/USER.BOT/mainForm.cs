@@ -236,6 +236,8 @@ namespace USER.BOT
                 label3.Text = "Время пробной версии закончилось";
                 timer2.Enabled = false;
                 panel1.Enabled = false;
+                MessageBox.Show("Внимание", "Пробная версия закончилась. Оплатите!");
+                this.Close();
             }
         }
     }    
