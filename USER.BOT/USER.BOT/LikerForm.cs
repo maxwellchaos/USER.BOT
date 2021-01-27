@@ -104,23 +104,7 @@ namespace USER.BOT
                 //Запрос на получение id
                 string Request2 = "https://api.vk.com/method/utils.resolveScreenName?screen_name=" + UserId + "&";
                 string Answer2 = GetAnswer(Request2, access_token);
-
-                string Request3 = "https://api.vk.com/method/friends.search?";
-                string Answer3 = GetAnswer(Request3, access_token);
-
-                FriendsGet fg = JsonConvert.DeserializeObject<FriendsGet>(Answer3);
-
-                string Request4 = "https://api.vk.com/method/users.get?fields=is_friend&user_ids=286688521&";
-                string Answer4 = GetAnswer(Request4, access_token);
-
-                UsersGet ug = JsonConvert.DeserializeObject<UsersGet>(Answer4);
-
-                if(ug.response[0].is_friend == 0)
-                {
-                    piratForm form1 = new piratForm();
-                    form1.ShowDialog();
-                    break;
-                }
+                
 
                 if (Answer2 == "{\"response\":[]}")
                 {

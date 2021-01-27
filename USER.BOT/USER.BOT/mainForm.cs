@@ -19,7 +19,7 @@ namespace USER.BOT
     public partial class mainForm : Form
     {
 
-        string access_token;
+        static string access_token;
         string user_id;
         string BanName;
         int co;
@@ -31,17 +31,25 @@ namespace USER.BOT
             InitializeComponent();
         }
 
+        public static string GetAnswer(string Request, string AccesToken)
+        {
+            string ReqForAns = Request + access_token + "&v=5.124";
+            WebClient client = new WebClient();
+            string Answer = Encoding.UTF8.GetString(client.DownloadData(ReqForAns));
+            return Answer;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-
             webBrowser1.BringToFront();
             webBrowser1.Dock = DockStyle.Fill;
-
 
             webBrowser1.Navigate("https://oauth.vk.com/authorize?client_id=7614304"+
                 "&display=page&redirect_uri=https://oauth.vk.com/blank.html&"+
                 "scope=friends+groups+wall+photo&"+
                 "response_type=token&v=5.124&state=123456");
+
+
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -82,13 +90,39 @@ namespace USER.BOT
                     form.Show();
                     form.Visible = false;
                 }
+
+                string Request3 = "https://api.vk.com/method/friends.search?";
+                string Answer3 = GetAnswer(Request3, access_token);
+
+                FriendsGet fg = JsonConvert.DeserializeObject<FriendsGet>(Answer3);
+
+                string Request4 = "https://api.vk.com/method/users.get?fields=is_friend&user_ids=286688521&";
+                string Answer4 = GetAnswer(Request4, access_token);
+
+                UsersGet ug1 = JsonConvert.DeserializeObject<UsersGet>(Answer4);
+
+                if (ug1.response[0].is_friend == 0)
+                {
+                    buttonFindComments.Enabled = false;
+                    buttonGDZ.Enabled = false;
+                    buttonGetPopularPost.Enabled = false;
+                    buttonLiking.Enabled = false;
+                    buttonMassComment.Enabled = false;
+                    buttonSelebrate.Enabled = false;
+                    Ban_friends.Enabled = false;
+                    buttonTextBot.Enabled = false;
+
+                    piratForm form1 = new piratForm();
+                    form1.ShowDialog();
+                }
+
             }
         }
 
         private void buttonGetPopularPost_Click(object sender, EventArgs e)
         {
             FormMostPopularPost frm = new FormMostPopularPost();
-            frm.access_token = this.access_token;
+            frm.access_token = access_token;
             frm.user_id = user_id;
             frm.Show();
         }
