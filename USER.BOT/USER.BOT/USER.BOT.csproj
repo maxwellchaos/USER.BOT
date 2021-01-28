@@ -100,7 +100,6 @@
     </Compile>
     <Compile Include="Chat-Bot_Form.Designer.cs">
       <DependentUpon>Chat-Bot_Form.cs</DependentUpon>
-
     </Compile>
     <Compile Include="FormMostPopularPost.cs">
       <SubType>Form</SubType>
@@ -123,7 +122,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="response.cs" />
-
     <EmbeddedResource Include="FormChatBot.resx">
       <DependentUpon>FormChatBot.cs</DependentUpon>
     </EmbeddedResource>
@@ -136,10 +134,9 @@
     <Compile Include="Response1.cs" />
     <EmbeddedResource Include="formgdz.resx">
       <DependentUpon>formgdz.cs</DependentUpon>
-</EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="Chat-Bot_Form.resx">
       <DependentUpon>Chat-Bot_Form.cs</DependentUpon>
-
     </EmbeddedResource>
     <EmbeddedResource Include="FormMostPopularPost.resx">
       <DependentUpon>FormMostPopularPost.cs</DependentUpon>
@@ -158,6 +155,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -171,6 +169,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\unnamed.gif" />
     <Content Include="UB icon.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -247,5 +247,29 @@ namespace USER.BOT
                 this.Close();
             }
         }
+
+        private void buttonFindComments_Click(object sender, EventArgs e)
+        {
+            AnswerForm Form = new AnswerForm();
+            Form.access_token = access_token;
+            Form.user_id = user_id;
+            Form.Show();
+        }
+
+        private void buttonMassComment_Click(object sender, EventArgs e)
+        {
+            FormMassComment Form = new FormMassComment();
+            Form.access_token = access_token;
+            Form.user_id = user_id;
+            Form.Show();
+        }
+
+        private void buttonTextBot_Click(object sender, EventArgs e)
+        {
+            FormChatBot Form = new FormChatBot();
+            Form.access_token = access_token;
+            Form.user_id = user_id;
+            Form.Show();
+        }
     }    
 }
