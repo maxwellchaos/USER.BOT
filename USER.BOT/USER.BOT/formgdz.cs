@@ -50,6 +50,8 @@ namespace USER.BOT
 
         private void formgdz_Load(object sender, EventArgs e)
         {
+            textboxGroup.Text= Properties.Settings.Default.text;
+            textBox4.Text = Properties.Settings.Default.text2;
             Objects[0] = " ничего ";
             Objects[1] = " математику ";
             Objects[2] = " русский ";
@@ -173,9 +175,12 @@ namespace USER.BOT
             //try
             {
                 string Groupaccess_token;
+                string GroupID;
                 Groupaccess_token = textboxGroup.Text;
+                GroupID = textBox4.Text;
                 string LastUserMessageText = "";
                 string LastBotMessageText = "";
+                string fromId ;
                 Random rnd = new Random();
                 int random_id = rnd.Next();
                 string reqeuest2 = "https://api.vk.com/method/messages.getConversations?access_token="+Groupaccess_token+"&v=5.124";
@@ -189,17 +194,18 @@ namespace USER.BOT
                 }
 
                 int random_id2 = rnd.Next();
-                reqeuest2 = "https://api.vk.com/method/messages.getConversations?access_token=" + Groupaccess_token + "&v=5.124";
-
-
-                reqeuest2 = "https://api.vk.com/method/messages.getById?message_ids=" + messegeid.ToString() + "&group_id=199265164&access_token=" + Groupaccess_token + "&v=5.124";
+                reqeuest2 = "https://api.vk.com/method/messages.getConversations?filter=unread&access_token=" + Groupaccess_token + "&v=5.124";
+                
+                
+                reqeuest2 = "https://api.vk.com/method/messages.getById?message_ids=" + messegeid.ToString() + "&group_id="+GroupID+"&access_token=" + Groupaccess_token + "&v=5.124";
                 answer2 = Encoding.UTF8.GetString(cl.DownloadData(reqeuest2));
                 messagesgetById mgbi = JsonConvert.DeserializeObject<messagesgetById>(answer2);
-
+                
                 for (int i = mgbi.response.items.Count - 1; i >= 0; i = i - 1)
                 {
-
-                    if (mgbi.response.items[i].from_id.ToString() == "380583406")
+                    
+                    fromId = mgbi.response.items[i].peer_id.ToString();
+                    if (mgbi.response.items[i].from_id.ToString() == fromId)
                     {
                         LastUserMessageText = (mgbi.response.items[i].text);
                     }
@@ -209,6 +215,7 @@ namespace USER.BOT
                     }
 
                 }
+               
                 label3.Text = LastUserMessageText;
                 label4.Text = LastBotMessageText;
                 //  string code = LastBotMessageText;
@@ -228,24 +235,24 @@ namespace USER.BOT
                     {
                         random_id = rnd.Next();
                         reqeuest2 = "https://api.vk.com/method/messages.send?message=ВЫ перезагрузили гдзБОТ все ваши настройки зброшены выберете предметот 1 до 21  1 = математика, 2 = русский, 3 = физика, 4 = биология, 5=химия,6=ОБЖ,7=Музыка,8=Английский,9=Немецкий,10=Французкий,11=Обшествознание," +
-                            "12=История России,13=Литература,14=История,15=Информатика,16=Естествознание,17=Право,18=Физкультура,19=Астрономия,20=Алгебра,21=геометрия&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                            "12=История России,13=Литература,14=История,15=Информатика,16=Естествознание,17=Право,18=Физкультура,19=Астрономия,20=Алгебра,21=геометрия&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=" + Groupaccess_token + "&v=5.124";
                         string answer6 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
                     }
                     if (LastUserMessageText.ToLower() == "инструкция")
                     {
                         random_id = rnd.Next();
                         string reqeuest = "https://api.vk.com/method/messages.send?message=Здравствуйте вас приветствует ГДЗбот сейчас я расскажу все правила пользования мной:1)Что бы получить готовое домашнее задани вам понадобиться заполнить вот такой код:00(предмет)_00(класс)_00(автор)_0000(упражнение).Давайте начнём с предметов это первый шаг к заполнение кода после этой инструкции вам будет выдан перечень " +
-                             "с предметами всё что вам потребуеться выбрать подходящюю цифру к предмету ПРИМЕР:'БОТ:1 = математика Вы:1'.Теперь поговорим о класе тут всё гораздо проше вы просто должны будите написать цифру класса.&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                             "с предметами всё что вам потребуеться выбрать подходящюю цифру к предмету ПРИМЕР:'БОТ:1 = математика Вы:1'.Теперь поговорим о класе тут всё гораздо проше вы просто должны будите написать цифру класса.&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=" + Groupaccess_token + "&v=5.124";
                         string answer = Encoding.UTF8.GetString(cl.DownloadData(reqeuest));
                         random_id = rnd.Next();
                         reqeuest = "https://api.vk.com/method/messages.send?message=Дальше у нас идёт автор,вам будет выдан перечень с авторами и вы должны будете выбрать ту цифру которая вам нужна ну тоесть всё так же как и с предметами.В упражнение вы должны просто написать упражнение котороё вам надо также вы НЕ ПОЛУЧИТЕ НИ КОКОГО СПИСКА как это было с предметами и авторами так что вы должны сами знать своё упражнение.2)У нас есть одна команда позволяющася начать всё с начала она называеться 'рестарт'." +
-                             "Вот ты и добрался до конца инструкции я тебе желаю удачи и хороших оценок надеюсь ты оценишь мои старания!!!&&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                             "Вот ты и добрался до конца инструкции я тебе желаю удачи и хороших оценок надеюсь ты оценишь мои старания!!!&&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=" + Groupaccess_token + "&v=5.124";
                         answer = Encoding.UTF8.GetString(cl.DownloadData(reqeuest));
                     }
                     if (LastUserMessageText.ToLower() == "старт")
                     {
                         reqeuest2 = "https://api.vk.com/method/messages.send?message=ВЫ начали работать с гдзБОТ  выберете предмет: 1 = математика, 2 = русский, 3 = физика, 4 = биология, 5=химия,6=ОБЖ,7=Музыка,8=Английский,9=Немецкий,10=Французкий,11=Обшествознание," +
-                           "12=История России,13=Литература,14=История,15=Информатика,16=Естествознание,17=Право,18=Физкультура,19=Астрономия,20=Алгебра,21=геометрия&user_id=" + item.last_message.from_id.ToString() + "&random_id=" + random_id + "&access_token=e2da676d069c28cfce6428a770c3e3413f85260468038237ff5a07c2a57975602a0bd8828786c116d27b3&v=5.124";
+                        "12=История России,13=Литература,14=История,15=Информатика,16=Естествознание,17=Право,18=Физкультура,19=Астрономия,20=Алгебра,21=геометрия&user_id="+item.last_message.from_id.ToString()+" +  &random_id=   "+ random_id + "&access_token=" + Groupaccess_token + "&v=5.124";
                         string answer1 = Encoding.UTF8.GetString(wc.DownloadData(reqeuest2));
                     }
                     // messagesSend ms = JsonConvert.DeserializeObject<messagesSend>(answer3);
@@ -394,6 +401,17 @@ namespace USER.BOT
         private void button2_Click(object sender, EventArgs e)
         {
             timer2.Enabled = true;
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void formgdz_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.text = textboxGroup.Text;
+            Properties.Settings.Default.text2 = textBox4.Text;
         }
     }
 }
