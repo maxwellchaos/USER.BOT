@@ -15,123 +15,35 @@ namespace USER.BOT
             public string key { get; set; }
             public string value { get; set; }
         }
-
-        public class Error
-        {
-            public int error_code { get; set; }
-            public string error_msg { get; set; }
-            public List<RequestParam> request_params { get; set; }
-            public string captcha_sid { get; set; }
-            public string captcha_img { get; set; }
-        }
-
-    }
+	}
 
 
-    public class idGet
+    public class Cheak
     {
         public Response response { get; set; }
-        public class Response
-        {
-            public int object_id { get; set; }
-            public string type { get; set; }
-        }
-    }
-
-    public class Wallget
-    {
-        public Response response { get; set; }
-
-        public class Size
-        {
-            public int height { get; set; }
-            public string url { get; set; }
-            public string type { get; set; }
-            public int width { get; set; }
-        }
-
-        public class Photo
-        {
-            public int album_id { get; set; }
-            public int date { get; set; }
-            public int id { get; set; }
-            public int owner_id { get; set; }
-            public bool has_tags { get; set; }
-            public string access_key { get; set; }
-            public int post_id { get; set; }
-            public List<Size> sizes { get; set; }
-            public string text { get; set; }
-            public double? lat { get; set; }
-            public double? @long { get; set; }
-        }
-
-        public class Attachment
-        {
-            public string type { get; set; }
-            public Photo photo { get; set; }
-        }
-
-        public class PostSource
-        {
-            public string type { get; set; }
-            public string platform { get; set; }
-            public string data { get; set; }
-        }
-
-        public class Comments
-        {
-            public int count { get; set; }
-            public int can_post { get; set; }
-            public bool groups_can_post { get; set; }
-            public int can_close { get; set; }
-        }
-
-        public class Likes
-        {
-            public int count { get; set; }
-            public int user_likes { get; set; }
-            public int can_like { get; set; }
-            public int can_publish { get; set; }
-        }
-
-        public class Reposts
-        {
-            public int count { get; set; }
-            public int wall_count { get; set; }
-            public int mail_count { get; set; }
-            public int user_reposted { get; set; }
-        }
-
-        public class Views
-        {
-            public int count { get; set; }
-        }
-
         public class Item
         {
-            public int id { get; set; }
-            public int from_id { get; set; }
-            public int owner_id { get; set; }
             public int date { get; set; }
-            public string post_type { get; set; }
+            public int from_id { get; set; }
+            public int id { get; set; }
+            public int @out { get; set; }
+            public int peer_id { get; set; }
             public string text { get; set; }
-            public int can_delete { get; set; }
-            public int can_pin { get; set; }
-            public bool can_archive { get; set; }
-            public bool is_archived { get; set; }
-            public List<Attachment> attachments { get; set; }
-            public PostSource post_source { get; set; }
-            public Comments comments { get; set; }
-            public Likes likes { get; set; }
-            public Reposts reposts { get; set; }
-            public Views views { get; set; }
-            public bool is_favorite { get; set; }
+            public int conversation_message_id { get; set; }
+            public List<object> fwd_messages { get; set; }
+            public bool important { get; set; }
+            public int random_id { get; set; }
+            public List<object> attachments { get; set; }
+            public int admin_author_id { get; set; }
+            public bool is_hidden { get; set; }
         }
+
         public class Response
         {
             public int count { get; set; }
             public List<Item> items { get; set; }
         }
+
     }
     public class MessagesGet
     {
@@ -244,6 +156,12 @@ namespace USER.BOT
 
     }
 
+
+
+
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
+
+
     public class UsersGet
     {
         public List<Response> response { get; set; }
@@ -259,6 +177,10 @@ namespace USER.BOT
         }
     }
 
+
+
+
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
     public class GetProfileInfo
     {
         public Response response { get; set; }
@@ -508,6 +430,7 @@ namespace USER.BOT
             public bool groups_can_post { get; set; }
         }
     }
+
     public class messagesGetConversations
     {
         public Response response { get; set; }
@@ -572,5 +495,4 @@ namespace USER.BOT
             public int unread_count { get; set; }
         }
     }
-
 }
