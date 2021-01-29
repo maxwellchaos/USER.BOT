@@ -189,6 +189,7 @@ namespace USER.BOT
                         Application.DoEvents();
                         //подождать 
                         
+                        
                         while(CapthaEnter == false)
                         {
                             answerConsole ="Нужно ввести капчу           ";
@@ -207,8 +208,14 @@ namespace USER.BOT
                         }
                         if(CapthaEnter == true)
                         {
-                            string RequEST = "https://api.vk.com/method/wall.createComment?" + "owner_id=" + ug.response[0].id.ToString() + "&post_id=" + item.id + "&message=" + textBox2.Text + "&captcha_sid=" + er.error.captcha_sid + "&captha_key=" + textBox1.Text + "&" + access_token + "&v=5.124";
+                            
+                           string RequEST = "https://api.vk.com/method/wall.createComment?" + "owner_id=" + ug.response[0].id.ToString() + "&post_id=" + item.id + "&message=" + textBox2.Text + "&captcha_sid=" + er.error.captcha_sid + "&captha_key=" + textBox1.Text + "&" + access_token + "&v=5.124";
+                            WebClient cliENT = new WebClient();
+                            Thread.Sleep(1000);
+                            CapthaEnter = false;
                         }
+
+
 
                     }
 
@@ -316,7 +323,8 @@ namespace USER.BOT
         private void button2_Click_1(object sender, EventArgs e)
         {
             CapthaEnter = true;
-            CapthaEnter = false;
+           
+            
 
 
 

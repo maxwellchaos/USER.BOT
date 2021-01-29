@@ -71,7 +71,7 @@
             // textBox2
             // 
             this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(6, 357);
+            this.textBox2.Location = new System.Drawing.Point(6, 341);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -83,7 +83,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(9, 337);
+            this.label2.Location = new System.Drawing.Point(9, 321);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(153, 16);
             this.label2.TabIndex = 4;
