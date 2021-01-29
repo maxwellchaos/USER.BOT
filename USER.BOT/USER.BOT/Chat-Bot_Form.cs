@@ -56,8 +56,8 @@ namespace USER.BOT
         {
             if (checkBox1.Checked == true)
             {
-                string SendMessages39 = "https://api.vk.com/method/storage.set?&key=users&value=264743807-56929156-286688521-418227022-380583406-327011638-&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
-                string AnswerSendMessages39 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages39));
+                //string SendMessages39 = "https://api.vk.com/method/storage.set?&key=users&value=264743807-56929156-286688521-418227022-380583406-327011638-&user_id=" + user_id + "&access_token=" + Properties.Settings.Default.TokenChatBot + "&v=5.124";
+                //string AnswerSendMessages39 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages39));
 
                 if ((textBox1.Text == "" || textBox1.Text == "Суда введи access token сообщества") && (textBox2.Text == "" || textBox2.Text == "Суда введи id сообщества"))
                 {

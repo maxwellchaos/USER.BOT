@@ -95,6 +95,7 @@
             this.buttonLiking.TabIndex = 9;
             this.buttonLiking.Text = "Массовый лайкинг";
             this.buttonLiking.UseVisualStyleBackColor = true;
+            this.buttonLiking.Click += new System.EventHandler(this.buttonLiking_Click);
             // 
             // pictureBoxAvatar
             // 
@@ -170,7 +171,7 @@
             this.columnHeader2});
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 371);
-            this.listView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listView1.Margin = new System.Windows.Forms.Padding(2);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(10, 10);
             this.listView1.TabIndex = 20;
@@ -267,7 +268,7 @@
             // pictureBoxWait
             // 
             this.pictureBoxWait.Image = global::USER.BOT.Properties.Resources.unnamed;
-            this.pictureBoxWait.Location = new System.Drawing.Point(141, -3);
+            this.pictureBoxWait.Location = new System.Drawing.Point(155, -3);
             this.pictureBoxWait.Name = "pictureBoxWait";
             this.pictureBoxWait.Size = new System.Drawing.Size(512, 384);
             this.pictureBoxWait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;

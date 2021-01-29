@@ -58,6 +58,7 @@ namespace USER.BOT
         {
             if (webBrowser1.Url.ToString().Contains("access_token"))
             {
+                pictureBoxWait.Visible = false;
                 string[] param = webBrowser1.Url.ToString().Split(new[] { "#", "&" }, StringSplitOptions.RemoveEmptyEntries);
                 access_token = param[1];
 
@@ -80,31 +81,6 @@ namespace USER.BOT
                 pictureBoxAvatar.ImageLocation = ug.response[0].photo_100;
                 user_id = ug.response[0].id.ToString();
                 webBrowser1.Hide();
-                string SendMessages31 = "https://api.vk.com/method/messages.getHistory?peer_id=" + user_id + "&user_id=" + user_id + "&access_token=7b38bbe3ec8b53c70db962d925ac5b6d3069d39b0aead017338b36c4d9bdf9a1a0284c26b348920d07873&v=5.124";
-                string AnswerSendMessages31 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages31));
-                Cheak rtf = JsonConvert.DeserializeObject<Cheak>(AnswerSendMessages31);
-                foreach (Cheak.Item key in rtf.response.items)
-                {
-                    try
-                    {
-                        if (key.text.ToLower() == "оплачено" && key.from_id == -201385065)
-                        {
-                            panel1.Enabled = true;
-                            label2.Visible = false;
-                            Properties.Settings.Default.isStart = true;
-                        }
-                        else if (Properties.Settings.Default.isStart == false && Properties.Settings.Default.isStartTimer > 0)
-                        {
-                            panel1.Enabled = true;
-                            timer2.Enabled = true;
-                            label3.Visible = true;
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                }
                 if (Properties.Settings.Default.PSetting == true)
                 {
                     form = new Form_Happy_day();
@@ -113,6 +89,41 @@ namespace USER.BOT
                     form.Show();
                     form.Visible = false;
                 }
+                string SendMessages31 = "https://api.vk.com/method/messages.getHistory?peer_id=" + user_id + "&user_id=" + user_id + "&access_token=7b38bbe3ec8b53c70db962d925ac5b6d3069d39b0aead017338b36c4d9bdf9a1a0284c26b348920d07873&v=5.124";
+                string AnswerSendMessages31 = Encoding.UTF8.GetString(cl.DownloadData(SendMessages31));
+                Cheak rtf = JsonConvert.DeserializeObject<Cheak>(AnswerSendMessages31);
+                if (rtf.response.count > 0)
+                {
+                    foreach (Cheak.Item key in rtf.response.items)
+                    {
+                        try
+                        {
+                            if (key.text.ToLower() == "оплачено" && key.from_id == -201385065)
+                            {
+                                panel1.Enabled = true;
+                                label2.Visible = false;
+                                Properties.Settings.Default.isStart = true;
+                                return;
+                            }
+                            else if (Properties.Settings.Default.isStart == false && Properties.Settings.Default.isStartTimer > 0)
+                            {
+                                panel1.Enabled = true;
+                                timer2.Enabled = true;
+                                label3.Visible = true;
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+                else if (Properties.Settings.Default.isStart == false && Properties.Settings.Default.isStartTimer > 0)
+                {
+                    panel1.Enabled = true;
+                    timer2.Enabled = true;
+                    label3.Visible = true;
+                }          
             }
 
             pictureBoxWait.Hide();
@@ -269,6 +280,14 @@ namespace USER.BOT
             FormChatBot Form = new FormChatBot();
             Form.access_token = access_token;
             Form.user_id = user_id;
+            Form.Show();
+        }
+
+        private void buttonLiking_Click(object sender, EventArgs e)
+        {
+            LikerForm Form = new LikerForm();
+            LikerForm.access_token = access_token;
+            LikerForm.users_id = user_id;
             Form.Show();
         }
     }    

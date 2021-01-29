@@ -34,11 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Name1 = new System.Windows.Forms.Label();
             this.Name2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.Name3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ButtonChatBot
@@ -53,7 +49,6 @@
             this.ButtonChatBot.TabIndex = 0;
             this.ButtonChatBot.Text = "Начать";
             this.ButtonChatBot.UseVisualStyleBackColor = false;
-            this.ButtonChatBot.Visible = false;
             this.ButtonChatBot.Click += new System.EventHandler(this.ButtonChatBot_Click);
             // 
             // City1
@@ -63,9 +58,9 @@
             this.City1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.City1.Location = new System.Drawing.Point(12, 401);
             this.City1.Name = "City1";
-            this.City1.Size = new System.Drawing.Size(49, 25);
+            this.City1.Size = new System.Drawing.Size(70, 25);
             this.City1.TabIndex = 1;
-            this.City1.Text = "City";
+            this.City1.Text = "label1";
             this.City1.Visible = false;
             // 
             // label2
@@ -103,57 +98,11 @@
             this.Name2.Text = "Последняя Буква:";
             this.Name2.Visible = false;
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(978, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(67, 40);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Нажми!!!";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(158, 463);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 25);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "label3";
-            this.label3.Visible = false;
-            // 
-            // Name3
-            // 
-            this.Name3.AutoSize = true;
-            this.Name3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Name3.Location = new System.Drawing.Point(160, 441);
-            this.Name3.Name = "Name3";
-            this.Name3.Size = new System.Drawing.Size(123, 13);
-            this.Name3.TabIndex = 7;
-            this.Name3.Text = "Предпоследняя Буква:";
-            this.Name3.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(493, 25);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Бот будет работать пока работает программа!!!";
             // 
             // FormChatBot
             // 
@@ -161,10 +110,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(1057, 500);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.Name3);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.Name2);
             this.Controls.Add(this.Name1);
             this.Controls.Add(this.label2);
@@ -186,11 +131,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label Name1;
         private System.Windows.Forms.Label Name2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label Name3;
-        private System.Windows.Forms.Label label1;
 
     }
 }

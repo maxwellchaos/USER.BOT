@@ -113,6 +113,12 @@
     <Compile Include="Form_Happy day.Designer.cs">
       <DependentUpon>Form_Happy day.cs</DependentUpon>
     </Compile>
+    <Compile Include="LikerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LikerForm.Designer.cs">
+      <DependentUpon>LikerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Happy day.resx">
       <DependentUpon>Form_Happy day.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LikerForm.resx">
+      <DependentUpon>LikerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>

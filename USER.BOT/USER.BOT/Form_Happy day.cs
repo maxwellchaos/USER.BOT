@@ -674,6 +674,8 @@ namespace USER.BOT
             co = rtf.response.count;
             foreach (FriendsGet1.Item item in rtf.response.items)
             {
+                Thread.Sleep(300);
+                Application.DoEvents();
                 try
                 {
                     if (rtf.response.count != co1)
