@@ -40,16 +40,21 @@ namespace USER.BOT
             label2.Text = lastLetter;
             Random rnd = new Random();
             int result = rnd.Next(10000000);
+            string PredLetter = lastMessage.Remove(0, len - 2);
+            PredLetter = PredLetter.Remove(1, 1);
+            label3.Text = PredLetter;
 
             City1.Visible = true;
             Name1.Visible = true;
             Name2.Visible = true;
+            Name3.Visible = true;
             label2.Visible = true;
+            label3.Visible = true;
 
             //порт к папке с городами
             Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
             string str = Application.StartupPath + @"\Документ.txt";
-            string[] txtFile = System.IO.File.ReadAllLines(Application.StartupPath + @"C:Users\Документ.txt.txt", Encoding.Default);
+            string[] txtFile = System.IO.File.ReadAllLines(Application.StartupPath + @"\Документ.txt.txt", Encoding.Default);
             foreach (string City in txtFile)
             {
 
@@ -108,7 +113,7 @@ namespace USER.BOT
             //порт к папке с городами
             Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
             string str = Application.StartupPath + @"\Документ.txt";
-            string[] txtFile = System.IO.File.ReadAllLines(Application.StartupPath + @"C:Users\Документ.txt.txt", Encoding.Default);
+            string[] txtFile = System.IO.File.ReadAllLines(Application.StartupPath + @"\Документ.txt.txt", Encoding.Default);
             foreach (string City in txtFile)
             {
 
@@ -121,6 +126,19 @@ namespace USER.BOT
                     Answer = Encoding.UTF8.GetString(cl.DownloadData(Request));
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            label1.Visible = true;
+            label4.Visible = true;
+        }
+
+     
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://https://vk.com/club199292033");
         }
     }
 }

@@ -26,3 +26,11 @@ C:\Activators\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
 C:\Activators\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.Cache
 C:\Users\Виктор\Desktop\USER.BOT\obj\x86\Debug\USER.BOT.exe
 C:\Users\Виктор\Desktop\USER.BOT\obj\x86\Debug\USER.BOT.pdb
+C:\Users\Виктор\Desktop\USER.BOT\bin\Debug\USER.BOT.exe
+C:\Users\Виктор\Desktop\USER.BOT\bin\Debug\USER.BOT.pdb
+C:\Users\Виктор\Desktop\USER.BOT\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Виктор\Desktop\USER.BOT\obj\x86\Debug\USER.BOT.csprojResolveAssemblyReference.cache
+C:\Users\Виктор\Desktop\USER.BOT\obj\x86\Debug\USER.BOT.FormChatBot.resources
+C:\Users\Виктор\Desktop\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
+C:\Users\Виктор\Desktop\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
+C:\Users\Виктор\Desktop\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.Cache
