@@ -10,9 +10,9 @@ C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x
 C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Chat_Bot_Form.resources
 C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.FormMostPopularPost.resources
 C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Form_Happy_day.resources
+C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.LikerForm.resources
 C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.mainForm.resources
 C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.Properties.Resources.resources
 C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.csproj.GenerateResource.Cache
 C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.exe
 C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.pdb
-C:\Users\zzzz\Downloads\USER.BOT-main (12)\USER.BOT-main\USER.BOT\USER.BOT\obj\x86\Debug\USER.BOT.LikerForm.resources
